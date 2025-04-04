@@ -62,17 +62,14 @@
     background-color: #E0E6AF;
   }
 
-  .map-placeholder {
+  .map-svg {
+    width: 100%;
     height: 350px;
-    background-color: #fff8f2;
-    border: 1px dashed #AD7F65;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #AD7F65;
-    font-size: 1rem;
-    border-radius: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: #fefefe;
   }
+
 
   @media (max-width: 768px) {
     .hero-container {
@@ -96,7 +93,11 @@
         <button class="toggle-button">Demographics</button>
       </div>
 
-      <div class="map-placeholder">[ Map A Coming Soon ]</div>
+      <svg class="map-svg">
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
+          [ D3 Map A Placeholder ]
+        </text>
+      </svg>
       <!-- Placeholder for map A -->
 
     </div>
@@ -111,8 +112,14 @@
         <button class="toggle-button">Income</button>
         <button class="toggle-button">Demographics</button>
       </div>
-      <div class="map-placeholder">[ Map B Coming Soon ]</div>
+
+      <svg class="map-svg">
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
+          [ D3 Map B Placeholder ]
+        </text>
+      </svg>
       <!-- Placeholder for map B -->
+
     </div>
   </div>
 </div>
