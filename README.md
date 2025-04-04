@@ -7,7 +7,7 @@
 - `data_csv/evict_orig.csv`: original dataset (found at https://drive.google.com/drive/folders/1NTbJ3UUFUBqPu3UmKKflUaKAJ9JfFKc9)
 - `data_csv/evict_processed.csv`: processed data (what we'll use for our visualization)
 - `data_csv/evict_correlation_matrix.csv`: Spearman correlation between key variables
-- `data_csv/evict_neighborhoods.csv`: GEOID to neighborhood mappings (to be filled)
+- `data_csv/evict_neighborhoods.csv`: `GEOID` (2010 census tracts) to neighborhood mappings
 
 The following is a guide on what to show from `data_csv/evict_processed.csv`
 ### For base choropleth maps
