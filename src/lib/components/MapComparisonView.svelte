@@ -1,5 +1,16 @@
 <script>
-  // No data logic yet – just layout
+  import { onMount } from 'svelte';
+  import * as d3 from 'd3';
+  import ChoroplethMap from './ChoroplethMap.svelte';
+
+  let geoData = null;
+  let evictData = [];
+  let selectedLayerA = 'eviction_rate';
+
+  onMount(async () => {
+    geoData = await d3.json('/data_csv/census_tracts_boston_2010.geojson');
+    evictData = await d3.csv('/data_csv/evict_processed.csv', d3.autoType);
+  });
 </script>
 
 <style>
@@ -70,7 +81,6 @@
     background-color: #fefefe;
   }
 
-
   @media (max-width: 768px) {
     .hero-container {
       grid-template-columns: 1fr;
@@ -87,17 +97,21 @@
 
       <!---Toggle buttons -->
       <div class="toggle-buttons">
-        <button class="toggle-button">Eviction Rate</button>
-        <button class="toggle-button">Corporate Ownership</button>
-        <button class="toggle-button">Income</button>
-        <button class="toggle-button">Demographics</button>
+        <button class="toggle-button" on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Rate</button>
+        <button class="toggle-button" on:click={() => selectedLayerA = 'corp_own_rate'}>Corporate Ownership</button>
+        <button class="toggle-button" on:click={() => selectedLayerA = 'r_mhi'}>Income</button>
+        <button class="toggle-button" on:click={() => selectedLayerA = 'non_white_rate'}>Demographics</button>
       </div>
 
-      <svg class="map-svg">
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
-          [ D3 Map A Placeholder ]
-        </text>
-      </svg>
+      {#if geoData && evictData.length > 0}
+      <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerA} />
+      {:else}
+        <div class="map-svg">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
+            Loading Map A...
+          </text>
+        </div>
+      {/if}
       <!-- Placeholder for map A -->
 
     </div>
