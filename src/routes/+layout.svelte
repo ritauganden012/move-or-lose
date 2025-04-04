@@ -5,7 +5,6 @@
   <!-- nav bar -->
   <nav class="top-nav">
     <div class="nav-left">
-      <!-- <span class="menu-icon">☰</span> -->
       <a href="/">Explore</a>
       <a href="/data">Policy Recommendation </a>
       <a href="/about">About Us</a>
@@ -18,20 +17,16 @@
   .top-nav {
     display: flex;
     align-items: center;
-    padding: 1.25rem 2rem;
+    padding: 1rem 1rem;
     font-size: 1rem;
     font-weight: 300;
+    font-family: 'Source Sans 3', sans-serif;
   }
 
   .nav-left {
     display: flex;
     align-items: center;
     gap: 1.5rem;
-  }
-
-  .menu-icon {
-    font-size: 1.25rem;
-    cursor: pointer;
   }
 
   a {
