@@ -6,11 +6,22 @@
   let geoData = null;
   let evictData = [];
   let selectedLayerA = 'eviction_rate';
+  let selectedLayerB = 'eviction_rate';
 
   onMount(async () => {
     geoData = await d3.json('/data_csv/census_tracts_boston_2010.geojson');
     evictData = await d3.csv('/data_csv/evict_processed.csv', d3.autoType);
   });
+
+  function getLayerLabel(layer) {
+  const labels = {
+    eviction_rate: 'Eviction Rate',
+    corp_own_rate: 'Corporate Ownership',
+    r_mhi: 'Income',
+    non_white_rate: 'Demographics'
+  };
+  return labels[layer] || layer;
+    }
 </script>
 
 <style>
@@ -89,11 +100,14 @@
 </style>
 
 <div class="page-container">
-  <div class="header">More-or-Lose: Cooperate Ownership & Evicitions in Boston</div>
+  <div class="header">More-or-Lose: Corporate Ownership & Evicitions in Boston</div>
 
   <div class="hero-container">
     <div class="map-panel">
-      <div class="panel-title">Map A (Evictions)</div>
+      <div class="panel-title">
+        City of Boston — {getLayerLabel(selectedLayerA)}
+      </div>
+
 
       <!---Toggle buttons -->
       <div class="toggle-buttons">
@@ -117,21 +131,27 @@
     </div>
 
     <div class="map-panel">
-      <div class="panel-title">Map B (Demographics / Income)</div>
+      <div class="panel-title">
+        City of Boston — {getLayerLabel(selectedLayerB)}
+      </div>
 
        <!---Toggle buttons -->
       <div class="toggle-buttons">
-        <button class="toggle-button">Eviction Rate</button>
-        <button class="toggle-button">Corporate Ownership</button>
-        <button class="toggle-button">Income</button>
-        <button class="toggle-button">Demographics</button>
+        <button class="toggle-button" on:click={() => selectedLayerB = 'eviction_rate'}>Eviction Rate</button>
+        <button class="toggle-button" on:click={() => selectedLayerB = 'corp_own_rate'}>Corporate Ownership</button>
+        <button class="toggle-button" on:click={() => selectedLayerB = 'r_mhi'}>Income</button>
+        <button class="toggle-button" on:click={() => selectedLayerB = 'non_white_rate'}>Demographics</button>
       </div>
 
-      <svg class="map-svg">
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
-          [ D3 Map B Placeholder ]
-        </text>
-      </svg>
+      {#if geoData && evictData.length > 0}
+      <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
+      {:else}
+        <div class="map-svg">
+          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
+            Loading Map A...
+          </text>
+        </div>
+      {/if}
       <!-- Placeholder for map B -->
 
     </div>
