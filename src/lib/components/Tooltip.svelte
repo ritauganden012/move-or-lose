@@ -1,30 +1,41 @@
+<!-- HoverTooltip.svelte -->
 <script>
-    export let x = 0;
-    export let y = 0;
-    export let content = '';
-    export let visible = false;
+    export let data;
+    export let layer;
   </script>
 
-  {#if visible}
-    <div
-      class="tooltip"
-      style="top: {y + 10}px; left: {x + 10}px"
-    >
-      {@html content}
-    </div>
-  {/if}
+  <div>
+    <div><strong>Tract:</strong> {data.GEOID}</div>
 
-  <style>
-    .tooltip {
-      position: absolute;
-      background: white;
-      color: #4F1F05;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      pointer-events: none;
-      z-index: 10;
-      max-width: 200px;
-    }
-  </style>
+    {#if layer === 'eviction_rate'}
+      <div><strong>Eviction Trend (2020–2023)</strong></div>
+      <svg width="150" height="40">
+        <polyline
+          fill="none"
+          stroke="#984835"
+          stroke-width="2"
+          points={
+            [2020, 2021, 2022, 2023].map((year, i) =>
+              `${i * 40},${40 - (data[`${year}_eviction`] || 0) * 2}`
+            ).join(" ")
+          }
+        />
+      </svg>
+    {:else if layer === 'corp_own_rate'}
+      <div>Corporate Ownership: {Math.round(data.corp_own_rate * 100)}%</div>
+    {:else if layer === 'non_white_rate'}
+      <div><strong>Racial Makeup</strong></div>
+      <svg width="150" height="60">
+        {#each ['white_rate', 'black_rate', 'hispanic_rate', 'asian_rate', 'othr_race_rate'] as race, i}
+          <rect x={i * 30} y={60 - (data[race] || 0) * 60} width="20" height={(data[race] || 0) * 60} fill="#425206" />
+        {/each}
+      </svg>
+    {:else if layer === 'r_mhi'}
+      <div><strong>Income Comparison</strong></div>
+      <div style="font-size: 0.85rem;">
+        Renter: ${data.r_mhi} <br />
+        Median: ${data.mhi} <br />
+        Owner: ${data.o_mhi}
+      </div>
+    {/if}
+  </div>
