@@ -143,6 +143,7 @@
         <button class="toggle-button" on:click={() => selectedLayerB = 'non_white_rate'}>Demographics</button>
       </div>
 
+
       {#if geoData && evictData.length > 0}
       <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
       {:else}
