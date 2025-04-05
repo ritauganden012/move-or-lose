@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
     import * as d3 from 'd3';
+    import Tooltip from './Tooltip.svelte';
+    import Legend from './Legend.svelte';
 
     export let geoData;
     export let data;
@@ -14,14 +16,38 @@
 
     // let colorScale = d3.scaleSequential().interpolator(d3.interpolateOranges);
 
-    let projection = d3.geoIdentity().reflectY(true);
-    let path = d3.geoPath().projection(projection);
-    let joinedFeatures = [];
+        let projection = d3.geoIdentity().reflectY(true);
+        let path = d3.geoPath().projection(projection);
+        let joinedFeatures = [];
+
+        let tooltip = {
+        visible: false,
+        x: 0,
+        y: 0,
+        content: ''
+    };
+
+    function showTooltip(event, feature) {
+        const value = feature.properties.value;
+        tooltip = {
+        visible: true,
+        x: event.pageX,
+        y: event.pageY,
+        content: `
+            <strong>GEOID:</strong> ${feature.properties.GEOID10}<br>
+            <strong>${selectedLayer}:</strong> ${value !== null ? value.toFixed(2) : 'N/A'}
+        `
+        };
+    }
+
+    function hideTooltip() {
+        tooltip.visible = false;
+    }
 
     $: if (geoData && data && selectedLayer) {
       const dataMap = new Map(data.map(d => [String(d.GEOID), d]));
 
-      // Join data
+      ///// Join data //////
       joinedFeatures = geoData.features.map(f => {
         const geoID = f.properties?.GEOID10;
         const row = dataMap.get(String(geoID));
@@ -52,7 +78,6 @@
       console.log('Matched values:', bostonFeatures.length);
     }
 
-    console.log('Matched values:', joinedFeatures.filter(f => f.properties.value != null).length);
 
   </script>
 
@@ -63,6 +88,7 @@
         fill={feature.properties.value != null ? colorScale(feature.properties.value) : '#ccc'}
         stroke="#fff"
         stroke-width="0.5"
+
       />
     {/each}
 </svg>

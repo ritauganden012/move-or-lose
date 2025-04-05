@@ -9,8 +9,8 @@
   let selectedLayerB = 'eviction_rate';
 
   onMount(async () => {
-    geoData = await d3.json('/data_csv/census_tracts_boston_2010.geojson');
-    evictData = await d3.csv('/data_csv/evict_processed.csv', d3.autoType);
+    geoData = await d3.json('data_csv/census_tracts_boston_2010.geojson');
+    evictData = await d3.csv('data_csv/evict_processed.csv', d3.autoType);
   });
 
   function getLayerLabel(layer) {
@@ -149,7 +149,7 @@
       {:else}
         <div class="map-svg">
           <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
-            Loading Map A...
+            Loading...
           </text>
         </div>
       {/if}
