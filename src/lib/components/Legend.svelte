@@ -7,51 +7,65 @@
   let legendSteps = [];
   let gradientId = 'legend-gradient';
 
-  $: if (selectedLayer && colorScale?.domain) {
-    const [min, max] = colorScale.domain();
-    // print the domain and selectedLayer
-    console.log('Color scale domain:', colorScale.domain());
-    console.log('Selected layer:', selectedLayer);
-    const range = max - min;
+  const layerLabels = {
+    eviction_rate: "% Renter HH being Filed for Eviction (2023)",
+    corp_own_rate: "% Properties owned by Corporations",
+    r_mhi: "Median Renter Annual HH Income",
+    non_white_rate: "% Non-White Population"
+  };
 
-    if (selectedLayer === 'r_mhi') {
-      legendSteps = [95000, 75000, 65000, 55000, 30000];
-      legendLabels = [];
-      legendLabels[0] = 'High\n($90k+)';
-      legendLabels[2] = 'Average\n(~$60k)';
-      legendLabels[4] = 'Low\n(<$30k)';
-    } else if (selectedLayer === 'eviction_rate') {
-      legendSteps = [0, 0.1, 0.3, 0.5, 0.8];
-      legendLabels = [];
-      legendLabels[0] = 'Low\n(0–10%)';
-      legendLabels[2] = 'Average\n(~30%)';
-      legendLabels[4] = 'High\n(80%+)';
-    } else if (selectedLayer === 'non_white' || selectedLayer === 'non_white_rate') {
-      legendSteps = [0, 0.25, 0.5, 0.75, 0.95];
-      legendLabels = [];
-      legendLabels[0] = 'Mostly White\n(≤25%)';
-      legendLabels[2] = 'Mixed\n(~50%)';
-      legendLabels[4] = 'Majority BIPOC\n(≥90%)';
-    } else {
-      legendSteps = Array.from({ length: steps }, (_, i) =>
-        min + (range * i) / (steps - 1)
-      );
-      legendLabels = legendSteps.map((value) => {
-        if (selectedLayer.includes('rate') || selectedLayer.includes('percent')) {
-          return `${(value * 100).toFixed(0)}%`;
-        }
-        return value.toFixed(1);
-      });
+  $: if (selectedLayer && colorScale?.domain &&
+  Number.isFinite(colorScale.domain()[0]) &&
+  Number.isFinite(colorScale.domain()[1])) {
+    const [min, max] = colorScale.domain();
+    const range = max - min;
+    const steps = 5;
+
+    legendSteps = Array.from({ length: steps }, (_, i) =>
+      min + (range * i) / (steps - 1)
+    );
+
+    // Default labels: numeric formatting
+    legendLabels = legendSteps.map((value) => {
+      if (selectedLayer === "corp_own_rate") {
+        return `${(value * 100).toFixed(0)}%`;
+      } else if (selectedLayer == "non_white_rate") {
+        return `${(value).toFixed(0)}%`
+      // } else if (selectedLayer == "eviction_rate") {
+      //   return `${(value).toFixed(1)}%`
+      // } else if (selectedLayer == "r_mhi") {
+      //   return `$${(value / 1000).toFixed(0)}K`
+      } else {
+        return value.toFixed(0);
+      }});
+      
+
+      // hacky way to display correctly at init
+      if (selectedLayer === "r_mhi") {
+        legendLabels = ["$12K", "$24K", "$36K", "$48K", "$60K"];
+      }
+      if (selectedLayer === "eviction_rate") {
+        legendLabels = ["0.0%", "2.5%", "5.0%", "7.5%", "10.0%"];
+      }
     }
-  }
 </script>
 
 <div class="legend">
+  <div class="legend-title">{layerLabels[selectedLayer]}</div>
   <svg viewBox="0 0 220 70" preserveAspectRatio="xMidYMid meet">
     <defs>
-      <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+      <linearGradient
+        id={gradientId}
+        x1={selectedLayer === 'r_mhi' ? "100%" : "0%"}
+        y1="0%"
+        x2={selectedLayer === 'r_mhi' ? "0%" : "100%"}
+        y2="0%"
+      >
         {#each Array.from({ length: 20 }, (_, i) => i / 19) as t}
-          <stop offset="{t * 100}%" stop-color="{colorScale(colorScale.domain()[0] + t * (colorScale.domain()[1] - colorScale.domain()[0]))}" />
+          <stop
+            offset="{t * 100}%"
+            stop-color="{colorScale(colorScale.domain()[0] + t * (colorScale.domain()[1] - colorScale.domain()[0]))}"
+          />
         {/each}
       </linearGradient>
     </defs>
@@ -91,9 +105,6 @@
           <tspan x="{10 + (i / (legendSteps.length - 1)) * 200}" dy="0">
             {legendLabels[i].split('\n')[0]}
           </tspan>
-          <tspan x="{10 + (i / (legendSteps.length - 1)) * 200}" dy="1.1em">
-            {legendLabels[i].split('\n')[1]}
-          </tspan>
         </text>
       {/if}
     {/each}
@@ -108,6 +119,11 @@
     margin-bottom: 10px;
     font-family: 'Source Sans 3', sans-serif;
     border-radius: 10px;
+  }
+
+  .legend-title {
+    font-size: 0.8rem;
+    margin-bottom: -4px;
   }
 
   .legend svg {

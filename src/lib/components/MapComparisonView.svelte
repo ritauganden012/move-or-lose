@@ -61,6 +61,24 @@
     margin-bottom: 0.5rem;
   }
 
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .toggle-label-inline {
+    font-size: 0.9rem;
+    /* font-weight: 500; */
+    color: #4F1F05;
+    white-space: nowrap;
+    /* should vertically align text in middle */
+    display: flex;
+  }
+
+
   .toggle-buttons {
     display: flex;
     gap: 0.5rem;
@@ -114,9 +132,11 @@
 
 
       <!---Toggle buttons -->
-      <div class="toggle-buttons">
-        <!-- create an invisible placeholder to preserve height -->
-        <button class="toggle-button" class:selected={selectedLayerA === 'eviction_rate'} on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Filings</button>
+      <div class="toggle-row">
+        <div class="toggle-buttons">
+          <!-- create an invisible placeholder to preserve height -->
+          <button class="toggle-button" class:selected={selectedLayerA === 'eviction_rate'} on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Filings</button>
+        </div>
       </div>
 
       {#if geoData && evictData.length > 0}
@@ -138,11 +158,19 @@
       </div>
 
        <!---Toggle buttons -->
-      <div class="toggle-buttons">
-        <!-- <button class="toggle-button" on:click={() => selectedLayerB = 'eviction_rate'}>Eviction Rate</button> -->
-        <button class="toggle-button" class:selected={selectedLayerB === 'r_mhi'} on:click={() => selectedLayerB = 'r_mhi'}>Renter Income</button>
-        <button class="toggle-button" class:selected={selectedLayerB === 'corp_own_rate'} on:click={() => selectedLayerB = 'corp_own_rate'}>Corporate Ownership</button>
-        <button class="toggle-button" class:selected={selectedLayerB === 'non_white_rate'} on:click={() => selectedLayerB = 'non_white_rate'}>Demographics</button>
+       <div class="toggle-row">
+        <div class="toggle-label-inline">Compare with →</div>
+        <div class="toggle-buttons">
+          <button class="toggle-button" class:selected={selectedLayerB === 'r_mhi'} on:click={() => selectedLayerB = 'r_mhi'}>
+            Renter Income
+          </button>
+          <button class="toggle-button" class:selected={selectedLayerB === 'corp_own_rate'} on:click={() => selectedLayerB = 'corp_own_rate'}>
+            Corporate Ownership
+          </button>
+          <button class="toggle-button" class:selected={selectedLayerB === 'non_white_rate'} on:click={() => selectedLayerB = 'non_white_rate'}>
+            Demographics
+          </button>
+        </div>
       </div>
 
 
