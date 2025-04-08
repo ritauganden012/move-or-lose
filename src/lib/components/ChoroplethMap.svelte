@@ -79,7 +79,7 @@
           neighborhood,
           x: avgX,
           y: avgY,
-          width: neighborhood.length * 5.5, // Rough estimate of text width
+          width: neighborhood.length * 5, // Rough estimate of text width
           height: 12 // Text height based on font size
         };
       }).filter(Boolean);
@@ -155,9 +155,9 @@
 
     .neighborhood-label {
       font-family: 'Source Sans 3', sans-serif;
-      font-size: 10px;
+      font-size: 0.6rem;
       fill: #333;
-      font-weight: 1700;
+      font-weight: 700;
       text-anchor: middle;
       pointer-events: none;
       paint-order: stroke;
@@ -168,9 +168,9 @@
 
     .neighborhood-boundary {
       stroke: #000;
-      stroke-width: 0;
+      stroke-width: 0.1px;
       fill: none;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.4;
     }
   </style>
