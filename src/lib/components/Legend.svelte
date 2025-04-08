@@ -9,6 +9,9 @@
 
   $: if (selectedLayer && colorScale?.domain) {
     const [min, max] = colorScale.domain();
+    // print the domain and selectedLayer
+    console.log('Color scale domain:', colorScale.domain());
+    console.log('Selected layer:', selectedLayer);
     const range = max - min;
 
     if (selectedLayer === 'r_mhi') {

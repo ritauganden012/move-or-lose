@@ -57,10 +57,12 @@
       const values = bostonFeatures.map(f => f.properties.value);
       const [min, max] = d3.extent(values);
         if (selectedLayer === 'r_mhi') {
-          colorScale.domain([max, min]); // Invert for income
+          colorScale.domain([60000, 12000]); // Invert for income
+        } else if (selectedLayer === 'eviction_rate') {
+          colorScale.domain([0.0, 10.0]);
         } else {
           colorScale.domain([min, max]);
-}
+        }
     }
 
     // Compute one label per neighborhood (average centroid)
