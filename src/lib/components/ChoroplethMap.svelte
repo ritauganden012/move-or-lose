@@ -72,9 +72,20 @@
         return {
           neighborhood,
           x: avgX,
-          y: avgY
+          y: avgY,
+          width: neighborhood.length * 5.5, // Rough estimate of text width
+          height: 12 // Text height based on font size
         };
       }).filter(Boolean);
+
+      d3.forceSimulation(neighborhoodLabels)
+      .force('x', d3.forceX(d => d.x).strength(0.8)) // Stay close to original position
+      .force('y', d3.forceY(d => d.y).strength(0.8))
+      .force('collision', d3.forceCollide().radius(d => 
+        Math.sqrt((d.width/2)**2 + (d.height/2)**2) + 1 // Create padding
+      ))
+      .stop()
+      .tick(100); // Run 100 iterations immediately
 
       // Store boundary groups
       neighborhoodBoundaries = Array.from(groups, ([neighborhood, features]) => ({
@@ -90,8 +101,7 @@
       <path
         d={path(feature)}
         fill={feature.properties.value != null ? colorScale(feature.properties.value) : '#eee'}
-        stroke="#fff"
-        stroke-width="0.5"
+        stroke="none"
         class={feature.properties.value == null ? 'missing-data' : ''}
       />
     {/each}
@@ -166,25 +176,27 @@
     }
 
     .missing-data {
-      stroke: #999;
-      stroke-dasharray: 2,2;
+      /* stroke: #999; */
+      /* stroke-dasharray: 2,2; */
+      fill: #eee;
     }
 
     .neighborhood-label {
       font-family: 'Source Sans 3', sans-serif;
-      font-size: 9px;
+      font-size: 10px;
       fill: #333;
+      font-weight: 1700;
       text-anchor: middle;
       pointer-events: none;
       paint-order: stroke;
-      stroke: white;
-      stroke-width: 2px;
+      stroke: rgb(250, 239, 239);
+      stroke-width: 3px;
       stroke-linejoin: round;
     }
 
     .neighborhood-boundary {
       stroke: #000;
-      stroke-width: 1.2;
+      stroke-width: 0;
       fill: none;
       pointer-events: none;
       opacity: 0.6;
