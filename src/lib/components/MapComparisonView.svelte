@@ -3,6 +3,7 @@
   import * as d3 from 'd3';
   import ChoroplethMap from './ChoroplethMap.svelte';
 
+
   let geoData = null;
   let evictData = [];
   let selectedLayerA = 'eviction_rate';
@@ -148,9 +149,9 @@
       <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
       {:else}
         <div class="map-svg">
-          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
-            Loading...
-          </text>
+          <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+            <span style="color: #AD7F65;">Loading...</span>
+          </div>
         </div>
       {/if}
       <!-- Placeholder for map B -->

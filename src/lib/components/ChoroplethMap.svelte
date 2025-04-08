@@ -35,15 +35,22 @@
         const row = dataMap.get(String(geoID));
         const neighborhood = neighborhoodMap.get(String(geoID));
 
-        return {
-          ...f,
-          properties: {
-            ...f.properties,
-            value: row ? row[selectedLayer] : null,
-            neighborhood: neighborhood || 'Unknown'
+        let rawValue = row ? row[selectedLayer] : null;
+
+          // Normalize non_white_rate to 0–1 range
+          if (selectedLayer === 'non_white_rate' && rawValue != null) {
+            rawValue = +rawValue / 100;
           }
-        };
-      });
+
+          return {
+            ...f,
+            properties: {
+              ...f.properties,
+              value: rawValue,
+              neighborhood: neighborhood || 'Unknown'
+            }
+          };
+          });
 
       const bostonFeatures = joinedFeatures.filter(f => f.properties.value != null);
 
@@ -168,6 +175,7 @@
 
     .neighborhood-boundary {
       stroke: #000;
+      stroke-width: 0;
       stroke-width: 0;
       fill: none;
       pointer-events: none;
