@@ -100,7 +100,7 @@
 </style>
 
 <div class="page-container">
-  <div class="header">More-or-Lose: Corporate Ownership & Evicitions in Boston</div>
+  <div class="header">More-or-Lose: Corporate Ownership & Evictions in Boston</div>
 
   <div class="hero-container">
     <div class="map-panel">
