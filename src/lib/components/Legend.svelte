@@ -8,8 +8,8 @@
   let gradientId = 'legend-gradient';
 
   const layerLabels = {
-    eviction_rate: "% Renter HH being Filed for Eviction (2023)",
-    corp_own_rate: "% Properties owned by Corporations",
+    eviction_rate: "% Renter HHs being Filed for Eviction (2023)",
+    corp_own_rate: "% Properties Owned by Corporations",
     r_mhi: "Median Renter Annual HH Income",
     non_white_rate: "% Non-White Population"
   };
@@ -42,10 +42,10 @@
 
       // hacky way to display correctly at init
       if (selectedLayer === "r_mhi") {
-        legendLabels = ["$12K", "$24K", "$36K", "$48K", "$60K"];
+        legendLabels = ["≤$12K", "$24K", "$36K", "$48K", "≥$60K"];
       }
       if (selectedLayer === "eviction_rate") {
-        legendLabels = ["0.0%", "2.5%", "5.0%", "7.5%", "10.0%"];
+        legendLabels = ["0.0%", "2.5%", "5.0%", "7.5%", "≥10.0%"];
       }
     }
 </script>
@@ -98,7 +98,6 @@
           x="{10 + (i / (legendSteps.length - 1)) * 200}"
           y="38"
           text-anchor="middle"
-          font-size="10"
           font-family="Source Sans 3"
           fill="#333"
         >
@@ -132,5 +131,6 @@
 
   .legend text {
     user-select: none;
+    font-size: 0.75rem;
   }
 </style>
