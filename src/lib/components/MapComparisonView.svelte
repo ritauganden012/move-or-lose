@@ -9,7 +9,7 @@
   let selectedLayerB = 'eviction_rate';
 
   onMount(async () => {
-    geoData = await d3.json('data_csv/census_tracts_boston_2010.geojson');
+    geoData = await d3.json('data_csv/census_tracts_boston_projected.geojson');
     evictData = await d3.csv('data_csv/evict_processed.csv', d3.autoType);
   });
 
