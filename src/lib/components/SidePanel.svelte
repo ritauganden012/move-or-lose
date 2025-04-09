@@ -3,18 +3,25 @@
   import { onDestroy } from 'svelte';
 
   export let data = []; // You pass this from MapComparisonView
+  console.log('Data in SidePanel:', data);
 
   let hovered = null;
   const unsubscribe = hoveredDataStore.subscribe(value => hovered = value);
   onDestroy(() => unsubscribe());
 
   const metrics = ['eviction_rate', 'corp_own_rate', 'r_mhi', 'non_white_rate'];
+  const metric_names = {
+    eviction_rate: 'Eviction Rate (%)',
+    corp_own_rate: 'Corporate Ownership (%)',
+    r_mhi: 'Median Renter Income ($)',
+    non_white_rate: '% non-white population'
+  };
 
   function getRanked(metric) {
     return [...data]
       .filter(d => d[metric] != null)
-      .sort((a, b) => b[metric] - a[metric])
-      .slice(0, 20); // Top 20
+      .sort((a, b) => b[metric] - a[metric]);
+      // .slice(0, 20); // Top 20
   }
 </script>
 
@@ -23,18 +30,21 @@
     <!-- <h2>{hovered.neighborhood}</h2> -->
     <h2>{hovered.neighborhood ?? 'Unnamed Neighborhood'}</h2>
     <p><strong>Tract:</strong> {hovered.GEOID}</p>
-    <p><strong>Layer data below</strong></p>
+    <p><strong>Ranking of Tract</strong></p>
 
     {#each metrics as metric}
       <div class="mini-chart">
-        <h4>{metric.replace(/_/g, ' ')}</h4>
-        <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+        <h4>{metric_names[metric]}: {hovered[metric] != null ? hovered[metric].toFixed(2) : 'N/A'}</h4>
+        <!-- {@debug hovered, metric} -->
+        <svg viewBox="0 0 1670 40" preserveAspectRatio="none"> 
+          <!-- 1670 data rows in our dataset -->
           {#each getRanked(metric) as d, i}
+          <!-- {@debug d, i} -->
             <rect
               x={i * 10}
-              y={40 - (d[metric] || 0) * 40}
+              y={100 - (d[metric] || 0) * 100}
               width="8"
-              height={(d[metric] || 0) * 40}
+              height={(d[metric] || 0) * 100}
               fill={d.GEOID === hovered.GEOID ? '#984835' : '#ccc'}
             />
           {/each}
@@ -53,7 +63,7 @@
     height: 100vh;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 1.25rem 1.25rem 2rem 1.25rem; /* top, right, bottom, left */
+    padding: 2rem 2rem 2rem 2rem; /* top, right, bottom, left */
     z-index: 1000;
     box-shadow: -4px 0 10px rgba(0,0,0,0.1);
     overflow-y: auto;
