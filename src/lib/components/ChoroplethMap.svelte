@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import Tooltip from './Tooltip.svelte';
   import * as d3 from 'd3';
+    import Legend from './Legend.svelte';
   import { layerDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
 
   export let geoData;
@@ -85,7 +86,7 @@
     d3.forceSimulation(neighborhoodLabels)
       .force('x', d3.forceX(d => d.x).strength(0.8)) // Stay close to original position
       .force('y', d3.forceY(d => d.y).strength(0.8))
-      .force('collision', d3.forceCollide().radius(d => 
+      .force('collision', d3.forceCollide().radius(d =>
         Math.sqrt((d.width/2)**2 + (d.height/2)**2) + 1 // Create padding
       ))
       .stop()
