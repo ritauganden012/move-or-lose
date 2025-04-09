@@ -267,18 +267,23 @@
 
   .floating-tooltip {
     position: fixed;
-    background: white;
-    border: 2px solid #AD7F65;
+    background: rgba(255, 255, 255, 0.96); /* subtle transparency */
+    /* border: 1.5px solid #AD7F65; */
     border-radius: 1rem;
-    padding: 0.75rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    font-size: 0.85rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #3c2a1e;
     z-index: 100;
     pointer-events: none;
+
     max-width: 360px;
     min-width: 280px;
-    max-height: 90vh;
+    max-height: 85vh;
     overflow-y: auto;
+
+    backdrop-filter: blur(5px);
   }
 
   .missing-data {

@@ -3,41 +3,103 @@
   export let data;
   export let layer;
 
+  let maxEviction;
+
+  const renter = data?.r_mhi ?? 0;
+  const median = data?.mhi ?? 0;
+  const owner = data?.o_mhi ?? 0;
+
   const years = [2020, 2021, 2022, 2023];
+  const barValues = [renter, owner, median];
+  const maxBarValue = Math.max(...barValues, 1); // avoid div by 0
+
+  $: barHeights = barValues.map(v => (v / maxBarValue) * 80);
 
   $: linePoints = (() => {
     const values = years.map((year) => data?.[`${year}_eviction`] ?? 0);
     const maxValue = Math.max(...values, 0.01); // prevent div by 0
+    maxEviction = maxValue;
 
     return years.map((year, i) => {
       const value = data?.[`${year}_eviction`] ?? 0;
-      const x = i * 40;
+      const x = i * 40 + 12;
       const y = 50 - (value / maxValue) * 40;
       return `${x},${Math.min(Math.max(y, 0), 50)}`;
     }).join(" ");
   })();
+
+  $: filePosition = (() => {
+    let y_shift;
+    if (maxEviction <= 1.25 * (data?.['2023_eviction'] ?? 0)) {
+      y_shift = 16;
+    } else {
+      y_shift = -10;
+    }
+    return 50 - (data?.['2023_eviction'] ?? 0) / maxEviction * 40 + y_shift;
+  })();
 </script>
 
 <div class="tooltip-container">
-  <div><strong>Tract:</strong> {data.GEOID}</div>
+  <div class="tooltip-title">
+    <strong>{data.neighborhood ?? 'Unnamed Neighborhood'}</strong>
+    <span class="tract-id"> (tract: {data.GEOID})</span>
+  </div>
 
   {#if layer === 'eviction_rate'}
-  <div><strong>Eviction Trend (2020–2023)</strong></div>
+  <div class="tooltip-section-heading"><strong>Eviction Filings (2020–2023)</strong></div>
   <svg
     viewBox="0 0 160 60"
     preserveAspectRatio="xMidYMid meet"
     class="tooltip-chart"
   >
-  <polyline
-  fill="none"
-  stroke="#984835"
-  stroke-width="2"
-  points={linePoints}
-/>
-</svg>
+  <line x1="0" y1="50" x2="150" y2="50" stroke="#ccc" stroke-width="1" /> <!-- X axis -->
+  <line x1="0" y1="0" x2="0" y2="50" stroke="#ccc" stroke-width="1" />    <!-- Y axis -->
+
+    {#each [2020, 2021, 2022, 2023] as year, i}
+      <text
+        x={i * 40 + 12}
+        y="58"
+        font-size="10"
+        text-anchor="middle"
+        fill="#555"
+      >
+        {year}
+      </text>
+    {/each}
+
+    <text
+      x={3 * 40 + 12}
+      y={filePosition}
+      font-size="13"
+      text-anchor="middle"
+      fill="#984835"
+      font-weight=600
+    >
+      {data?.['2023_eviction'] ?? 0}
+    </text>
+
+    <circle
+      cx={3 * 40 + 12}
+      cy={50 - (data?.['2023_eviction'] ?? 0) / maxEviction * 40}
+      r="3.5"
+      fill="#984835"
+      stroke="white"
+      stroke-width="1"
+    />
+
+    <polyline
+    fill="none"
+    stroke="#984835"
+    stroke-width="2"
+    points={linePoints}
+    />
+  </svg>
 
   {:else if layer === 'corp_own_rate'}
-    <div>Corporate Ownership: {Math.round(data.corp_own_rate * 100)}%</div>
+  <div>
+    <strong>{(data.corp_own_rate * 100).toFixed(1)}%</strong>
+    of properties <br> owned by corporations
+  </div>
 
   {:else if layer === 'non_white_rate'}
     <div><strong>Racial Makeup</strong></div>
@@ -54,12 +116,59 @@
     </svg>
 
   {:else if layer === 'r_mhi'}
-    <div><strong>Income Comparison</strong></div>
-    <div style="font-size: 0.85rem;">
-      Renter: ${data.r_mhi} <br />
-      Median: ${data.mhi} <br />
-      Owner: ${data.o_mhi}
-    </div>
+  <div class="tooltip-section-heading"><strong>Median Incomes</strong></div>
+  <svg viewBox="0 0 200 120" class="tooltip-bar-chart" preserveAspectRatio="xMidYMid meet">
+    <!-- Axes line -->
+    <line x1="0" y1="100" x2="200" y2="100" stroke="#ccc" stroke-width="1" />
+
+    {#each ['Renters', 'Owners', 'All'] as label, i}
+      <!-- Background bar for spacing -->
+      <!-- <rect
+        x={i * 65}
+        y="15"
+        width="40"
+        height="40"
+        fill="#f2f2f2"
+        rx="4"
+      /> -->
+      
+      <!-- Actual income bar -->
+      <rect
+        x={i * 65 + 4}
+        y={100 - (barHeights[i] ?? 0)}
+        width="40"
+        height={barHeights[i] ?? 0}
+        fill="#984835"
+        rx="3"
+      />
+
+      <!-- Label -->
+      <text
+        x={i * 65 + 24}
+        y="115"
+        text-anchor="middle"
+        font-size=13
+        fill="#333"
+        font-weight=600
+      >
+        {label}
+      </text>
+    {/each}
+
+    <!-- Value on top of bar -->
+    {#each barHeights as h, i}
+      <text
+        x={i * 65 + 24}
+        y={100 - h - 4}
+        text-anchor="middle"
+        font-size=13
+        fill="#984835"
+        font-weight=600
+      >
+        ${barValues[i]}
+      </text>
+    {/each}
+  </svg>
   {/if}
 </div>
 
@@ -105,10 +214,34 @@
     padding: 0.25rem 0;
   }
 
+  .tooltip-title {
+    font-size: 0.95rem;
+    /* font-weight: 600; */
+    margin-bottom: 0.5rem;
+    color: #2a2a2a;
+  }
+
+  .tract-id {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #777;
+  }
+
+  .tooltip-section-heading {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
   svg {
     width: 100%;
     max-width: 160px;
     height: auto;
+  }
+
+  .tooltip-bar-chart {
+    width: 100%;
+    height: auto;
+    margin-top: 0.25rem;
   }
 
 
