@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Tooltip from './Tooltip.svelte';
   import * as d3 from 'd3';
-  import { layerDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
+  import { layerDataStore, hoveredDataStore, tooltipPositionStore, currentGEOIDStore } from './stores.js';
     import Legend from './Legend.svelte';
 
   export let geoData;
@@ -30,6 +30,8 @@
     const neighborhoodData = await d3.csv('data_csv/evict_neighborhoods.csv');
     neighborhoodMap = new Map(neighborhoodData.map(d => [d.GEOID, d.neighborhood]));
   });
+
+  $: $currentGEOIDStore;
 
   $: if (geoData && data && selectedLayer && neighborhoodMap.size > 0) {
     const dataMap = new Map(data.map(d => [String(d.GEOID), d]));
@@ -125,13 +127,13 @@
             stroke="#fff"
             stroke-width="0.5"
             class={feature.properties.value == null ? 'missing-data' : ''}
+            class:highlighted={$currentGEOIDStore === feature.properties.GEOID10}
+            class:dimmed={$currentGEOIDStore && $currentGEOIDStore !== feature.properties.GEOID10}
             on:mouseenter={(e) => {
               const newGEOID = String(feature.properties.GEOID10);
               const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
 
-              console.log("got newGEOID on mouseenter", newGEOID);
-
-              // only do the following if newGEOID is not null
+              // only do the following if neighborhood is known
               if (neighborhood !== "Unknown") {
                 if (newGEOID !== currentGEOID) {
                   const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
@@ -146,6 +148,8 @@
                   tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
                   currentGEOID = newGEOID;    
                 }
+
+                currentGEOIDStore.set(newGEOID);
               }
             }}
             on:mouseleave={() => {
@@ -155,6 +159,8 @@
               if (neighborhood !== "Unknown") {
                 hoveredDataStore.set(null);
                 currentGEOID = null;
+
+                currentGEOIDStore.set(null);
               }
             }}
           />
@@ -185,14 +191,14 @@
     <Legend {selectedLayer} {colorScale} />
   <!-- </div> -->
 
-    {#if hoveredData}
+    <!-- {#if hoveredData}
       <div
         class="exploding-tooltip floating"
         style="top: {tooltipY + 10}px; left: {tooltipX + 10}px;"
       >
         <Tooltip data={hoveredData} layer={selectedLayer} />
       </div>
-    {/if}
+    {/if} -->
   <!-- </div>
 </div> -->
 
@@ -230,8 +236,20 @@
   }
 
 
+  /* for highlighting hovered/selected tracts */
+  path.dimmed {
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* optional: prevent hover conflict */
+  }
 
-
+  path.highlighted {
+    opacity: 1;
+    stroke: #222;
+    stroke-width: 1.2;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+    transition: stroke 0.2s ease;
+  }
 
   .missing-data {
     stroke: #999;

@@ -104,7 +104,7 @@
         <SidePanel data={evictData} />
       </div>
   {/if}
-  
+
   {#if hoveredData}
     <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
       <Tooltip data={hoveredData} layer={layerData} />
