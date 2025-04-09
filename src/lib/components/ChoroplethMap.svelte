@@ -2,12 +2,13 @@
   import { onMount } from 'svelte';
   import Tooltip from './Tooltip.svelte';
   import * as d3 from 'd3';
-    import Legend from './Legend.svelte';
-  import { layerDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
+  import Legend from './Legend.svelte';
+  import { layerDataStore, clickedDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
 
   export let geoData;
   export let data;
   export let selectedLayer;
+  export let clickedData;
   export let colorScale = d3.scaleSequential().interpolator(d3.interpolateOranges);
 
   let svg;
@@ -99,9 +100,11 @@
   }
 </script>
 
-<div class="map-wrapper">
+
+
+<!-- <div class="map-wrapper">
   <div class="map-inner">
-    <div class="map-content">
+    <div class="map-content"> -->
       <svg
         bind:this={svg}
         viewBox="0 0 600 600"
@@ -138,6 +141,16 @@
               hoveredDataStore.set(null);
               currentGEOID = null;
             }}
+            on:click={() => {
+              const clickedDatum = data.find(d => String(d.GEOID) === String(feature.properties.GEOID10));
+              clickedDataStore.set({
+                ...clickedDatum,
+                neighborhood: neighborhoodMap.get(String(feature.properties.GEOID10)) || 'Unknown'
+              });
+              console.log("Clicked data:", clickedDatum);
+            }}
+            
+
           />
         {/each}
 
@@ -161,29 +174,22 @@
         {/each}
       </svg>
 
-      <div class="legend">
-        <p>{selectedLayer}</p>
-        <div class="legend-scale">
-          {#each Array(5) as _, i}
-            {@const value = colorScale.domain()[0] + (colorScale.domain()[1] - colorScale.domain()[0]) * i / 4}
-            <div class="legend-item" style="background-color: {colorScale(value)}">
-              <span>{value.toFixed(1)}</span>
-            </div>
-          {/each}
-        </div>
-      </div>
-    </div>
+<!--The component for legend-->
 
-    <!-- {#if hoveredData}
+    <Legend {selectedLayer} {colorScale} />
+  <!-- </div> -->
+
+    {#if hoveredData}
       <div
         class="exploding-tooltip floating"
         style="top: {tooltipY + 10}px; left: {tooltipX + 10}px;"
       >
         <Tooltip data={hoveredData} layer={selectedLayer} />
       </div>
-    {/if} -->
-  </div>
-</div>
+    {/if}
+  <!-- </div>
+</div> -->
+
 
 <style>
   .map-wrapper {
@@ -217,34 +223,9 @@
     height: auto;
   }
 
-  .legend {
-    margin-top: 1rem;
-    font-family: 'Source Sans 3', sans-serif;
-    font-size: 0.9rem;
-  }
 
-  .legend-scale {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-top: 0.5rem;
-  }
 
-  .legend-item {
-    width: 30px;
-    height: 12px;
-    position: relative;
-    border: 1px solid #ccc;
-  }
 
-  .legend-item span {
-    position: absolute;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    color: #4F1F05;
-  }
 
   .missing-data {
     stroke: #999;
@@ -253,22 +234,23 @@
 
   .neighborhood-label {
     font-family: 'Source Sans 3', sans-serif;
-    font-size: 9px;
-    fill: #333;
-    text-anchor: middle;
-    pointer-events: none;
-    paint-order: stroke;
-    stroke: white;
-    stroke-width: 2px;
-    stroke-linejoin: round;
+      font-size: 0.6rem;
+      fill: #333;
+      font-weight: 700;
+      text-anchor: middle;
+      pointer-events: none;
+      paint-order: stroke;
+      stroke: rgb(250, 239, 239);
+      stroke-width: 3px;
+      stroke-linejoin: round;
   }
 
   .neighborhood-boundary {
     stroke: #000;
-    stroke-width: 1.2;
-    fill: none;
-    pointer-events: none;
-    opacity: 0.6;
+      stroke-width: 0.2px;
+      fill: none;
+      pointer-events: none;
+      opacity: 0.4;
   }
 
   .exploding-tooltip {
