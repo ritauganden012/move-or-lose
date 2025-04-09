@@ -64,10 +64,12 @@
       const values = bostonFeatures.map(f => f.properties.value);
       const [min, max] = d3.extent(values);
         if (selectedLayer === 'r_mhi') {
-          colorScale.domain([max, min]); // Invert for income
+          colorScale.domain([60000, 12000]); // Invert for income
+        } else if (selectedLayer === 'eviction_rate') {
+          colorScale.domain([0.0, 10.0]);
         } else {
           colorScale.domain([min, max]);
-}
+        }
     }
 
     // Compute one label per neighborhood (average centroid)
@@ -86,7 +88,7 @@
           neighborhood,
           x: avgX,
           y: avgY,
-          width: neighborhood.length * 5.5, // Rough estimate of text width
+          width: neighborhood.length * 5, // Rough estimate of text width
           height: 12 // Text height based on font size
         };
       }).filter(Boolean);
@@ -162,9 +164,9 @@
 
     .neighborhood-label {
       font-family: 'Source Sans 3', sans-serif;
-      font-size: 10px;
+      font-size: 0.6rem;
       fill: #333;
-      font-weight: 1700;
+      font-weight: 700;
       text-anchor: middle;
       pointer-events: none;
       paint-order: stroke;
@@ -175,10 +177,9 @@
 
     .neighborhood-boundary {
       stroke: #000;
-      stroke-width: 0;
-      stroke-width: 0;
+      stroke-width: 0.1px;
       fill: none;
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.4;
     }
   </style>

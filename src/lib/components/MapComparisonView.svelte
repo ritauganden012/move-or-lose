@@ -7,7 +7,7 @@
   let geoData = null;
   let evictData = [];
   let selectedLayerA = 'eviction_rate';
-  let selectedLayerB = 'eviction_rate';
+  let selectedLayerB = 'r_mhi';
 
   onMount(async () => {
     geoData = await d3.json('data_csv/census_tracts_boston_projected.geojson');
@@ -16,9 +16,9 @@
 
   function getLayerLabel(layer) {
   const labels = {
-    eviction_rate: 'Eviction Rate',
+    eviction_rate: 'Eviction Filings',
     corp_own_rate: 'Corporate Ownership',
-    r_mhi: 'Income',
+    r_mhi: 'Renter Income',
     non_white_rate: 'Demographics'
   };
   return labels[layer] || layer;
@@ -62,6 +62,24 @@
     margin-bottom: 0.5rem;
   }
 
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .toggle-label-inline {
+    font-size: 0.9rem;
+    /* font-weight: 500; */
+    color: #4F1F05;
+    white-space: nowrap;
+    /* should vertically align text in middle */
+    display: flex;
+  }
+
+
   .toggle-buttons {
     display: flex;
     gap: 0.5rem;
@@ -85,6 +103,10 @@
     background-color: #E0E6AF;
   }
 
+  .toggle-button.selected {
+    background-color: #E0E6AF;
+  }
+
   .map-svg {
     width: 100%;
     height: 350px;
@@ -101,7 +123,7 @@
 </style>
 
 <div class="page-container">
-  <div class="header">More-or-Lose: Corporate Ownership & Evictions in Boston</div>
+  <div class="header">Move-or-Lose: Evictions in Boston – Income, Corporate Ownership, & Race Compared</div>
 
   <div class="hero-container">
     <div class="map-panel">
@@ -111,11 +133,11 @@
 
 
       <!---Toggle buttons -->
-      <div class="toggle-buttons">
-        <button class="toggle-button" on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Rate</button>
-        <button class="toggle-button" on:click={() => selectedLayerA = 'corp_own_rate'}>Corporate Ownership</button>
-        <button class="toggle-button" on:click={() => selectedLayerA = 'r_mhi'}>Income</button>
-        <button class="toggle-button" on:click={() => selectedLayerA = 'non_white_rate'}>Demographics</button>
+      <div class="toggle-row">
+        <div class="toggle-buttons">
+          <!-- create an invisible placeholder to preserve height -->
+          <button class="toggle-button" class:selected={selectedLayerA === 'eviction_rate'} on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Filings</button>
+        </div>
       </div>
 
       {#if geoData && evictData.length > 0}
@@ -137,11 +159,19 @@
       </div>
 
        <!---Toggle buttons -->
-      <div class="toggle-buttons">
-        <button class="toggle-button" on:click={() => selectedLayerB = 'eviction_rate'}>Eviction Rate</button>
-        <button class="toggle-button" on:click={() => selectedLayerB = 'corp_own_rate'}>Corporate Ownership</button>
-        <button class="toggle-button" on:click={() => selectedLayerB = 'r_mhi'}>Income</button>
-        <button class="toggle-button" on:click={() => selectedLayerB = 'non_white_rate'}>Demographics</button>
+       <div class="toggle-row">
+        <div class="toggle-label-inline">Compare with →</div>
+        <div class="toggle-buttons">
+          <button class="toggle-button" class:selected={selectedLayerB === 'r_mhi'} on:click={() => selectedLayerB = 'r_mhi'}>
+            Renter Income
+          </button>
+          <button class="toggle-button" class:selected={selectedLayerB === 'corp_own_rate'} on:click={() => selectedLayerB = 'corp_own_rate'}>
+            Corporate Ownership
+          </button>
+          <button class="toggle-button" class:selected={selectedLayerB === 'non_white_rate'} on:click={() => selectedLayerB = 'non_white_rate'}>
+            Demographics
+          </button>
+        </div>
       </div>
 
 
