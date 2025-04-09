@@ -108,9 +108,9 @@
 
 
 
-<div class="map-wrapper">
+<!-- <div class="map-wrapper">
   <div class="map-inner">
-    <div class="map-content">
+    <div class="map-content"> -->
       <svg
         bind:this={svg}
         viewBox="0 0 600 600"
@@ -172,7 +172,19 @@
 
 <!--The component for legend-->
 
-  <Legend {selectedLayer} {colorScale} />
+    <Legend {selectedLayer} {colorScale} />
+  <!-- </div> -->
+
+    {#if hoveredData}
+      <div
+        class="exploding-tooltip floating"
+        style="top: {tooltipY + 10}px; left: {tooltipX + 10}px;"
+      >
+        <Tooltip data={hoveredData} layer={selectedLayer} />
+      </div>
+    {/if}
+  <!-- </div>
+</div> -->
 
 
 <style>
@@ -216,8 +228,8 @@
     stroke-dasharray: 2,2;
   }
 
-    .neighborhood-label {
-      font-family: 'Source Sans 3', sans-serif;
+  .neighborhood-label {
+    font-family: 'Source Sans 3', sans-serif;
       font-size: 0.6rem;
       fill: #333;
       font-weight: 700;
@@ -227,14 +239,14 @@
       stroke: rgb(250, 239, 239);
       stroke-width: 3px;
       stroke-linejoin: round;
-    }
+  }
 
   .neighborhood-boundary {
     stroke: #000;
-    stroke-width: 1.2;
-    fill: none;
-    pointer-events: none;
-    opacity: 0.6;
+      stroke-width: 0.2px;
+      fill: none;
+      pointer-events: none;
+      opacity: 0.4;
   }
 
   .exploding-tooltip {
