@@ -119,6 +119,7 @@
       >
         {#each joinedFeatures as feature}
           <path
+            role="tooltip"
             d={path(feature)}
             fill={feature.properties.value != null ? colorScale(feature.properties.value) : '#eee'}
             stroke="#fff"
@@ -126,26 +127,35 @@
             class={feature.properties.value == null ? 'missing-data' : ''}
             on:mouseenter={(e) => {
               const newGEOID = String(feature.properties.GEOID10);
-              if (newGEOID !== currentGEOID) {
-                // console.log("hovered pos:", e.clientX, e.clientY);
-                // const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
-                const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
-                const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
-                
-                hoveredDataStore.set({
-                  ...hoveredDatum,
-                    neighborhood
-                });
+              const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
 
-                // hoveredDataStore.set(hovered);
-                layerDataStore.set(selectedLayer);
-                tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
-                currentGEOID = newGEOID;    
+              console.log("got newGEOID on mouseenter", newGEOID);
+
+              // only do the following if newGEOID is not null
+              if (neighborhood !== "Unknown") {
+                if (newGEOID !== currentGEOID) {
+                  const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
+                  
+                  hoveredDataStore.set({
+                    ...hoveredDatum,
+                      neighborhood
+                  });
+
+                  // hoveredDataStore.set(hovered);
+                  layerDataStore.set(selectedLayer);
+                  tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
+                  currentGEOID = newGEOID;    
+                }
               }
             }}
             on:mouseleave={() => {
-              hoveredDataStore.set(null);
-              currentGEOID = null;
+              const newGEOID = String(feature.properties.GEOID10);
+              const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
+
+              if (neighborhood !== "Unknown") {
+                hoveredDataStore.set(null);
+                currentGEOID = null;
+              }
             }}
           />
         {/each}
