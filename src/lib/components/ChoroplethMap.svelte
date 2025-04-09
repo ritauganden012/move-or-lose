@@ -117,7 +117,7 @@
             on:mouseenter={(e) => {
               const newGEOID = String(feature.properties.GEOID10);
               if (newGEOID !== currentGEOID) {
-                console.log("hovered pos:", e.clientX, e.clientY);
+                // console.log("hovered pos:", e.clientX, e.clientY);
                 // const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
                 const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
                 const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
