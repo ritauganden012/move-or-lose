@@ -3,7 +3,7 @@
   import * as d3 from 'd3';
   import ChoroplethMap from './ChoroplethMap.svelte';
   import Tooltip from './Tooltip.svelte';
-  import { hoveredDataStore, tooltipPositionStore } from './stores.js';
+  import { layerDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
   import { get } from 'svelte/store';
 
   let geoData = null;
@@ -12,9 +12,11 @@
   let selectedLayerB = 'r_mhi';
 
   let hoveredData = null;
+  let layerData = null;
   let tooltipX = 0;
   let tooltipY = 0;
 
+  layerDataStore.subscribe(value => layerData = value);
   hoveredDataStore.subscribe(value => hoveredData = value);
   tooltipPositionStore.subscribe(value => {
     tooltipX = value.x;
@@ -100,14 +102,7 @@
     <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
       <Tooltip
         data={hoveredData}
-        layer={
-          // Determine which selected layer to show depending on what's hovered
-          selectedLayerA === selectedLayerB
-            ? selectedLayerA
-            : hoveredData[selectedLayerA] != null
-              ? selectedLayerA
-              : selectedLayerB
-        }
+        layer={layerData}
       />
     </div>
   {/if}

@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Tooltip from './Tooltip.svelte';
   import * as d3 from 'd3';
-  import { hoveredDataStore, tooltipPositionStore } from './stores.js';
+  import { layerDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
     import Legend from './Legend.svelte';
 
   export let geoData;
@@ -127,8 +127,10 @@
             on:mouseenter={(e) => {
               const newGEOID = String(feature.properties.GEOID10);
               if (newGEOID !== currentGEOID) {
+                console.log("hovered pos:", e.clientX, e.clientY);
                 const hovered = data.find(d => String(d.GEOID) === newGEOID);
                 hoveredDataStore.set(hovered);
+                layerDataStore.set(selectedLayer);
                 tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
                 currentGEOID = newGEOID;    
               }

@@ -2,6 +2,20 @@
 <script>
   export let data;
   export let layer;
+
+  const years = [2020, 2021, 2022, 2023];
+
+  $: linePoints = (() => {
+    const values = years.map((year) => data?.[`${year}_eviction`] ?? 0);
+    const maxValue = Math.max(...values, 0.01); // prevent div by 0
+
+    return years.map((year, i) => {
+      const value = data?.[`${year}_eviction`] ?? 0;
+      const x = i * 40;
+      const y = 50 - (value / maxValue) * 40;
+      return `${x},${Math.min(Math.max(y, 0), 50)}`;
+    }).join(" ");
+  })();
 </script>
 
 <div class="tooltip-container">
@@ -14,19 +28,12 @@
     preserveAspectRatio="xMidYMid meet"
     class="tooltip-chart"
   >
-    <polyline
-      fill="none"
-      stroke="#984835"
-      stroke-width="2"
-      points={
-        [2020, 2021, 2022, 2023].map((year, i) => {
-          const value = data[`${year}_eviction`] ?? 0;
-          const x = i * 40;
-          const y = 50 - value * 40; // 0 (high) to 50 (low)
-          return `${x},${Math.min(Math.max(y, 0), 50)}`;
-        }).join(" ")
-      }
-  />
+  <polyline
+  fill="none"
+  stroke="#984835"
+  stroke-width="2"
+  points={linePoints}
+/>
 </svg>
 
   {:else if layer === 'corp_own_rate'}
