@@ -3,11 +3,12 @@
   import * as d3 from 'd3';
   import ChoroplethMap from './ChoroplethMap.svelte';
   import Tooltip from './Tooltip.svelte';
-  import { layerDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
-  import { get } from 'svelte/store';
+  import SidePanel from './SidePanel.svelte';
+  import { hoveredDataStore, layerDataStore, tooltipPositionStore } from './stores.js';
 
   let geoData = null;
   let evictData = [];
+
   let selectedLayerA = 'eviction_rate';
   let selectedLayerB = 'eviction_rate';
 
@@ -16,11 +17,11 @@
   let tooltipX = 0;
   let tooltipY = 0;
 
-  layerDataStore.subscribe(value => layerData = value);
-  hoveredDataStore.subscribe(value => hoveredData = value);
-  tooltipPositionStore.subscribe(value => {
-    tooltipX = value.x;
-    tooltipY = value.y;
+  hoveredDataStore.subscribe(val => hoveredData = val);
+  layerDataStore.subscribe(val => layerData = val);
+  tooltipPositionStore.subscribe(pos => {
+    tooltipX = pos.x;
+    tooltipY = pos.y;
   });
 
   onMount(async () => {
@@ -41,64 +42,60 @@
 
 <div class="page-layout">
   <div class="header">More-or-Lose: Corporate Ownership & Evicitions in Boston</div>
-  <div class="maps-container">
-    <div class="map-panel">
-      <div class="panel-title">
-        City of Boston — {getLayerLabel(selectedLayerA)}
-      </div>
-      <div class="toggle-buttons">
-        <button class="toggle-button" on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Rate</button>
-        <button class="toggle-button" on:click={() => selectedLayerA = 'corp_own_rate'}>Corporate Ownership</button>
-        <button class="toggle-button" on:click={() => selectedLayerA = 'r_mhi'}>Income</button>
-        <button class="toggle-button" on:click={() => selectedLayerA = 'non_white_rate'}>Demographics</button>
-      </div>
-      {#if geoData && evictData.length > 0}
-        <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerA} />
-      {:else}
-        <div class="map-svg">
-          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
-            Loading Map A...
-          </text>
+
+  <div class="main-layout">
+    <div class="maps-container">
+      <div class="map-panel">
+        <div class="panel-title">
+          City of Boston — {getLayerLabel(selectedLayerA)}
         </div>
-      {/if}
+        <div class="toggle-buttons">
+          <button class="toggle-button" on:click={() => selectedLayerA = 'eviction_rate'}>Eviction Rate</button>
+          <button class="toggle-button" on:click={() => selectedLayerA = 'corp_own_rate'}>Corporate Ownership</button>
+          <button class="toggle-button" on:click={() => selectedLayerA = 'r_mhi'}>Income</button>
+          <button class="toggle-button" on:click={() => selectedLayerA = 'non_white_rate'}>Demographics</button>
+        </div>
+        {#if geoData && evictData.length > 0}
+          <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerA} />
+        {:else}
+          <div class="map-svg">
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">Loading Map A...</text>
+          </div>
+        {/if}
+      </div>
+
+      <div class="map-panel">
+        <div class="panel-title">
+          City of Boston — {getLayerLabel(selectedLayerB)}
+        </div>
+        <div class="toggle-buttons">
+          <button class="toggle-button" on:click={() => selectedLayerB = 'eviction_rate'}>Eviction Rate</button>
+          <button class="toggle-button" on:click={() => selectedLayerB = 'corp_own_rate'}>Corporate Ownership</button>
+          <button class="toggle-button" on:click={() => selectedLayerB = 'r_mhi'}>Income</button>
+          <button class="toggle-button" on:click={() => selectedLayerB = 'non_white_rate'}>Demographics</button>
+        </div>
+        {#if geoData && evictData.length > 0}
+          <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
+        {:else}
+          <div class="map-svg">
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">Loading...</text>
+          </div>
+        {/if}
+      </div>
     </div>
 
-    <div class="map-panel">
-      <div class="panel-title">
-        City of Boston — {getLayerLabel(selectedLayerB)}
+    {#if hoveredData}
+      <div class="side-panel-fixed">
+        <SidePanel data={evictData} />
       </div>
-      <div class="toggle-buttons">
-        <button class="toggle-button" on:click={() => selectedLayerB = 'eviction_rate'}>Eviction Rate</button>
-        <button class="toggle-button" on:click={() => selectedLayerB = 'corp_own_rate'}>Corporate Ownership</button>
-        <button class="toggle-button" on:click={() => selectedLayerB = 'r_mhi'}>Income</button>
-        <button class="toggle-button" on:click={() => selectedLayerB = 'non_white_rate'}>Demographics</button>
-      </div>
-      {#if geoData && evictData.length > 0}
-        <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
-      {:else}
-        <div class="map-svg">
-          <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#AD7F65">
-            Loading...
-          </text>
-        </div>
-      {/if}
-    </div>
+    {/if}
   </div>
-<!-- 
+
   {#if hoveredData}
     <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
-      <Tooltip data={hoveredData} layer={selectedLayerA} />
-    </div>
-  {/if} -->
-  {#if hoveredData}
-    <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
-      <Tooltip
-        data={hoveredData}
-        layer={layerData}
-      />
+      <Tooltip data={hoveredData} layer={layerData} />
     </div>
   {/if}
-
 </div>
 
 <style>
@@ -119,12 +116,19 @@
     text-align: left;
   }
 
+  .main-layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
   .maps-container {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
     gap: 2rem;
     width: 75vw;
+    /* width: calc(100% - 320px); */
     max-width: 100%;
   }
 
@@ -193,6 +197,38 @@
     max-height: 90vh;
     overflow-y: auto;
   }
+
+  .side-panel-fixed {
+    position: fixed;
+    top: 50%;
+    right: 40px; 
+    transform: translateY(-50%);
+    width: 280px; /*adjust as needed*/
+    /* max-height: 90vh; */
+    height: 90vh;
+    background: white;
+    border-left: 2px solid #ccc;
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.05);
+    z-index: 150;
+    padding: 1rem;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+  }
+
+  :global(.side-panel) {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 320px;
+    background-color: white;
+    border-left: 2px solid #ccc;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    z-index: 200;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
 
   @media (max-width: 768px) {
     .maps-container {
