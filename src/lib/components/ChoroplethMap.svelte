@@ -128,8 +128,16 @@
               const newGEOID = String(feature.properties.GEOID10);
               if (newGEOID !== currentGEOID) {
                 console.log("hovered pos:", e.clientX, e.clientY);
-                const hovered = data.find(d => String(d.GEOID) === newGEOID);
-                hoveredDataStore.set(hovered);
+                // const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
+                const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
+                const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
+                
+                hoveredDataStore.set({
+                  ...hoveredDatum,
+                    neighborhood
+                });
+
+                // hoveredDataStore.set(hovered);
                 layerDataStore.set(selectedLayer);
                 tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
                 currentGEOID = newGEOID;    
