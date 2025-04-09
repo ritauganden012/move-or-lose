@@ -13,16 +13,8 @@
   let selectedLayerB = 'r_mhi';
 
   let hoveredData = null;
-  let layerData = null;
-  let tooltipX = 0;
-  let tooltipY = 0;
-
   hoveredDataStore.subscribe(val => hoveredData = val);
-  layerDataStore.subscribe(val => layerData = val);
-  tooltipPositionStore.subscribe(pos => {
-    tooltipX = pos.x;
-    tooltipY = pos.y;
-  });
+
 
   onMount(async () => {
     geoData = await d3.json('data_csv/census_tracts_boston_projected.geojson');
@@ -105,11 +97,7 @@
       </div>
   {/if}
 
-  {#if hoveredData}
-    <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
-      <Tooltip data={hoveredData} layer={layerData} />
-    </div>
-  {/if}
+
 </div>
 
 <style>
@@ -216,22 +204,6 @@
     flex: 1;
     border: none;
     background-color: #fefefe;
-  }
-
-  .floating-tooltip {
-    position: fixed;
-    background: white;
-    border: 2px solid #AD7F65;
-    border-radius: 1rem;
-    padding: 0.75rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    font-size: 0.85rem;
-    z-index: 100;
-    pointer-events: none;
-    max-width: 360px;
-    min-width: 280px;
-    max-height: 90vh;
-    overflow-y: auto;
   }
 
   .side-panel-fixed {

@@ -20,6 +20,14 @@
   let tooltipX = 0;
   let tooltipY = 0;
   let currentGEOID = null;
+  let layerData = null;
+
+  hoveredDataStore.subscribe(val => hoveredData = val);
+  layerDataStore.subscribe(val => layerData = val);
+  tooltipPositionStore.subscribe(pos => {
+    tooltipX = pos.x;
+    tooltipY = pos.y;
+  });
 
   let joinedFeatures = [];
   let neighborhoodMap = new Map();
@@ -189,6 +197,12 @@
 <!--The component for legend-->
 
     <Legend {selectedLayer} {colorScale} />
+
+    {#if hoveredData}
+      <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
+        <Tooltip data={hoveredData} layer={layerData} />
+      </div>
+    {/if}
   <!-- </div> -->
 
     <!-- {#if hoveredData}
@@ -249,6 +263,22 @@
     stroke-width: 1.2;
     filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
     transition: stroke 0.2s ease;
+  }
+
+  .floating-tooltip {
+    position: fixed;
+    background: white;
+    border: 2px solid #AD7F65;
+    border-radius: 1rem;
+    padding: 0.75rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    font-size: 0.85rem;
+    z-index: 100;
+    pointer-events: none;
+    max-width: 360px;
+    min-width: 280px;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .missing-data {
