@@ -8,10 +8,22 @@
   const renter = data?.r_mhi ?? 0;
   const median = data?.mhi ?? 0;
   const owner = data?.o_mhi ?? 0;
+  const barColors = ['#984835', '#d9c7bd', '#d9c7bd'];
+  const raceKeys = [
+    { key: 'black_rate', label: 'Black', color: '#8C6BB1' },
+    { key: 'hispanic_rate', label: 'Latinx', color: '#D95F02' },
+    { key: 'asian_rate', label: 'Asian', color: '#1B9E77' },
+    { key: 'white_rate', label: 'White', color: '#7B9E89' },
+    { key: 'othr_race_rate', label: 'Other', color: '#999' }
+  ];
+  const races = ['white_rate', 'black_rate', 'hispanic_rate', 'asian_rate', 'othr_race_rate'];
 
   const years = [2020, 2021, 2022, 2023];
   const barValues = [renter, owner, median];
   const maxBarValue = Math.max(...barValues, 1); // avoid div by 0
+
+  $: raceValues = races.map((key) => data?.[key] ?? 0);
+  $: maxRace = Math.max(...raceValues, 0.01);
 
   $: barHeights = barValues.map(v => (v / maxBarValue) * 80);
 
@@ -42,7 +54,8 @@
 <div class="tooltip-container">
   <div class="tooltip-title">
     <strong>{data.neighborhood ?? 'Unnamed Neighborhood'}</strong>
-    <span class="tract-id"> (tract: {data.GEOID})</span>
+    <span class="tract-id"> (tract: {data.GEOID})</span> <br>
+    <span class="tract-pop">Population: {data.pop}</span>
   </div>
 
   {#if layer === 'eviction_rate'}
@@ -102,43 +115,67 @@
   </div>
 
   {:else if layer === 'non_white_rate'}
-    <div><strong>Racial Makeup</strong></div>
-    <svg viewBox="0 0 160 70" preserveAspectRatio="xMidYMid meet">
-      {#each ['white_rate', 'black_rate', 'hispanic_rate', 'asian_rate', 'othr_race_rate'] as race, i}
-        <rect
-          x={i * 30}
-          y={60 - (data[race] || 0) * 60}
-          width="20"
-          height={(data[race] || 0) * 60}
-          fill="#425206"
-        />
+    <div class="tooltip-section-heading"><strong>Racial Makeup</strong></div>
+    <svg viewBox="0 0 180 120" preserveAspectRatio="xMidYMid meet" class="tooltip-bar-chart">
+      <!-- Baseline -->
+      <line x1="0" y1="100" x2="180" y2="100" stroke="#ccc" stroke-width="1" />
+    
+      {#each raceKeys as race, i}
+        {#if data[race.key] != null}
+          <!-- Bar -->
+          <rect
+            x={i * 34 + 4}
+            y={100 - data[race.key] / maxRace * 80}
+            width="26"
+            height={data[race.key] / maxRace * 80}
+            fill={race.color}
+            rx="3"
+          />
+    
+          <!-- Value -->
+          <text
+            x={i * 34 + 17}
+            y={100 - data[race.key] / maxRace * 80 - 6}
+            text-anchor="middle"
+            font-size="11"
+            fill={race.color}
+            font-weight="600"
+          >
+            {(data[race.key]).toFixed(1)}%
+          </text>
+    
+          <!-- Label -->
+          <text
+            x={i * 34 + 17}
+            y="115"
+            text-anchor="middle"
+            font-size="11"
+            fill="#333"
+            font-weight="600"
+          >
+            {race.label}
+          </text>
+        {/if}
       {/each}
     </svg>
+    <p style="font-size: 0.85rem;">
+      <strong>{data.non_white_rate.toFixed(1)}%</strong> non-white
+    </p>
 
   {:else if layer === 'r_mhi'}
-  <div class="tooltip-section-heading"><strong>Median Incomes</strong></div>
+  <div class="tooltip-section-heading"><strong>Median Household Incomes</strong></div>
   <svg viewBox="0 0 200 120" class="tooltip-bar-chart" preserveAspectRatio="xMidYMid meet">
     <!-- Axes line -->
     <line x1="0" y1="100" x2="200" y2="100" stroke="#ccc" stroke-width="1" />
 
     {#each ['Renters', 'Owners', 'All'] as label, i}
-      <!-- Background bar for spacing -->
-      <!-- <rect
-        x={i * 65}
-        y="15"
-        width="40"
-        height="40"
-        fill="#f2f2f2"
-        rx="4"
-      /> -->
-      
       <!-- Actual income bar -->
       <rect
         x={i * 65 + 4}
         y={100 - (barHeights[i] ?? 0)}
         width="40"
         height={barHeights[i] ?? 0}
-        fill="#984835"
+        fill={barColors[i]}
         rx="3"
       />
 
@@ -162,7 +199,7 @@
         y={100 - h - 4}
         text-anchor="middle"
         font-size=13
-        fill="#984835"
+        fill={barColors[i]}
         font-weight=600
       >
         ${barValues[i]}
@@ -224,6 +261,13 @@
   .tract-id {
     font-size: 0.8rem;
     font-weight: 300;
+    color: #777;
+  }
+
+  .tract-pop {
+    font-size: 0.8rem;
+    font-weight: 600;
+    /* font-weight: 300; */
     color: #777;
   }
 
