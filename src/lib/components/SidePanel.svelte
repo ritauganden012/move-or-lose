@@ -53,7 +53,7 @@
 
   function isHigherBetter(metricName) {
     // Define which metrics are "higher is better" vs "lower is better"
-    const higherIsBetter = ['r_mhi']; // e.g., income
+    const higherIsBetter = ['eviction_rate', 'corp_own_rate', 'non_white_rate']; // e.g., income
     return higherIsBetter.includes(metricName);
   }
 
@@ -78,7 +78,6 @@
         <h4>{metric_names[metric]}: {clickedData[metric] != null ? (clickedData[metric] * multiply_data).toFixed(2) : 'N/A'}</h4>
         <!-- <p><strong>Rank</strong>: {clickedData["rank_" + metric]} of 167</p> -->
         <p>
-          Rank {clickedData["rank_" + metric]} / 167 → 
           {clickedData["rank_" + metric]}
           {getOrdinal(clickedData["rank_" + metric])}
           {isHigherBetter(metric) ? ' highest' : ' lowest'} among 167 census tracts
