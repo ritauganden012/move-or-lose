@@ -45,6 +45,19 @@
     return ('corp_own_rate' === metricName) ? 100 : 1;
   }
 
+  function getOrdinal(n) {
+  const s = ["th", "st", "nd", "rd"],
+        v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+  }
+
+  function isHigherBetter(metricName) {
+    // Define which metrics are "higher is better" vs "lower is better"
+    const higherIsBetter = ['r_mhi']; // e.g., income
+    return higherIsBetter.includes(metricName);
+  }
+
+
 
 </script>
 
@@ -63,7 +76,14 @@
         {@const multiply_data = getMultiplyFactor(metric)}
         <div class="mini-chart">
         <h4>{metric_names[metric]}: {clickedData[metric] != null ? (clickedData[metric] * multiply_data).toFixed(2) : 'N/A'}</h4>
-        <p><strong>Rank</strong>: {clickedData["rank_" + metric]} of 167</p>
+        <!-- <p><strong>Rank</strong>: {clickedData["rank_" + metric]} of 167</p> -->
+        <p>
+          Rank {clickedData["rank_" + metric]} / 167 → 
+          {clickedData["rank_" + metric]}
+          {getOrdinal(clickedData["rank_" + metric])}
+          {isHigherBetter(metric) ? ' highest' : ' lowest'} among 167 census tracts
+        </p>
+      
         <!-- {@debug hovered, metric} -->
         <svg viewBox="0 0 1670 250" preserveAspectRatio="none"> 
           <!-- 1670 data rows in our dataset -->
