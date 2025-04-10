@@ -2,12 +2,15 @@
   import { onMount } from 'svelte';
   import Tooltip from './Tooltip.svelte';
   import * as d3 from 'd3';
-  import { layerDataStore, hoveredDataStore, tooltipPositionStore, currentGEOIDStore } from './stores.js';
-    import Legend from './Legend.svelte';
+
+  import { layerDataStore, hoveredDataStore, tooltipPositionStore, currentGEOIDStore, clickedDataStore } from './stores.js';
+  import Legend from './Legend.svelte';
+
 
   export let geoData;
   export let data;
   export let selectedLayer;
+  export let clickedData;
   export let colorScale = d3.scaleSequential().interpolator(d3.interpolateOranges);
 
   let svg;
@@ -68,16 +71,10 @@
 
     path = d3.geoPath().projection(projection);
 
-      const values = bostonFeatures.map(f => f.properties.value);
-      const [min, max] = d3.extent(values);
-        if (selectedLayer === 'r_mhi') {
-          colorScale.domain([60000, 12000]); // Invert for income
-        } else if (selectedLayer === 'eviction_rate') {
-          colorScale.domain([0.0, 10.0]);
-        } else {
-          colorScale.domain([min, max]);
-        }
-    }
+    const values = bostonFeatures.map(f => f.properties.value);
+    const [min, max] = d3.extent(values);
+    colorScale.domain([min, max]);
+  }
 
   $: if (joinedFeatures.length > 0) {
     const groups = d3.group(joinedFeatures, d => d.properties.neighborhood);
@@ -108,13 +105,12 @@
       .stop()
       .tick(100); // Run 100 iterations immediately
 
-      // Store boundary groups
-      neighborhoodBoundaries = Array.from(groups, ([neighborhood, features]) => ({
-        neighborhood,
-        features
-      }));
-    }
-  </script>
+    neighborhoodBoundaries = Array.from(groups, ([neighborhood, features]) => ({
+      neighborhood,
+      features
+    }));
+  }
+</script>
 
 
 
@@ -171,6 +167,16 @@
                 currentGEOIDStore.set(null);
               }
             }}
+            on:click={() => {
+              const clickedDatum = data.find(d => String(d.GEOID) === String(feature.properties.GEOID10));
+              clickedDataStore.set({
+                ...clickedDatum,
+                neighborhood: neighborhoodMap.get(String(feature.properties.GEOID10)) || 'Unknown'
+              });
+              console.log("Clicked data:", clickedDatum);
+            }}
+            
+
           />
         {/each}
 
