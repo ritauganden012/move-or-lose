@@ -125,7 +125,7 @@
     align-items: stretch;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 0.5rem 2rem 2rem 2rem; /* top, right, bottom, left */
+    padding: 0.5rem 2rem 3rem 2rem; /* top, right, bottom, left */
     width: 75vw;
     max-width: 100%;
     height: auto;
@@ -174,7 +174,7 @@
 
   .banner {
     position: absolute;
-    bottom: 5%;
+    bottom: 2.5rem;
     right: 2.5%;
     max-width: 18%;
     background-color: #4F1F05;
@@ -186,6 +186,7 @@
     z-index: 1000;
     border: #4F1F05 2px solid;
     border-radius: 0.5rem;
+    pointer-events: none;
   }
 
   .eviction-text{
