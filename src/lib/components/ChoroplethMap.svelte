@@ -73,7 +73,14 @@
 
     const values = bostonFeatures.map(f => f.properties.value);
     const [min, max] = d3.extent(values);
-    colorScale.domain([min, max]);
+    if (selectedLayer === 'r_mhi') {
+      colorScale.domain([60000, 12000]); // Invert for income
+    } else if (selectedLayer === 'eviction_rate') {
+      colorScale.domain([0.0, 10.0]);
+    } else {
+      colorScale.domain([min, max]);
+    }
+    // colorScale.domain([min, max]);
   }
 
   $: if (joinedFeatures.length > 0) {
