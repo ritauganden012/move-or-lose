@@ -108,17 +108,18 @@
       {/if}
     </div>
     <div class="side-panel-container">
-    
-      {#if clickedData && currentSelected}
-         
-      {/if}
       {#if clickedData && !currentSelected}
         <SidePanel data={evictData} />
-
-        
-
+      {:else}
+        <div class="side-panel-placeholder">
+          <h3>Want to know more about a particular census tract?</h3>
+          <p>
+            Click on any census tract on the map to explore more detailed metrics about
+            evictions, renter income, ownership, and race. This side panel will show these information!
+          </p>
+        </div>
       {/if}
-  </div>
+    </div>
   </div>
 <!-- 
   {#if hoveredData}
@@ -260,9 +261,23 @@
     border-radius: 0.5rem;
   }
 
+  .side-panel-placeholder {
+    padding: 2rem;
+    font-size: 1rem; /* increase font size */
+    color: #4F1F05;
+    line-height: 1.5;
+  }
 
+.side-panel-placeholder h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #2A5881;
+  }
 
-
+.side-panel-placeholder p {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+  }
 
   @media (max-width: 768px) {
     .maps-container {
