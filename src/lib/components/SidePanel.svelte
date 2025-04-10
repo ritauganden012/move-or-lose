@@ -53,8 +53,10 @@
 {#if clickedData && clickedData.GEOID}
   <!-- <div class="side-panel"> -->
     <!-- <h2>{hovered.neighborhood}</h2> -->
-    <h2>{clickedData.neighborhood ?? 'Unnamed Neighborhood'}</h2>
-    <h4><strong>Tract:</strong> {clickedData.GEOID}</h4>
+    <h2>{clickedData.neighborhood ?? 'Unnamed Neighborhood'} 
+      <span class="tract-id">(Tract {clickedData.GEOID})</span>
+    </h2>
+    <!-- <h4><strong>Tract:</strong> {clickedData.GEOID}</h4> -->
     <p class="eviction-text">
       <span class="number">{clickedData['2023_eviction']}</span> of <span class="number">{clickedData["hh"]}</span> households had eviction filings in 2023!</p>
     {#each metrics as metric}
@@ -103,7 +105,7 @@
     align-items: stretch;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 2rem 2rem 2rem 2rem; /* top, right, bottom, left */
+    padding: 0.5rem 2rem 2rem 2rem; /* top, right, bottom, left */
     width: 75vw;
     max-width: 100%;
     height: auto;
@@ -118,23 +120,25 @@
   }
 
   .side-panel h2 {
-    margin-top: 0;
-    font-size: 2rem;
+    margin-top: 0.2;
+    padding-top: 0;
+    font-size: 1.5rem;
     color: #4F1F05;
     word-break: break-word;
   }
 
   .side-panel p {
-    margin: 0.5rem 0;
+    margin: 0.25rem 0;
   }
 
   .mini-chart {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .mini-chart h4 {
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
     color: #333;
   }
 
@@ -165,7 +169,9 @@
   }
 
   .eviction-text{
-    font-size: 1rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem 0;
     color: #333;
     font-weight: 500;
   }
@@ -174,6 +180,13 @@
     font-size: 1.2rem;
     font-weight: bolder;
     color: #4F1F05;
+  }
+
+  .tract-id {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: #555; /* optional: make it a bit lighter */
   }
 
 </style>

@@ -246,7 +246,7 @@
     align-items: stretch;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 2rem 2rem 2rem 2rem; /* top, right, bottom, left */
+    padding: 1rem 2rem 2rem 2rem; /* top, right, bottom, left */
     width: 20%;
     height: auto;
     z-index: 1000;
