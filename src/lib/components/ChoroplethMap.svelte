@@ -2,8 +2,10 @@
   import { onMount } from 'svelte';
   import Tooltip from './Tooltip.svelte';
   import * as d3 from 'd3';
+
+  import { layerDataStore, hoveredDataStore, tooltipPositionStore, currentGEOIDStore, clickedDataStore } from './stores.js';
   import Legend from './Legend.svelte';
-  import { layerDataStore, clickedDataStore, hoveredDataStore, tooltipPositionStore } from './stores.js';
+
 
   export let geoData;
   export let data;
@@ -21,6 +23,14 @@
   let tooltipX = 0;
   let tooltipY = 0;
   let currentGEOID = null;
+  let layerData = null;
+
+  hoveredDataStore.subscribe(val => hoveredData = val);
+  layerDataStore.subscribe(val => layerData = val);
+  tooltipPositionStore.subscribe(pos => {
+    tooltipX = pos.x;
+    tooltipY = pos.y;
+  });
 
   let joinedFeatures = [];
   let neighborhoodMap = new Map();
@@ -31,6 +41,8 @@
     const neighborhoodData = await d3.csv('data_csv/evict_neighborhoods.csv');
     neighborhoodMap = new Map(neighborhoodData.map(d => [d.GEOID, d.neighborhood]));
   });
+
+  $: $currentGEOIDStore;
 
   $: if (geoData && data && selectedLayer && neighborhoodMap.size > 0) {
     const dataMap = new Map(data.map(d => [String(d.GEOID), d]));
@@ -113,33 +125,47 @@
       >
         {#each joinedFeatures as feature}
           <path
+            role="tooltip"
             d={path(feature)}
             fill={feature.properties.value != null ? colorScale(feature.properties.value) : '#eee'}
             stroke="#fff"
             stroke-width="0.5"
             class={feature.properties.value == null ? 'missing-data' : ''}
+            class:highlighted={$currentGEOIDStore === feature.properties.GEOID10}
+            class:dimmed={$currentGEOIDStore && $currentGEOIDStore !== feature.properties.GEOID10}
             on:mouseenter={(e) => {
               const newGEOID = String(feature.properties.GEOID10);
-              if (newGEOID !== currentGEOID) {
-                // console.log("hovered pos:", e.clientX, e.clientY);
-                // const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
-                const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
-                const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
-                
-                hoveredDataStore.set({
-                  ...hoveredDatum,
-                    neighborhood
-                });
+              const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
 
-                // hoveredDataStore.set(hovered);
-                layerDataStore.set(selectedLayer);
-                tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
-                currentGEOID = newGEOID;    
+              // only do the following if neighborhood is known
+              if (neighborhood !== "Unknown") {
+                if (newGEOID !== currentGEOID) {
+                  const hoveredDatum = data.find(d => String(d.GEOID) === newGEOID);
+                  
+                  hoveredDataStore.set({
+                    ...hoveredDatum,
+                      neighborhood
+                  });
+
+                  // hoveredDataStore.set(hovered);
+                  layerDataStore.set(selectedLayer);
+                  tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
+                  currentGEOID = newGEOID;    
+                }
+
+                currentGEOIDStore.set(newGEOID);
               }
             }}
             on:mouseleave={() => {
-              hoveredDataStore.set(null);
-              currentGEOID = null;
+              const newGEOID = String(feature.properties.GEOID10);
+              const neighborhood = neighborhoodMap.get(newGEOID) || 'Unknown';
+
+              if (neighborhood !== "Unknown") {
+                hoveredDataStore.set(null);
+                currentGEOID = null;
+
+                currentGEOIDStore.set(null);
+              }
             }}
             on:click={() => {
               const clickedDatum = data.find(d => String(d.GEOID) === String(feature.properties.GEOID10));
@@ -177,16 +203,22 @@
 <!--The component for legend-->
 
     <Legend {selectedLayer} {colorScale} />
-  <!-- </div> -->
 
     {#if hoveredData}
+      <div class="floating-tooltip" style="top: {tooltipY + 20}px; left: {tooltipX + 20}px">
+        <Tooltip data={hoveredData} layer={layerData} />
+      </div>
+    {/if}
+  <!-- </div> -->
+
+    <!-- {#if hoveredData}
       <div
         class="exploding-tooltip floating"
         style="top: {tooltipY + 10}px; left: {tooltipX + 10}px;"
       >
         <Tooltip data={hoveredData} layer={selectedLayer} />
       </div>
-    {/if}
+    {/if} -->
   <!-- </div>
 </div> -->
 
@@ -224,8 +256,41 @@
   }
 
 
+  /* for highlighting hovered/selected tracts */
+  path.dimmed {
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* optional: prevent hover conflict */
+  }
 
+  path.highlighted {
+    opacity: 1;
+    stroke: #222;
+    stroke-width: 1.2;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+    transition: stroke 0.2s ease;
+  }
 
+  .floating-tooltip {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.96); /* subtle transparency */
+    /* border: 1.5px solid #AD7F65; */
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: #3c2a1e;
+    z-index: 100;
+    pointer-events: none;
+
+    max-width: 360px;
+    min-width: 280px;
+    max-height: 85vh;
+    overflow-y: auto;
+
+    backdrop-filter: blur(5px);
+  }
 
   .missing-data {
     stroke: #999;
