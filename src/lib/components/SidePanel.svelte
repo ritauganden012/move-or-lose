@@ -97,7 +97,6 @@
               width={d.GEOID === clickedData.GEOID ? 10 : 5}
               height={(metricScales[metric](d[metric]) || 0)}
               fill={d.GEOID === clickedData.GEOID ? '#984835' : '#ccc'}
-
             />
           {/each}
 
