@@ -45,6 +45,19 @@
     return ('corp_own_rate' === metricName) ? 100 : 1;
   }
 
+  function getOrdinal(n) {
+  const s = ["th", "st", "nd", "rd"],
+        v = n % 100;
+  return s[(v - 20) % 10] || s[v] || s[0];
+  }
+
+  function isHigherBetter(metricName) {
+    // Define which metrics are "higher is better" vs "lower is better"
+    const higherIsBetter = ['eviction_rate', 'corp_own_rate', 'non_white_rate']; // e.g., income
+    return higherIsBetter.includes(metricName);
+  }
+
+
 
 </script>
 
@@ -53,15 +66,23 @@
 {#if clickedData && clickedData.GEOID}
   <!-- <div class="side-panel"> -->
     <!-- <h2>{hovered.neighborhood}</h2> -->
-    <h2>{clickedData.neighborhood ?? 'Unnamed Neighborhood'}</h2>
-    <h4><strong>Tract:</strong> {clickedData.GEOID}</h4>
+    <h2>{clickedData.neighborhood ?? 'Unnamed Neighborhood'} 
+      <span class="tract-id">(Tract {clickedData.GEOID})</span>
+    </h2>
+    <!-- <h4><strong>Tract:</strong> {clickedData.GEOID}</h4> -->
     <p class="eviction-text">
       <span class="number">{clickedData['2023_eviction']}</span> of <span class="number">{clickedData["hh"]}</span> households had eviction filings in 2023!</p>
     {#each metrics as metric}
         {@const multiply_data = getMultiplyFactor(metric)}
         <div class="mini-chart">
         <h4>{metric_names[metric]}: {clickedData[metric] != null ? (clickedData[metric] * multiply_data).toFixed(2) : 'N/A'}</h4>
-        <p><strong>Rank</strong>: {clickedData["rank_" + metric]} of 167</p>
+        <!-- <p><strong>Rank</strong>: {clickedData["rank_" + metric]} of 167</p> -->
+        <p>
+          {clickedData["rank_" + metric]}
+          {getOrdinal(clickedData["rank_" + metric])}
+          {isHigherBetter(metric) ? ' highest' : ' lowest'} among 167 census tracts
+        </p>
+      
         <!-- {@debug hovered, metric} -->
         <svg viewBox="0 0 1670 250" preserveAspectRatio="none"> 
           <!-- 1670 data rows in our dataset -->
@@ -75,7 +96,6 @@
               width={d.GEOID === clickedData.GEOID ? 10 : 5}
               height={(metricScales[metric](d[metric]) || 0)}
               fill={d.GEOID === clickedData.GEOID ? '#984835' : '#ccc'}
-
             />
           {/each}
 
@@ -103,7 +123,7 @@
     align-items: stretch;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 2rem 2rem 2rem 2rem; /* top, right, bottom, left */
+    padding: 0.5rem 2rem 3rem 2rem; /* top, right, bottom, left */
     width: 75vw;
     max-width: 100%;
     height: auto;
@@ -118,23 +138,25 @@
   }
 
   .side-panel h2 {
-    margin-top: 0;
-    font-size: 2rem;
+    margin-top: 0.2;
+    padding-top: 0;
+    font-size: 1.5rem;
     color: #4F1F05;
     word-break: break-word;
   }
 
   .side-panel p {
-    margin: 0.5rem 0;
+    margin: 0.25rem 0;
   }
 
   .mini-chart {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 
   .mini-chart h4 {
-    margin-bottom: 0.5rem;
-    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
     color: #333;
   }
 
@@ -150,7 +172,7 @@
 
   .banner {
     position: absolute;
-    bottom: 5%;
+    bottom: 2.5rem;
     right: 2.5%;
     max-width: 18%;
     background-color: #4F1F05;
@@ -162,10 +184,13 @@
     z-index: 1000;
     border: #4F1F05 2px solid;
     border-radius: 0.5rem;
+    pointer-events: none;
   }
 
   .eviction-text{
-    font-size: 1rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    font-size: 2rem 0;
     color: #333;
     font-weight: 500;
   }
@@ -174,6 +199,13 @@
     font-size: 1.2rem;
     font-weight: bolder;
     color: #4F1F05;
+  }
+
+  .tract-id {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: #555; /* optional: make it a bit lighter */
   }
 
 </style>
