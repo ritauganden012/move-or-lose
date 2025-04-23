@@ -57,7 +57,7 @@
         <label>Map B:</label>
         <button on:click={() => selectedLayerB = 'r_mhi'} class:selected={selectedLayerB === 'r_mhi'} class="toggle-button">Renter Income</button>
         <button on:click={() => selectedLayerB = 'non_white_rate'} class:selected={selectedLayerB === 'non_white_rate'} class="toggle-button">Demographics</button>
-        <button on:click={() => selectedLayerB = 'corp_own_rate'} class:selected={selectedLayerB === 'corp_own_rate'} class="toggle-button">Ownership</button>
+        <button on:click={() => selectedLayerB = 'corp_own_rate'} class:selected={selectedLayerB === 'corp_own_rate'} class="toggle-button">Corporate Ownership</button>
       </div>
       {#if geoData && evictData.length > 0}
         <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
