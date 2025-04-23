@@ -325,25 +325,6 @@
       opacity: 0.4;
   }
 
-  .exploding-tooltip {
-    position: absolute;
-    background: white;
-    border: 2px solid #AD7F65;
-    border-radius: 1rem;
-    padding: 0.75rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    font-size: 0.85rem;
-    z-index: 100;
-    pointer-events: none;
-  }
 
-  .exploding-tooltip textarea {
-    width: 100%;
-    margin-top: 0.5rem;
-    border-radius: 0.5rem;
-    padding: 0.4rem;
-    font-size: 0.85rem;
-    border: 1px solid #ccc;
-    resize: vertical;
-  }
+
 </style>

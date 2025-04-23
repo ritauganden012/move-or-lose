@@ -57,7 +57,7 @@
 </script>
 
 <div class="page-layout">
-  <div class="header">Move-or-Lose: Evictions in Boston – Income, Corporate Ownership, & Race Compared</div>
+  <!-- <div class="header">Move-or-Lose: Evictions in Boston – Income, Corporate Ownership, & Race Compared</div> -->
   <div class="all-container">
     <div class="map-panel">
       <div class="panel-title">
@@ -131,13 +131,28 @@
 </div>
 
 <style>
-  .page-layout {
-    position: relative;
-    padding: 2rem;
-    background-color: #EAE7DC;
-    font-family: 'Source Sans 3', sans-serif;
-    color: #4F1F05;
-  }
+ .page-layout {
+  position: relative;
+  padding: 2rem;
+  /* background-color: #EAE7DC; */
+  font-family: 'Source Sans 3', sans-serif;
+  color: #4F1F05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.all-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;  /* 👈 LIMIT WIDTH */
+  margin: 0 auto;      /* 👈 CENTER THE CONTENT */
+  padding: 0 1rem;     /* 👈 Optional side padding on large screens */
+}
+
 
   .header {
     font-family: 'Montserrat', sans-serif;
@@ -154,25 +169,25 @@
     width: 100%;
   }
 
-  .all-container {
+  /* .all-container {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
     gap: 2rem;
     width: 100vw;
     /* width: calc(100% - 320px); */
-    max-width: 100%;
+    /* max-width: 100%; */
 
-  }
+  /* } */
 
   .map-panel {
     flex: 1;
     width: 40%;
-    height: 750px;
-    background: white;
-    border-radius: 0.5rem;
+    height: 650px;
+    background: linear-gradient(to bottom, #EAE7DC, #fdfcf9);
+    border-radius: 0.15rem;
     padding: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
     display: flex;
     flex-direction: column;
   }
