@@ -65,6 +65,7 @@
     Move-or-Lose: Evictions in Boston – Income, Corporate Ownership, & Race
     Compared
   </div>
+
   <div class="all-container">
     <div class="map-panel">
       <div class="panel-title">
@@ -184,6 +185,7 @@
     color: #4f1f05;
   }
 
+
   .header {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
@@ -199,15 +201,16 @@
     width: 100%;
   }
 
-  .all-container {
+  /* .all-container {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
     gap: 2rem;
     width: 100vw;
     /* width: calc(100% - 320px); */
-    max-width: 100%;
-  }
+/*     max-width: 100%;
+  } */
+
 
   .map-panel {
     flex: 1;
