@@ -37,46 +37,49 @@
     <h2 class="comparison-title">
         Comparing: {getLayerLabel(selectedLayerA)} vs
         <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span>
-      </h2>
+    </h2>
 
 
-  <div class="map-dual">
-    <div class="map-side">
-      <div class="control-group align-right">
-        <label>Map A:</label>
-        <button class="toggle-button selected">Evictions</button>
-      </div>
-      {#if geoData && evictData.length > 0}
-        <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerA} />
-      {:else}
-        <p>Loading Map A...</p>
-      {/if}
+    <div class="map-panel-wrapper">
+        <div class="map-dual">
+          <!-- Maps A and B -->
+          <div class="map-side">
+            <div class="control-group align-right">
+              <label>Map A:</label>
+              <button class="toggle-button selected">Evictions</button>
+            </div>
+            {#if geoData && evictData.length > 0}
+              <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerA} />
+            {:else}
+              <p>Loading Map A...</p>
+            {/if}
+          </div>
+          <div class="map-side">
+            <div class="control-group align-right">
+              <label>Map B:</label>
+              <button on:click={() => selectedLayerB = 'r_mhi'} class:selected={selectedLayerB === 'r_mhi'} class="toggle-button">Renter Income</button>
+              <button on:click={() => selectedLayerB = 'non_white_rate'} class:selected={selectedLayerB === 'non_white_rate'} class="toggle-button">Demographics</button>
+              <button on:click={() => selectedLayerB = 'corp_own_rate'} class:selected={selectedLayerB === 'corp_own_rate'} class="toggle-button">Ownership</button>
+            </div>
+            {#if geoData && evictData.length > 0}
+              <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
+            {:else}
+              <p>Loading Map B...</p>
+            {/if}
+          </div>
+        </div>
+
+        <div class="side-panel-container">
+          {#if clickedData && !currentSelected}
+            <SidePanel data={evictData} />
+          {:else}
+            <div class="side-panel-placeholder">
+              <h3>Want to know more about a particular census tract?</h3>
+              <p>Click on any census tract to explore eviction, income, ownership, and demographic metrics.</p>
+            </div>
+          {/if}
+        </div>
     </div>
-    <div class="map-side">
-      <div class="control-group align-right">
-        <label>Map B:</label>
-        <button on:click={() => selectedLayerB = 'r_mhi'} class:selected={selectedLayerB === 'r_mhi'} class="toggle-button">Renter Income</button>
-        <button on:click={() => selectedLayerB = 'non_white_rate'} class:selected={selectedLayerB === 'non_white_rate'} class="toggle-button">Demographics</button>
-        <button on:click={() => selectedLayerB = 'corp_own_rate'} class:selected={selectedLayerB === 'corp_own_rate'} class="toggle-button">Corporate Ownership</button>
-      </div>
-      {#if geoData && evictData.length > 0}
-        <ChoroplethMap geoData={geoData} data={evictData} selectedLayer={selectedLayerB} />
-      {:else}
-        <p>Loading Map B...</p>
-      {/if}
-    </div>
-  </div>
-
-  <div class="side-panel-container">
-    {#if clickedData && !currentSelected}
-      <SidePanel data={evictData} />
-    {:else}
-      <div class="side-panel-placeholder">
-        <h3>Want to know more about a particular census tract?</h3>
-        <p>Click on any census tract to explore eviction, income, ownership, and demographic metrics.</p>
-      </div>
-    {/if}
-  </div>
 </div>
 
 <style>
@@ -128,19 +131,32 @@
     cursor: pointer;
     transition: background-color 0.2s;
   }
-  .toggle-button:hover {
-    background-color: #E0E6AF;
-  }
-  .toggle-button.selected {
-    background-color: #E0E6AF;
-  }
-.map-dual {
-  display: flex;
-  flex: 1;
-  gap: 1rem;
-  border-radius: 1rem;
-  overflow: hidden;
-}
+    .toggle-button:hover {
+        background-color: #E0E6AF;
+    }
+    .toggle-button.selected {
+        background-color: #E0E6AF;
+    }
+    .map-panel-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    }
+
+    .map-dual {
+    flex: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    }
+
+    .side-panel-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    }
+
   .map-side {
     flex: 1;
     background: white;
@@ -149,24 +165,16 @@
     display: flex;
     flex-direction: column;
   }
-  .side-panel-container {
-    margin-top: 2rem;
-    padding: 1rem;
-    background: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
+
   .side-panel-placeholder {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #4F1F05;
   }
-  .side-panel-placeholder h3 {
-    font-size: 1.5rem;
-    color: #2A5881;
-  }
-  .map-panel-wrapper {
-  display: flex;
-  gap: 1rem;
+
+.side-panel-placeholder h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #2A5881;
 }
 
 </style>
