@@ -5,16 +5,23 @@
   <!-- nav bar -->
   <nav class="top-nav">
     <div class="nav-left">
-      <a href="/">Explore</a>
-      <a href="/data">Policy Recommendation </a>
-      <a href="/about">About Us</a>
+      <a href="#explore">Explore</a>
+      <a href="#case-studies">Case Studies</a>
+      <a href="#policy">Policy Recommendation</a>
+      <a href="#about">About Us</a>
+
     </div>
   </nav>
 
   <slot /> <!-- All route content will render here -->
 
   <style>
+  :global(html) {
+  scroll-behavior: smooth;
+  }
   .top-nav {
+    /* position: sticky; */
+    top: 0;
     display: flex;
     align-items: center;
     padding: 1rem 1rem;
