@@ -65,7 +65,7 @@
         </ul>
       </div>
 
-      <img src="src/images/casestudies/Mattapan-trolley-64f0958fce398-768x432.jpeg" alt="Mattapan-trolley" class="case-image" />
+      <img src="Images/Mattapan-trolley-64f0958fce398-768x432.jpeg" alt="Mattapan-trolley" class="case-image" />
 
       <button class="toggle-btn" on:click={() => showMattapan = !showMattapan}>
         {showMattapan ? 'Hide details' : 'Show details'}
@@ -106,7 +106,7 @@
         </ul>
       </div>
 
-      <img src="src/images/casestudies/1018_Faces-Of-Dudley-MuralA-1000x665.jpg" alt="Faces-Of-Dudley-Mural" class="case-image" />
+      <img src="Images/1018_Faces-Of-Dudley-MuralA-1000x665.jpg" alt="Faces-Of-Dudley-Mural" class="case-image" />
 
       <button class="toggle-btn" on:click={() => showRoxbury = !showRoxbury}>
         {showRoxbury ? 'Hide details' : 'Show details'}
@@ -166,7 +166,7 @@
 
       <!-- Team Member 1 -->
       <div class="team-member">
-        <img src= "src/images/team/shih-lun.jpg" alt="Team Member 1" />
+        <img src= "Images/team/shih-lun.jpg" alt="Team Member 1" />
         <h3>Shih-Lun Wu</h3>
         <p>Some Bio.</p>
         <div class="links">
@@ -177,7 +177,7 @@
 
       <!-- Team Member 2 -->
       <div class="team-member">
-        <img src="src/images/team/rita.jpg" alt="Rita" />
+        <img src="Images/team/rita.jpg" alt="Rita" />
         <h3>Rita Uganden-Teryila.</h3>
         <p> Some Bio.</p>
         <div class="links">
@@ -188,7 +188,7 @@
 
       <!-- Team Member 3 -->
       <div class="team-member">
-        <img src="src/images/team/nithya.jpg" alt="Nithya" />
+        <img src="Images/team/nithya.jpg" alt="Nithya" />
         <h3>Nithya Shikarpur </h3>
         <p>Some Bio.</p>
         <div class="links">
@@ -199,7 +199,7 @@
 
       <!-- Team Member 4 -->
       <div class="team-member">
-        <img src="src/images/team/rowell.jpg" alt="Rowell" />
+        <img src="Images/team/rowell.jpg" alt="Rowell" />
         <h3>Rowell Castro</h3>
         <p>Some Bio.</p>
         <div class="links">
