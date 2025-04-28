@@ -69,6 +69,35 @@
         Comparing: {getLayerLabel(selectedLayerA)} vs
         <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span>
     </h2>
+    <div class="instructions">
+      <p class="instructions-title">
+        <span class="instruction-icon">✨</span>
+        <strong>How to interact with the maps </strong>
+      </p>
+      <div class="instruction-grid">
+        <div class="instruction-item">
+          <span class="instruction-step-icon">👆</span>
+          <div class="instruction-text">
+            <strong>Hover</strong>
+            <span>Move your cursor over any census tract to see quick stats</span>
+          </div>
+        </div>
+        <div class="instruction-item">
+          <span class="instruction-step-icon">🔍</span>
+          <div class="instruction-text">
+            <strong>Click</strong>
+            <span>Select a tract to explore detailed metrics in the side panel</span>
+          </div>
+        </div>
+        <div class="instruction-item">
+          <span class="instruction-step-icon">🔄</span>
+          <div class="instruction-text">
+            <strong>Compare</strong>
+            <span>Use the buttons above Map B to switch between different metrics</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
     <div class="map-panel-wrapper">
@@ -132,7 +161,7 @@
         </div>
 
         <div class="side-panel-container">
-          {#if clickedData}
+          {#if clickedData && evictData && evictData.length > 0}
             <SidePanel data={evictData} />
           {:else}
             <div class="side-panel-placeholder">
@@ -200,11 +229,70 @@
     margin: 0 auto;
   }
   .comparison-title {
-    /* font-family: 'Montserrat', sans-serif; */
-    /* font-size: 1.5rem; */
     color: #2A5881;
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .instructions {
+    background: linear-gradient(to right, #F5F9FF, #F0F7FF);
+    border: 1px solid #BFE0FF;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(42, 88, 129, 0.05);
+  }
+
+  .instructions-title {
+    margin: 0 0 1rem 0;
+    color: #2A5881;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .instruction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .instruction-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(191, 224, 255, 0.5);
+  }
+
+  .instruction-step-icon {
+    font-size: 1.1rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(42, 88, 129, 0.1);
+    border: 1px solid #E6F0FF;
+  }
+
+  .instruction-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .instruction-text strong {
+    color: #2A5881;
+    font-size: 0.95rem;
+  }
+
+  .instruction-text span {
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.4;
   }
 
   .highlighted-selection {

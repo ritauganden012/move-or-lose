@@ -26,19 +26,21 @@
   
 
   function getRanked(metric) {
-    
+    if (!data || !Array.isArray(data)) return [];
     return [...data]
-      .filter(d => d[metric] != null)
+      .filter(d => d && d[metric] != null)
       .sort((a, b) => b[metric] - a[metric]);
-      // .slice(0, 20); // Top 20
   }
 
   $: metricScales = metrics.reduce((scales, metricName) => {
     const metricData = getRanked(metricName);
+    if (metricData.length === 0) return scales;
+    
     const values = metricData.map(d => d[metricName] || 0);
+    const maxValue = Math.max(...values) || 1;
     
     scales[metricName] = scaleLinear()
-      .domain([0, Math.max(...values) || 1]) // Fallback to 1 if max is 0
+      .domain([0, maxValue])
       .range([0, 250]);
       
     return scales;
@@ -115,7 +117,7 @@
 
     <div class="banner">
       <span class="banner-icon">ℹ️</span>
-      <span class="banner-text">Click anywhere on the map to clear the panel!</span>
+      <span class="banner-text">Click anywhere outside the map to clear the panel!</span>
     </div>
   </div>
 {/if}
