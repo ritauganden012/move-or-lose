@@ -113,7 +113,10 @@
       </div>
     {/each}
 
-    <div class="banner">Click anywhere on the map to clear the pane!</div>
+    <div class="banner">
+      <span class="banner-icon">ℹ️</span>
+      <span class="banner-text">Click anywhere on the map to clear the panel!</span>
+    </div>
   </div>
 {/if}
   
@@ -122,13 +125,14 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 1rem;
+    gap: 0.5rem;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 0.5rem 2rem 3rem 2rem;
+    padding: 0.5rem 2rem 3.5rem 2rem;
     width: 75vw;
     max-width: 100%;
     height: auto;
+    position: relative;
     z-index: 1000;
     box-shadow: -4px 0 10px rgba(0,0,0,0.1);
     overflow-y: auto;
@@ -140,8 +144,8 @@
   }
 
   .side-panel-content h2 {
-    margin-top: 0.2rem;
-    padding-top: 0;
+    margin: 0;
+    padding: 0;
     font-size: 1.5rem;
     color: #4F1F05;
     font-weight: 600;
@@ -173,34 +177,49 @@
   }
 
   .banner {
-    position: absolute;
-    bottom: 2.5rem;
-    right: 2.5%;
-    max-width: 18%;
-    background-color: #4F1F05;
-    color: white;
+    font-size: 0.75rem;
+    color: #4F1F05;
     text-align: center;
-    padding: 2rem, 2rem;
-    font-weight: bold;
-    font-size: 1rem;
-    z-index: 1000;
-    border: #4F1F05 2px solid;
-    border-radius: 0.5rem;
-    pointer-events: none;
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    padding: 0.3rem 0.8rem;
+    background: #FFF5E9;
+    border: 1px solid #AD7F65;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: 1;
+    min-width: max-content;
+  }
+
+  .banner-icon {
+    font-size: 0.9rem;
+  }
+
+  .banner-text {
+    line-height: 1.2;
   }
 
   .eviction-text{
     margin-top: 0.3rem;
     margin-bottom: 0.5rem;
-    font-size: 2rem 0;
+    font-size: 1rem;
     color: #333;
     font-weight: 500;
   }
 
-  .eviction-text .number{
-    font-size: 1.2rem;
-    font-weight: bolder;
+  .eviction-text .metric-value {
+    font-size: 2rem;
+    font-weight: bold;
     color: #4F1F05;
+    margin: 0.25rem 0;
   }
 
   .tract-id {
