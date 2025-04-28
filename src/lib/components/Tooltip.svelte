@@ -8,7 +8,7 @@
   const renter = data?.r_mhi ?? 0;
   const median = data?.mhi ?? 0;
   const owner = data?.o_mhi ?? 0;
-  const barColors = ['#984835', '#d9c7bd', '#d9c7bd'];
+  const barColors = ['#2A5881', '#bcd4e6', '#bcd4e6'];
   const raceKeys = [
     { key: 'black_rate', label: 'Black', color: '#8C6BB1' },
     { key: 'hispanic_rate', label: 'Latinx', color: '#D95F02' },
