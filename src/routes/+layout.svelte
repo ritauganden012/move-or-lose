@@ -6,8 +6,8 @@
   <nav class="top-nav">
     <div class="nav-left">
       <a href="#explore">Explore</a>
-      <a href="#case-studies">Case Studies</a>
-      <a href="#policy">Policy Recommendation</a>
+      <a href="#case-studies">Neighborhood Deep Dives</a>
+      <a href="#policy">Policy Recommendations</a>
       <a href="#about">About Us</a>
 
     </div>
