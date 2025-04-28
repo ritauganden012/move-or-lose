@@ -31,7 +31,7 @@
 <section id="explore">
 <h2 id="explore">Problem Statement & City-Wide Overview</h2>
   <p> Massachusetts has a bad reputation for affordable housing <a href="https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/" target="_blank">[21]</a>. 
-    As of 2019, less than 80% of 351 municipalities in MA fell short of a benchmark of 10% of all housing constitute to affordable housing.
+    As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.
     In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, 
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
     Evictions dispropotianately target communities of colour, lower income individuals, and are fueled by corporate ownership of property 
