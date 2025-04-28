@@ -40,7 +40,7 @@
 
   clickedDataStore.subscribe(val => {
     clickedData = val;
-    currentSelected = clickedData && !currentSelected ? clickedData : null;
+    console.log('MapComparisonUnified received clickedData:', val);
   });
 
   onMount(async () => {

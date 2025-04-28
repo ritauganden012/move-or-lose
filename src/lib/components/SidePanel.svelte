@@ -4,14 +4,17 @@
   
   import { scaleLinear } from 'd3-scale';
 
-  export let data = []; // You pass this from MapComparisonView
-  console.log('Data in SidePanel:', data);
-
+  export let data = [];
   let clickedData = null;
   let metric;
   let multiply_data = false;
-  const unsubscribe = clickedDataStore.subscribe(value => clickedData = value);
-  // onDestroy(() => unsubscribe());
+  
+  clickedDataStore.subscribe(value => {
+    if (value) {
+      clickedData = value;
+      console.log('SidePanel received clickedData:', clickedData);
+    }
+  });
 
   const metrics = ['eviction_rate', 'corp_own_rate', 'r_mhi', 'non_white_rate'];
   const metric_names = {
@@ -64,8 +67,7 @@
 
 
 {#if clickedData && clickedData.GEOID}
-  <!-- <div class="side-panel"> -->
-    <!-- <h2>{hovered.neighborhood}</h2> -->
+  <div class="side-panel-content">
     <h2>{clickedData.neighborhood ?? 'Unnamed Neighborhood'} 
       <span class="tract-id">(Tract {clickedData.GEOID})</span>
     </h2>
@@ -112,18 +114,18 @@
     {/each}
 
     <div class="banner">Click anywhere on the map to clear the pane!</div>
-  <!-- </div> -->
+  </div>
 {/if}
   
 <style>
-  .side-panel {
+  .side-panel-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: stretch;
+    gap: 1rem;
     background: white;
     border-left: 2px solid #AD7F65;
-    padding: 0.5rem 2rem 3rem 2rem; /* top, right, bottom, left */
+    padding: 0.5rem 2rem 3rem 2rem;
     width: 75vw;
     max-width: 100%;
     height: auto;
@@ -137,15 +139,15 @@
     overflow-wrap: break-word;
   }
 
-  .side-panel h2 {
-    margin-top: 0.2;
+  .side-panel-content h2 {
+    margin-top: 0.2rem;
     padding-top: 0;
     font-size: 1.5rem;
     color: #4F1F05;
-    word-break: break-word;
+    font-weight: 600;
   }
 
-  .side-panel p {
+  .side-panel-content p {
     margin: 0.25rem 0;
   }
 

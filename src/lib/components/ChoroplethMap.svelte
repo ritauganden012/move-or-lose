@@ -228,17 +228,24 @@
           currentGEOIDStore.set(null);
         }
       }}
-      on:click={() => {
-        const clickedDatum = data.find(
-          (d) => String(d.GEOID) === String(feature.properties.GEOID10)
-        );
-        clickedDataStore.set({
-          ...clickedDatum,
-          neighborhood:
-            neighborhoodMap.get(String(feature.properties.GEOID10)) ||
-            "Unknown",
-        });
-        console.log("Clicked data:", clickedDatum);
+      on:click|stopPropagation={(e) => {
+        e.preventDefault();
+        const geoID = String(feature.properties.GEOID10);
+        const clickedDatum = data.find(d => String(d.GEOID) === geoID);
+        
+        if (clickedDatum) {
+          const enrichedData = {
+            ...clickedDatum,
+            neighborhood: neighborhoodMap.get(geoID) || 'Unknown',
+            GEOID10: geoID,
+            GEOID: geoID,
+            value: feature.properties.value
+          };
+          
+          console.log('Setting clicked data:', enrichedData);
+          clickedDataStore.set(enrichedData);
+          currentGEOIDStore.set(geoID);
+        }
       }}
     />
   {/each}
