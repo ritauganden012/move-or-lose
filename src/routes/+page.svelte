@@ -15,12 +15,12 @@
 <section class="hero">
   <div class="hero-content">
     <div class="text-block">
-      <h1> The Boston’s Housing Crisis Has a Pattern</h1>
+      <h1>Boston’s Housing Crisis <br> Has a Pattern</h1>
       <p>
-        Our research highlights who gets evicted  - and why.
-        Explore our interactive map to see the correlation between eviction filling and income levels, demographic and number of coperate owners.
+        Our research highlights who gets evicted - and why.
+        Explore our interactive map to see the correlation between eviction filling and income levels, demographics, and number of corporate owners.
       </p>
-      <a href="#explore" class="cta-button">Explore the Maps</a>
+      <a href="#explore-map" class="cta-button">Explore Interactive Maps</a>
     </div>
 
   </div>
@@ -31,7 +31,9 @@
 <h2 id="explore">Problem Statement</h2>
   <p> Massachusettes has a bad reputation for affordable housing <a href="https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/" target="_blank">[21]</a>. As of 2019, less than 80% of 351 municipalities in MA fell short of a benchmark of 10% of all housing constitute to affordable housing. In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings. Evictions dispropotianately target communities of colour, lower income individuals, and are fueled by corporate ownership of property <a href="https://www.homesforallmass.org/covid-evictions-report/hfamass-covid-evictions-report-short-03-22-screen-rfs.pdf" target="_blank">[22]</a>. Through this project, we study the effects of these factors on eviction filings through a data driven analysis and <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
   </p>
-  <MapComparisonUnified />
+  <div id="explore-map">
+    <MapComparisonUnified />
+  </div>
 </section>
 
 <!-- Static Visualization -->
