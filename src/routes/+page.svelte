@@ -28,28 +28,30 @@
 
 <!-- Explore Section -->
 <section id="explore">
-<h2 id="explore">Problem Statement</h2>
-  <p> Massachusettes has a bad reputation for affordable housing <a href="https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/" target="_blank">[21]</a>. As of 2019, less than 80% of 351 municipalities in MA fell short of a benchmark of 10% of all housing constitute to affordable housing. In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings. Evictions dispropotianately target communities of colour, lower income individuals, and are fueled by corporate ownership of property <a href="https://www.homesforallmass.org/covid-evictions-report/hfamass-covid-evictions-report-short-03-22-screen-rfs.pdf" target="_blank">[22]</a>. Through this project, we study the effects of these factors on eviction filings through a data driven analysis and <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
+<h2 id="explore">Problem Statement & City-Wide Overview</h2>
+  <p> Massachusettes has a bad reputation for affordable housing <a href="https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/" target="_blank">[21]</a>. 
+    As of 2019, less than 80% of 351 municipalities in MA fell short of a benchmark of 10% of all housing constitute to affordable housing.
+    In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, 
+    and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
+    Evictions dispropotianately target communities of colour, lower income individuals, and are fueled by corporate ownership of property 
+    <a href="https://www.homesforallmass.org/covid-evictions-report/hfamass-covid-evictions-report-short-03-22-screen-rfs.pdf" target="_blank">[22]</a>.
+    Through this project, we study the effects of these factors on eviction filings through a data driven analysis and 
+    <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
   </p>
-  <div id="explore-map">
-    <MapComparisonUnified />
-  </div>
-</section>
 
-<!-- Static Visualization -->
-<section id="explore">
-<h2>Data Story: The cases of Roxbury and Mattapan</h2>
-  <p>Through our analysis, we see that <b>Roxbury</b> and <b>Mattapan</b> are two neighborhoods with the highest eviction rates of 6.7% and 7.6% respectively in 2023. We try to visualize eviction filings in these neighborhoods in both the context of other Boston neighborhoods and other socio-economic factors.</p>
-
-  <h3>Eviction rates from 2020-2023</h3>
+  <h3>Eviction filing rates, 2020-2023</h3>
   <figure>
   <img src="Images/eviction_rates_20-23.png" alt="line plot of eviction rates across 2020-2023. There is a clear upward trend over the years and we see Mattapan and Roxbury consistently have a higher eviction filing rate than the overall across Boston." />
   <figcaption>Fig: Trend of eviction rate filings from 2020 - 2023. The values are plotted for Roxbury, Mattapan and for all Boston neighborhoods.</figcaption>
   </figure>
 
-  <p>A rising eviction rate trend is seen from 2020-2023. However, Roxbury and Mattapan have much higher eviction rates, and steeper trends over the past few years. In 2023 alone, eviction rates in Roxbury and Mattapan were 6.7% and 7.6% respectively whereas this was just 2.8% over all neighborhoods in Boston.</p>
+  <p>
+    A rising eviction rate trend is seen from 2020-2023. 
+    However, Roxbury and Mattapan have much higher eviction rates, and steeper trends over the past few years.
+    In 2023 alone, eviction rates in Roxbury and Mattapan were 6.7% and 7.6% respectively whereas this was just 2.8% over all neighborhoods in Boston.
+  </p>
 
-  <h3>Eviction Rates, Demographics and Median income across neighborhoods in 2023</h3>
+  <h3>Eviction filings, demographics and median income across neighborhoods</h3>
   <figure style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap;">
   <div style="flex: 1; min-width: 30%; margin: 0 10px;">
     <img src="Images/eviction_map_static.png" alt="Heatmap of eviction rates" style="width: 100%;"/>
@@ -60,11 +62,32 @@
   <div style="flex: 1; min-width: 30%; margin: 0 10px;">
     <img src="Images/mhi_static.png" alt="Heatmap of median household income" style="width: 100%;"/>
   </div>
-  <figcaption style="text-align: center; font-size: 0.9em;">Fig: Heatmaps of eviction rate filings, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
+  <figcaption style="text-align: center; font-size: 0.9em;">Fig: Heatmaps of eviction filing rates, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
 </figure>
 
-<p>Roxbury and Mattapan have the highest eviction rate filing of 6.7% and 7.6% among the Boston neighborhoods. They also have the highest percentage of non-white population with 90% and 93.89% respectively. Additionally for the average median household income, Roxbury has the 4th lowest value at $30142.46, and Mattapan has the 9th lowest value at $48915.99.</p>
+<p>
+  <!-- Roxbury and Mattapan have the highest eviction rate filing of 6.7% and 7.6% among the Boston neighborhoods. -->
+  Demographics and income are seen to correlate strongly with evictions.
+  Roxbury and Mattapan, which are experiencing the highest eviction filings,
+  also have the highest percentage of non-white population with 90% and 93.89% respectively.
+  Additionally, on median household income, Roxbury and Mattapan are also significantly below city-wide median.
+</p>
 </section>
+
+<section id="explore">
+  <div id="explore-map">
+    <MapComparisonUnified />
+  </div>
+</section>
+
+
+<!-- Static Visualization -->
+<!-- <section id="explore"> -->
+<!-- <h2>Data Story: The cases of Roxbury and Mattapan</h2>
+  <p>Through our analysis, we see that <b>Roxbury</b> and <b>Mattapan</b> are two neighborhoods with the highest eviction rates of 6.7% and 7.6% respectively in 2023. We try to visualize eviction filings in these neighborhoods in both the context of other Boston neighborhoods and other socio-economic factors.</p>
+
+
+</section> -->
 
 <!-- Case Studies Section -->
 <section id="case-studies">
@@ -324,7 +347,7 @@
   }
 
   section#explore {
-  border-top: 2px solid #BFE0FF;
+  /* border-top: 2px solid #BFE0FF; */
   background: linear-gradient(to bottom, #fafafa, #fff);
   }
 

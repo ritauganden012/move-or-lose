@@ -66,8 +66,8 @@
     currentGEOIDStore.set(null);
   }}>
     <h2 class="comparison-title">
-        Comparing: {getLayerLabel(selectedLayerA)} vs
-        <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span>
+        {getLayerLabel(selectedLayerA)} vs.
+        <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span> <span style="font-weight: 300;">at Census-Tract Level</span> 
     </h2>
     <div class="instructions">
       <p class="instructions-title">
