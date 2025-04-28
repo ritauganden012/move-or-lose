@@ -4,7 +4,8 @@
   import ChoroplethMap from './ChoroplethMap.svelte';
   import SidePanel from './SidePanel.svelte';
   import Tooltip from './Tooltip.svelte';
-  import { hoveredDataStore, clickedDataStore, tooltipPositionStore, layerDataStore } from './stores.js';
+  import { hoveredDataStore, clickedDataStore, tooltipPositionStore, layerDataStore, currentGEOIDStore } from './stores.js';
+  const defaultClickedData = null;
 
   let geoData = null;
   let evictData = [];
@@ -59,7 +60,11 @@
   }
 </script>
 
-<div class="map-comparison-wrapper">
+<div class="map-comparison-wrapper" 
+  on:click|self={() => {
+    clickedDataStore.set(null);
+    currentGEOIDStore.set(null);
+  }}>
     <h2 class="comparison-title">
         Comparing: {getLayerLabel(selectedLayerA)} vs
         <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span>
@@ -127,7 +132,7 @@
         </div>
 
         <div class="side-panel-container">
-          {#if clickedData && !currentSelected}
+          {#if clickedData}
             <SidePanel data={evictData} />
           {:else}
             <div class="side-panel-placeholder">
@@ -240,10 +245,15 @@
         background-color: #E0E6AF;
     }
     .map-panel-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    margin-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      pointer-events: none;
+    }
+    
+    .map-dual, .side-panel-container {
+      pointer-events: auto;
     }
 
     .map-dual {
