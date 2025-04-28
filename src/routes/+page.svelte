@@ -21,18 +21,15 @@
   </div>
 </section>
 
-<!-- <MapComparisonView /> -->
+<!-- Static Visualization -->
+<section id="explore">
+  <h2 id="explore">Problem Statement</h2>
+  <p>Some explorative static visualizations .</p>
+</section>
 
 <!-- Explore Section -->
 <section id="explore">
   <MapComparisonUnified />
-</section>
-
-
-<!-- Policy Recommendation Section -->
-<section id="policy">
-  <h2 id="policy">Policy Recommendation</h2>
-  <p>Some recommended policies .</p>
 </section>
 
 
@@ -155,6 +152,46 @@
   </div>
 </section>
 
+<!-- Policy Recommendation Section -->
+<section id="policy">
+  <h2 id="policy">Policy Recommendation</h2>
+  <p>Our interactive visualization tells the geographic disparities of evictions and key correlated factors.
+    The stories from Roxbury and Mattapan reveal more than just data, they show the human cost of Boston’s housing crisis.
+    Behind every eviction is someone forced into impossible choices.</p>
+
+    <p>We believe Boston can do better, with policies that are not only strategic, but grounded in humanitarian values.
+      Below, we outline a three-stage roadmap designed to meet both the urgency of the moment and the long-term structural nature of the crisis.</p>
+
+<h3>Short-Term (0–6 months): Dignity in Displacement</h3>
+
+<p> For those facing sudden eviction, often with little or no time to find new housing, short-term responses should prioritize dignity, hygiene, and stability.</p>
+  <ul>
+    <li>Offer vacant hotel rooms** to individuals and families suddenly displaced, supported by city incentives for participating hotels. A clean bed, a private bathroom, a place to rest and eat, these are basic needs that shouldn't require extraordinary resources to fulfill.</li>
+    <li>Leverage Boston Public Library branches** as decentralized resource hubs, where residents can access shelter applications, emergency rental aid, and information about short-term housing options without having to navigate confusing websites or government offices.</li>
+    <li>Deploy community shuttles** to connect people to available housing swiftly and safely.</li>
+  </ul>
+
+<p>By preventing people from being pushed onto the streets,
+  this approach also helps forestall a cascade of social issues, such as substance use, mental health crises,
+  and long-term homelessness, that are much harder and costlier to address later.
+  It’s a humane first step that benefits both individuals and the city as a whole.</p>
+
+<h3>Medium-Term (6 months–24 months): Transparency and Fairness</h3>
+
+
+<p>People in need of subsidized housing are often left waiting in the dark, uncertain where they stood on years-long waitlists or unaware of all the options that exist in nearby cities. And with federal cuts threatening Section 8 housing assistance, the need for clearer, more responsive systems has never been greater <a href = "[(https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21)]">[18]</a>".</p>
+  <ul>
+    <li>Make real-time data on housing vacancies and waitlist lengths publicly accessible**, across Boston and neighboring towns, so residents can better weigh their options and plan their next steps.</li>
+    <li>Distribute rent subsidies with equity in mind**, prioritizing neighborhoods facing the most urgent pressures, such as high eviction filings or steep rent increases.</li>
+    <li>Host regular housing assistance workshops at Boston Public Library branches**, where residents can learn how to apply for subsidized housing, navigate emergency aid programs (e.g., the hotel rooms mentioned above), and better understand their rights as tenants.</li>
+  </ul>
+
+  <p> Together, these changes would make Boston’s housing systems feel not only more transparent, but more navigable, especially for those without digital access or policy fluency.</p>
+
+  <h3>Long-Term (2+ years): Stability Through Supply and Access </h3>
+  <img src= "Images/" alt="Lyndia in Jamaica Plain, completed in 2025, it’s a 202-unit permanent supportive housing for low-income families and the homeless" />
+
+</section>
 
 
 <!-- About Us Section -->
