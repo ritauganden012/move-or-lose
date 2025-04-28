@@ -269,7 +269,7 @@
 
     <ul>
       <li><strong>Use funding from the Massachusetts Affordable Homes Act</strong> (<a href="https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21" target="_blank" rel="noopener noreferrer">source</a>) to preserve affordability in high-risk neighborhoods.</li>
-      <li><strong>Expand successful models</strong> like <em>The Lyndia</em>, Boston’s largest supportive housing project for the formerly unhoused
+      <li><strong>Expand successful models</strong> like <em>The Lyndia</em> (in image above), Boston’s largest supportive housing project for the formerly unhoused
         (<a href="https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21" target="_blank" rel="noopener noreferrer">source</a>).</li>
       <li><strong>Improve MBTA Commuter Rail service</strong> and develop affordable, transit-oriented housing to widen commuting options without sacrificing urban access.</li>
     </ul>
@@ -611,7 +611,7 @@
 
   .policy-image {
     width: 100%;
-    max-width: 1000px;
+    max-width: 500px;
     height: auto;
     margin: 1rem 0;
     border-radius: 0.75rem;
