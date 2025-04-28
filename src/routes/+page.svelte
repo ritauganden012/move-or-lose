@@ -14,22 +14,23 @@
 
 <section class="hero">
   <div class="hero-content">
-    <div class="text-block">
-      <h1>Boston’s Housing Crisis <br> Has a Pattern</h1>
-      <p>
-        Our research highlights who gets evicted - and why.
-        Explore our interactive map to see the correlation between eviction filling and income levels, demographics, and number of corporate owners.
-      </p>
-      <a href="#explore-map" class="cta-button">Explore Interactive Maps</a>
+    <div class="text-background">
+      <div class="text-block">
+        <h1>Boston’s Housing Crisis <br> Has a Pattern</h1>
+        <p>
+          Our research highlights who gets evicted — and why.
+          Explore our interactive map to see the correlation between eviction filings and income levels, demographics, and corporate ownership.
+        </p>
+        <a href="#explore-map" class="cta-button">Explore Interactive Maps</a>
+      </div>
     </div>
-
   </div>
 </section>
 
 <!-- Explore Section -->
 <section id="explore">
 <h2 id="explore">Problem Statement & City-Wide Overview</h2>
-  <p> Massachusettes has a bad reputation for affordable housing <a href="https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/" target="_blank">[21]</a>. 
+  <p> Massachusetts has a bad reputation for affordable housing <a href="https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/" target="_blank">[21]</a>. 
     As of 2019, less than 80% of 351 municipalities in MA fell short of a benchmark of 10% of all housing constitute to affordable housing.
     In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, 
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
@@ -521,10 +522,15 @@
 .links a:hover {
   color: #F6C4B0;
 }
+
 .hero {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #EAE7DC, #fdfcf9);
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Boston_backbay_brownstones.jpg/2560px-Boston_backbay_brownstones.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -534,13 +540,21 @@
 }
 
 .hero-content {
-  max-width: 1600px;
+  max-width: 1000px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
-  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.text-background {
+  background: rgba(255, 255, 255, 0.82); /* semi-transparent white */
+  padding: 2rem 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px); /* subtle background blur */
 }
 
 .text-block {
