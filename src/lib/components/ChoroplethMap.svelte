@@ -15,7 +15,9 @@
   export let geoData;
   export let data;
   export let selectedLayer;
-  export let clickedData;
+  // Identify which map this is (for debugging)
+  export let isMapA = false;
+  $: console.log(`Map ${isMapA ? 'A' : 'B'} rendering with layer:`, selectedLayer);
   export let colorScale = d3
     .scaleSequential()
     .interpolator(d3.interpolateOranges);
@@ -55,12 +57,22 @@
   $: $currentGEOIDStore;
 
   $: if (geoData && data && selectedLayer && neighborhoodMap.size > 0) {
-    const dataMap = new Map(data.map((d) => [String(d.GEOID), d]));
+    console.log('Processing data:', { dataLength: data.length, selectedLayer });
+    
+    // Create a map of GEOID to full data row
+    const dataMap = new Map(data.map((d) => {
+      console.log('Data row:', d);
+      return [String(d.GEOID), d];
+    }));
 
     joinedFeatures = geoData.features.map((f) => {
       const geoID = f.properties?.GEOID10;
       const row = dataMap.get(String(geoID));
       const neighborhood = neighborhoodMap.get(String(geoID));
+
+      if (row) {
+        console.log('Found matching data for GEOID:', geoID, row[selectedLayer]);
+      }
 
       return {
         ...f,
@@ -68,11 +80,13 @@
           ...f.properties,
           value: row ? row[selectedLayer] : null,
           neighborhood: neighborhood || "Unknown",
+          fullData: row // Store the full data row for tooltip access
         },
       };
     });
 
     bostonFeatures = joinedFeatures.filter((f) => f.properties.value != null);
+    console.log('Processed features:', bostonFeatures.length);
 
     projection = d3.geoIdentity().reflectY(true).fitSize([width, height], {
       type: "FeatureCollection",
@@ -180,39 +194,37 @@
       stroke-width="0.5"
       class={feature.properties.value == null ? "missing-data" : ""}
       class:highlighted={$currentGEOIDStore === feature.properties.GEOID10}
-      class:dimmed={$currentGEOIDStore &&
-        $currentGEOIDStore !== feature.properties.GEOID10}
-      on:mouseenter={(e) => {
+      class:inactive={$currentGEOIDStore && $currentGEOIDStore !== feature.properties.GEOID10}
+      on:mousemove={(e) => {
         const newGEOID = String(feature.properties.GEOID10);
-        const neighborhood = neighborhoodMap.get(newGEOID) || "Unknown";
+        const fullData = feature.properties.fullData;
+        
+        if (fullData) {
+          const enrichedData = {
+            ...fullData,
+            neighborhood: feature.properties.neighborhood,
+            GEOID10: newGEOID,
+            GEOID: newGEOID,
+            value: feature.properties.value,
+            // Include both layers' values
+            eviction_rate: fullData.eviction_rate,
+            r_mhi: fullData.r_mhi,
+            non_white_rate: fullData.non_white_rate,
+            corp_own_rate: fullData.corp_own_rate,
+            // Flag which map triggered the hover
+            sourceMap: isMapA ? 'A' : 'B'
+          };
 
-        // only do the following if neighborhood is known
-        if (neighborhood !== "Unknown") {
-          if (newGEOID !== currentGEOID) {
-            const hoveredDatum = data.find((d) => String(d.GEOID) === newGEOID);
-
-            hoveredDataStore.set({
-              ...hoveredDatum,
-              neighborhood,
-            });
-
-            // hoveredDataStore.set(hovered);
-            layerDataStore.set(selectedLayer);
-            tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
-            currentGEOID = newGEOID;
-          }
-
+          // Update all stores
+          hoveredDataStore.set(enrichedData);
+          tooltipPositionStore.set({ x: e.clientX, y: e.clientY });
           currentGEOIDStore.set(newGEOID);
         }
       }}
       on:mouseleave={() => {
-        const newGEOID = String(feature.properties.GEOID10);
-        const neighborhood = neighborhoodMap.get(newGEOID) || "Unknown";
-
-        if (neighborhood !== "Unknown") {
+        if ($currentGEOIDStore === feature.properties.GEOID10) {
           hoveredDataStore.set(null);
-          currentGEOID = null;
-
+          tooltipPositionStore.set({ x: 0, y: 0 });
           currentGEOIDStore.set(null);
         }
       }}
@@ -255,52 +267,12 @@
 
 <Legend {selectedLayer} {colorScale} />
 
-{#if hoveredData}
-  <div
-    class="floating-tooltip"
-    style="top: {tooltipY + 20}px; left: {tooltipX + 20}px"
-  >
-    <Tooltip data={hoveredData} layer={layerData} />
-  </div>
-{/if}
+
 
 <!-- </div> -->
 
-<!-- {#if hoveredData}
-      <div
-        class="exploding-tooltip floating"
-        style="top: {tooltipY + 10}px; left: {tooltipX + 10}px;"
-      >
-        <Tooltip data={hoveredData} layer={selectedLayer} />
-      </div>
-    {/if} -->
-<!-- </div>
-</div> -->
-
 <style>
-  .map-wrapper {
-    position: relative;
-  }
 
-  .map-inner {
-    background: white;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 650px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-  }
-
-  .map-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
 
   .map-svg {
     display: block;
@@ -310,10 +282,9 @@
   }
 
   /* for highlighting hovered/selected tracts */
-  path.dimmed {
+  path.inactive {
     opacity: 0.3;
     transition: opacity 0.2s ease;
-    pointer-events: none; /* optional: prevent hover conflict */
   }
 
   path.highlighted {
@@ -324,26 +295,7 @@
     transition: stroke 0.2s ease;
   }
 
-  .floating-tooltip {
-    position: fixed;
-    background: rgba(255, 255, 255, 0.96); /* subtle transparency */
-    /* border: 1.5px solid #AD7F65; */
-    border-radius: 1rem;
-    padding: 1rem 1.25rem;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
-    font-family: "Source Sans 3", sans-serif;
-    font-size: 0.9rem;
-    color: #3c2a1e;
-    z-index: 100;
-    pointer-events: none;
 
-    max-width: 360px;
-    min-width: 280px;
-    max-height: 85vh;
-    overflow-y: auto;
-
-    backdrop-filter: blur(5px);
-  }
 
   .missing-data {
     stroke: #999;
