@@ -3,9 +3,13 @@
   import MapComparisonUnified from '$lib/components/MapComparisonUnified.svelte';
   import References from '$lib/components/References.svelte';
 
-  let showMattapan = true;
-  let showRoxbury = true;
+  let showMattapan = false;
+  let showRoxbury = false;
 
+  // function toggleCase(caseName) {
+  //   if (caseName === 'mattapan') showMattapan = !showMattapan;
+  //   if (caseName === 'roxbury') showRoxbury = !showRoxbury;
+  // }
 </script>
 
 <section class="hero">
@@ -64,11 +68,12 @@
 <section id="case-studies">
   <h2>Neighborhood Deep Dives</h2>
 
-  <div class="case-container">
     <p>
       Across Boston, housing pressures are mounting, but in Roxbury and Mattapan, the impact is particularly pronounced.
       These are neighborhoods built on history, community, and perseverance — now grappling with rising rents, corporate ownership, and the threat of displacement. Below, we explore the human stories behind the statistics.
     </p>
+
+  <div class="case-container">
 
     <!-- Mattapan Case -->
     <div class="case-card mattapan-card" role="region" aria-labelledby="mattapan-title">
@@ -89,13 +94,8 @@
         </ul>
       </div>
 
-      <img src="Images/Mattapan-trolley-64f0958fce398-768x432.jpeg" alt="Mattapan-trolley" class="case-image" />
+        <img src="Images/Mattapan-trolley-64f0958fce398-768x432.jpeg" alt="Mattapan-trolley" class="case-image" />
 
-      <button class="toggle-btn" on:click={() => showMattapan = !showMattapan}>
-        {showMattapan ? 'Hide details' : 'Show details'}
-      </button>
-
-      {#if showMattapan}
         <div class="case-description">
           <p>Tucked into Boston’s southern edge, Mattapan is a neighborhood shaped by generational migration, community advocacy, and the consequences of systemic neglect. Once home to large Jewish and Irish populations in the mid-20th century, Mattapan’s demographics shifted rapidly following the passage of the 1968 Fair Housing Act. While the law was intended to dismantle discriminatory barriers, it was exploited by realtors who used fear-based blockbusting tactics: inciting white homeowners to sell low, then reselling to Black families, often with poor financial screening, who were quickly foreclosed upon.</p>
 
@@ -108,7 +108,7 @@
           <p>In 2025, the City of Boston designated Fairlawn Apartments as permanently affordable housing, aided by a $10 million city grant — a hard-earned win for tenant advocates and housing organizations like City Life/Vida Urbana. Yet questions still exist. Ownership of the complex is now in the hands of Related Beal, a private real estate developer. As public funds dwindle, the future of affordability at Fairlawn, and in Mattapan at large, remains uncertain.</p>
 
         </div>
-      {/if}
+
     </div>
 
     <!-- Roxbury Case -->
@@ -132,11 +132,6 @@
 
       <img src="Images/1018_Faces-Of-Dudley-MuralA-1000x665.jpg" alt="Faces-Of-Dudley-Mural" class="case-image" />
 
-      <button class="toggle-btn" on:click={() => showRoxbury = !showRoxbury}>
-        {showRoxbury ? 'Hide details' : 'Show details'}
-      </button>
-
-      {#if showRoxbury}
         <div class="case-description">
           <p>
             Roxbury stands at the heart of Boston’s Black cultural and political life. It’s a place rich in legacy, art, and activism.
@@ -174,49 +169,89 @@
           </p>
 
         </div>
-      {/if}
     </div>
   </div>
+
 </section>
 
 <!-- Policy Recommendation Section -->
+
 <section id="policy">
-  <h2 id="policy">Policy Recommendation</h2>
-  <p>Our interactive visualization tells the geographic disparities of evictions and key correlated factors.
-    The stories from Roxbury and Mattapan reveal more than just data, they show the human cost of Boston’s housing crisis.
-    Behind every eviction is someone forced into impossible choices.</p>
 
-    <p>We believe Boston can do better, with policies that are not only strategic, but grounded in humanitarian values.
-      Below, we outline a three-stage roadmap designed to meet both the urgency of the moment and the long-term structural nature of the crisis.</p>
+  <h2>Policy Recommendation</h2>
 
-<h3>Short-Term (0–6 months): Dignity in Displacement</h3>
+  <p>
+    Our interactive visualization highlights geographic disparities in evictions and key correlated factors.
+    The stories from Roxbury and Mattapan reveal more than just data—they show the human cost of Boston’s housing crisis.
+    Behind every eviction is someone forced into impossible choices.
+  </p>
 
-<p> For those facing sudden eviction, often with little or no time to find new housing, short-term responses should prioritize dignity, hygiene, and stability.</p>
-  <ul>
-    <li>Offer vacant hotel rooms** to individuals and families suddenly displaced, supported by city incentives for participating hotels. A clean bed, a private bathroom, a place to rest and eat, these are basic needs that shouldn't require extraordinary resources to fulfill.</li>
-    <li>Leverage Boston Public Library branches** as decentralized resource hubs, where residents can access shelter applications, emergency rental aid, and information about short-term housing options without having to navigate confusing websites or government offices.</li>
-    <li>Deploy community shuttles** to connect people to available housing swiftly and safely.</li>
-  </ul>
+  <p>
+    We believe Boston can do better, with policies that are not only strategic but also grounded in humanitarian values.
+    Below, we outline a three-stage roadmap designed to meet both the urgency of the moment and the long-term structural nature of the crisis.
+  </p>
 
-<p>By preventing people from being pushed onto the streets,
-  this approach also helps forestall a cascade of social issues, such as substance use, mental health crises,
-  and long-term homelessness, that are much harder and costlier to address later.
-  It’s a humane first step that benefits both individuals and the city as a whole.</p>
+  <!-- Short-Term Block -->
+  <div class="policy-block">
+    <h3>Short-Term (0–6 months): Dignity in Displacement</h3>
 
-<h3>Medium-Term (6 months–24 months): Transparency and Fairness</h3>
+    <p>
+      For those facing sudden eviction, often with little or no time to find new housing, short-term responses should prioritize dignity, hygiene, and stability.
+    </p>
 
+    <ul>
+      <li><strong>Offer vacant hotel rooms</strong> to displaced individuals and families, supported by city incentives for participating hotels.</li>
+      <li><strong>Leverage Boston Public Library branches</strong> as decentralized resource hubs for emergency aid and shelter navigation.</li>
+      <li><strong>Deploy community shuttles</strong> to connect residents swiftly to available housing.</li>
+    </ul>
 
-<p>People in need of subsidized housing are often left waiting in the dark, uncertain where they stood on years-long waitlists or unaware of all the options that exist in nearby cities. And with federal cuts threatening Section 8 housing assistance, the need for clearer, more responsive systems has never been greater <a href = "[(https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21)]">[18]</a>".</p>
-  <ul>
-    <li>Make real-time data on housing vacancies and waitlist lengths publicly accessible**, across Boston and neighboring towns, so residents can better weigh their options and plan their next steps.</li>
-    <li>Distribute rent subsidies with equity in mind**, prioritizing neighborhoods facing the most urgent pressures, such as high eviction filings or steep rent increases.</li>
-    <li>Host regular housing assistance workshops at Boston Public Library branches**, where residents can learn how to apply for subsidized housing, navigate emergency aid programs (e.g., the hotel rooms mentioned above), and better understand their rights as tenants.</li>
-  </ul>
+    <p>
+      By preventing homelessness, this approach forestalls a cascade of social issues—substance use, mental health crises, and long-term homelessness—that are much harder and costlier to address later.
+    </p>
+  </div>
 
-  <p> Together, these changes would make Boston’s housing systems feel not only more transparent, but more navigable, especially for those without digital access or policy fluency.</p>
+  <!-- Medium-Term Block -->
+  <div class="policy-block">
+    <h3>Medium-Term (6–24 months): Transparency and Fairness</h3>
 
-  <h3>Long-Term (2+ years): Stability Through Supply and Access </h3>
-  <img src= "Images/" alt="Lyndia in Jamaica Plain, completed in 2025, it’s a 202-unit permanent supportive housing for low-income families and the homeless" />
+    <p>
+      People in need of subsidized housing are often left uncertain about waitlists or unaware of all nearby options.
+      With federal cuts threatening Section 8 assistance, more transparent, responsive systems are needed
+      (<a href="https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21" target="_blank" rel="noopener noreferrer">source</a>).
+    </p>
+
+    <ul>
+      <li><strong>Make real-time data</strong> on housing vacancies and waitlists publicly available across Boston and surrounding towns.</li>
+      <li><strong>Prioritize rent subsidies</strong> for neighborhoods facing high eviction rates and rent hikes.</li>
+      <li><strong>Host housing assistance workshops</strong> at Boston Public Library branches to help residents access programs and understand tenant rights.</li>
+    </ul>
+
+    <p>
+      These changes would make Boston’s housing systems feel not only more transparent but also more navigable, especially for residents without digital access.
+    </p>
+  </div>
+
+  <!-- Long-Term Block -->
+  <div class="policy-block">
+    <h3>Long-Term (2+ years): Stability Through Supply and Access</h3>
+
+    <img src="Images/Policy/Policy Images.avif" alt="The Lyndia in Jamaica Plain, completed in 2025, a 202-unit supportive housing project for low-income families and the homeless." class="policy-image"  />
+
+    <p>
+      Boston’s housing crisis cannot be solved without bold, long-term investments in affordable housing supply and infrastructure for mobility.
+    </p>
+
+    <ul>
+      <li><strong>Use funding from the Massachusetts Affordable Homes Act</strong> (<a href="https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21" target="_blank" rel="noopener noreferrer">source</a>) to preserve affordability in high-risk neighborhoods.</li>
+      <li><strong>Expand successful models</strong> like <em>The Lyndia</em>, Boston’s largest supportive housing project for the formerly unhoused
+        (<a href="https://www.notion.so/6-C85-S25-FP3-Roxbury-Mattapan-Deep-Dive-Call-to-Action-1ddcde72d85d80a98fd7e2b98367547f?pvs=21" target="_blank" rel="noopener noreferrer">source</a>).</li>
+      <li><strong>Improve MBTA Commuter Rail service</strong> and develop affordable, transit-oriented housing to widen commuting options without sacrificing urban access.</li>
+    </ul>
+
+    <p>
+      These policies reimagine Boston’s geography of opportunity, easing pressure on core neighborhoods and creating durable pathways to housing security.
+    </p>
+  </div>
 
 </section>
 
@@ -243,7 +278,7 @@
       <div class="team-member">
         <img src="Images/team/rita.jpg" alt="Rita" />
         <h3>Rita Uganden-Teryila.</h3>
-        <p> Some Bio.</p>
+        <p> 2ndd-Year Masters Student - System.</p>
         <div class="links">
           <a href="https://ritauganden012.github.io/DataViz-Portfolio/" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/ritaugandenteryila/" target="_blank">LinkedIn</a>
@@ -304,25 +339,25 @@
 
   .case-container {
     display: flex;
-    justify-content: center;
-    /* align-items: center;     */
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-top: 1rem;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: flex-start; */
+    /* flex-wrap: wrap; */
+    gap: 2rem;
+    max-width: 900px;
+    width:100%;
+    margin: 2rem auto 0 auto; /* center on page */
+    padding: 0 1rem;
   }
 
   .case-card {
     background: #EAE7DC;
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 1rem;
     width: 100%;
-    max-width: 500px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
-  }
-  .case-card:nth-child(1) {
-    background: #F6C4B0;
-  }
+    animation: fadeInUp 0.8s ease both;
+    }
 
   .case-description p {
     font-family: "Source Sans 3", sans-serif;
@@ -373,11 +408,7 @@
     color: #4F1F05;
   }
 
-  /* .case-card:hover {
-    transform: translateY(-4px);
-    background: #F6C4B0;
-  } */
-  /* Mattapan: warm pink coral */
+
 .mattapan-card {
   background: #F6C4B0;
 }
@@ -401,23 +432,6 @@
 
   .case-card p {
     font-size: 0.95rem;
-  }
-
-  .toggle-btn {
-    background: #2A5881;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    border-radius: 1.5rem;
-    cursor: pointer;
-    font-size: 0.85rem;
-    transition: background 0.3s ease;
-  }
-
-  .toggle-btn:hover {
-    background-color: #E0E6AF;
-    color: #2A5881;
   }
 
   @media (max-width: 768px) {
@@ -536,6 +550,44 @@
 .cta-button:hover {
   background-color: #E0E6AF;
 }
+
+
+  .policy-block {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: #F9F9F9;
+    border-radius: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+
+  .policy-block h3 {
+    margin-top: 0;
+  }
+
+  /* .policy-block img {
+    margin: 1rem 0;
+    width: 100%;
+    border-radius: 0.75rem;
+  } */
+
+  .policy-image {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    margin: 1rem 0;
+    border-radius: 0.75rem;
+    display: block;
+  }
+  ul {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+
 
 
 </style>
