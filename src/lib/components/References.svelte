@@ -1,4 +1,5 @@
 <script>
+
   // Your reference data
   const references = [
     {
@@ -207,7 +208,7 @@
   }
 
   .references-container {
-    max-width: 900px;
+    max-width: 100%;
     margin: 0 auto;
     background: #EAE7DC;
     padding: 2rem;
@@ -258,13 +259,11 @@
 
   /* Style for citation links */
   :global(.citation) {
-    vertical-align: super;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: bold;
     color: #2A5881;
     text-decoration: none;
-    background-color: #F6C4B0;
-    padding: 0.15rem 0.4rem;
+    padding: 0.1rem 0.1rem;
     border-radius: 0.75rem;
     margin: 0 0.1rem;
     transition: background-color 0.3s ease;
