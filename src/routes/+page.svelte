@@ -179,7 +179,7 @@
           <p>
             The consequences of this shift are felt in deeply personal ways. In 2022, James Harrison, a 76-year-old Roxbury tenant, who participated relentlessly in upholding his community,
             was threatened with eviction from the home he had lived in for decades. His landlord, seeing an opportunity to profit from the area’s rising property values,
-            attempted to clear tenants in preparation to sell. Stories like hers reflect the market logic that continues to displace working-class residents in favor of higher returns {@html citation(12)}.
+            attempted to clear tenants in preparation to sell. Stories like his reflect the market logic that continues to displace working-class residents in favor of higher returns {@html citation(12)}.
           </p>
 
           <p>
@@ -351,7 +351,7 @@
       <div class="team-member">
         <img src="Images/team/rowell.jpg" alt="Rowell" />
         <h3>Rowell Castro</h3>
-        <p>Some Bio.</p>
+        <p>2nd-Year Masters Student - System</p>
         <div class="links">
           <a href="" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/rowelldgcastro/" target="_blank">LinkedIn</a>
