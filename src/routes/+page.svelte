@@ -365,7 +365,7 @@
 <style>
   section {
     padding: 4rem 2rem;
-    min-height: 80vh;
+    /* min-height: 80vh; */
     font-family: 'Source Sans 3', sans-serif;
     border-bottom: 1px solid #ccc;
   }
