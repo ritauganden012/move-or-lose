@@ -318,7 +318,7 @@
       <div class="team-member">
         <img src= "Images/team/shih-lun.jpg" alt="Team Member 1" />
         <h3>Shih-Lun Wu</h3>
-        <p>1st Year PhD stuent, EECS</p>
+        <p>1st Year PhD student, EECS</p>
         <div class="links">
           <a href="https://slseanwu.github.io" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/shih-lun-sean-wu/" target="_blank">LinkedIn</a>
@@ -340,7 +340,7 @@
       <div class="team-member">
         <img src="Images/team/nithya.jpg" alt="Nithya" />
         <h3>Nithya Shikarpur </h3>
-        <p>1st Year PhD stuent, EECS</p>
+        <p>1st Year PhD student, EECS</p>
         <div class="links">
           <a href="https://snnithya.github.io" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/snnithya/" target="_blank">LinkedIn</a>
