@@ -39,7 +39,7 @@
     As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.
     In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, 
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
-    Evictions dispropotianately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.
+    Evictions disproportionately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.
     Through this project, we study the effects of these factors on eviction filings through a data driven analysis and 
     <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
   </p>
@@ -318,7 +318,7 @@
       <div class="team-member">
         <img src= "Images/team/shih-lun.jpg" alt="Team Member 1" />
         <h3>Shih-Lun Wu</h3>
-        <p>Some Bio.</p>
+        <p>1st Year PhD stuent, EECS</p>
         <div class="links">
           <a href="https://slseanwu.github.io" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/shih-lun-sean-wu/" target="_blank">LinkedIn</a>
@@ -329,7 +329,7 @@
       <div class="team-member">
         <img src="Images/team/rita.jpg" alt="Rita" />
         <h3>Rita Uganden-Teryila.</h3>
-        <p> 2nd-Year Masters Student - System.</p>
+        <p> 2nd-Year Masters Student - System</p>
         <div class="links">
           <a href="https://ritauganden012.github.io/DataViz-Portfolio/" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/ritaugandenteryila/" target="_blank">LinkedIn</a>
