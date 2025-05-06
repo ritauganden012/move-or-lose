@@ -431,6 +431,7 @@
 
   .case-image {
     width: 100%;
+    max-width: 500px;
     height: auto;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
