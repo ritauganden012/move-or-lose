@@ -106,7 +106,7 @@
   <div class="case-container">
 
     <!-- Mattapan Case -->
-    <div class="case-card mattapan-card" role="region" aria-labelledby="mattapan-title">
+    <div class="case-card roxbury-card" role="region" aria-labelledby="mattapan-title">
       <h3 id="mattapan-title">Mattapan Case Study</h3>
 
       <div class="info-block">
