@@ -3,13 +3,14 @@
   import Scrolly from './Scrolly.svelte';
   import ScrollySection from './ScrollySection.svelte';
   import { onMount } from 'svelte';
+  import HousingNetwork from './HousingNetwork.svelte';
   import { fade, fly } from 'svelte/transition';
   import { spring } from 'svelte/motion';
 
   let currentSection = 0;
   let isFirstSectionVisible = false;
-  let municipalityCount = spring(0);
-  let benchmarkCount = spring(0);
+  const MUNICIPALITY_COUNT = 80;
+  const BENCHMARK_COUNT = 10;
   
   // Text content for typewriter effect
   const texts = [
@@ -39,8 +40,6 @@
 
   $: if (currentSection === 0 && !isFirstSectionVisible) {
     isFirstSectionVisible = true;
-    municipalityCount.set(80);
-    benchmarkCount.set(10);
   }
 
   onMount(() => {
@@ -85,70 +84,43 @@
 
   <Scrolly>
     <ScrollySection>
-      <div class="act">
-        <div class="content-side">
-          <h2 transition:fade={{duration: 1000}}>The Housing Shortage Crisis</h2>
-          
-          <div class="stats-container">
-            <div 
-              class="stat-item" 
-              role="button"
-              tabindex="0"
-              transition:fly={{y: 50, duration: 1000, delay: 500}}
-              on:mouseenter={() => municipalityCount.set(85)}
-              on:mouseleave={() => municipalityCount.set(80)}
-              on:keydown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  municipalityCount.set(85);
-                }
-              }}
-              on:keyup={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  municipalityCount.set(80);
-                }
-              }}
-            >
-              <span class="stat-number">{$municipalityCount}%</span>
-              <span class="stat-label">of MA municipalities</span>
-              <span class="stat-label">fail to meet standards</span>
-            </div>
-
-            <div 
-              class="stat-item" 
-              role="button"
-              tabindex="0"
-              transition:fly={{y: 50, duration: 1000, delay: 1000}}
-              on:mouseenter={() => benchmarkCount.set(15)}
-              on:mouseleave={() => benchmarkCount.set(10)}
-              on:keydown={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  benchmarkCount.set(15);
-                }
-              }}
-              on:keyup={e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  benchmarkCount.set(10);
-                }
-              }}
-            >
-              <span class="stat-number">{$benchmarkCount}%</span>
-              <span class="stat-label">benchmark not met</span>
-            </div>
-          </div>
-
-          <div class="text-section">
-            <p class="typed-text">{typedTexts[0] || ''}</p>
-            <p class="typed-text">{typedTexts[1] || ''}</p>
-          </div>
+      <div class="act first-section">
+        <div class="background-image" transition:fade={{duration: 2000}} />
+        <div class="network-wrapper">
+          <HousingNetwork />
         </div>
+        <div class="content-overlay">
+          <div class="content-side">
+            <h2 transition:fade={{duration: 1000}}>The Housing Shortage Crisis</h2>
+            <p transition:fade={{duration: 1000, delay: 500}}>In recent years, housing has become increasingly scarce and expensive across the United States, particularly in major metropolitan areas.</p>
+            
+            <div class="stats-container">
+              <div 
+                class="stat-item" 
+                role="button"
+                tabindex="0"
+                transition:fly={{y: 50, duration: 1000, delay: 500}}
+              >
+                <span class="stat-number">{MUNICIPALITY_COUNT}%</span>
+                <span class="stat-label">of MA municipalities</span>
+                <span class="stat-label">fail to meet standards</span>
+              </div>
 
-        <div class="image-container" transition:fade={{duration: 1000, delay: 2000}}>
-          <div class="image-reveal">
-            <img 
-              src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80"
-              alt="Boston skyline representing housing development"
-              class="section-image"
-            />
+              <div 
+                class="stat-item" 
+                role="button"
+                tabindex="0"
+                transition:fly={{y: 50, duration: 1000, delay: 1000}}
+              >
+                <span class="stat-number">{BENCHMARK_COUNT}%</span>
+                <span class="stat-label">benchmark not met</span>
+              </div>
+            </div>
+
+            <div class="text-section">
+              <p class="typed-text">{typedTexts[0] || ''}</p>
+              <p class="typed-text">{typedTexts[1] || ''}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -252,11 +224,77 @@
     gap: 6rem;
     align-items: center;
     background: linear-gradient(to right, #ffffff 0%, #f8f9fa 100%);
+    position: relative;
   }
 
-  .content-side {
+  .first-section {
+    padding: 0;
+    display: block;
+    background: none;
+  }
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 0;
+  }
+
+  .network-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .content-overlay {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 6rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .first-section .content-side {
     text-align: left;
     max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    pointer-events: auto;
+  }
+
+  .first-section h2 {
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+  }
+
+  .first-section .stat-item {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .first-section .stat-number {
+    color: #2c5282;
+  }
+
+  .first-section .stat-label {
+    color: #4a5568;
+  }
+
+  .first-section .typed-text {
+    color: #2d3748;
+    border-right-color: #718096;
   }
 
   .act:hover {
@@ -296,16 +334,19 @@
 
   .stat-number {
     display: block;
-    font-size: 4rem;
-    font-weight: bold;
-    color: #2A5881;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 500;
+    color: var(--color-main-text);
     margin-bottom: 0.5rem;
     line-height: 1;
   }
 
   .stat-label {
+    font-family: var(--font-body);
     font-size: 1.1rem;
-    color: #4F1F05;
+    color: var(--color-support-text);
+    line-height: 1.4;
   }
 
   .text-section {
@@ -337,18 +378,20 @@
   }
 
   h2 {
-    font-size: 3.5rem;
-    margin-bottom: 2rem;
-    color: #2A5881;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-main-text);
     line-height: 1.2;
-    letter-spacing: -0.02em;
+    font-weight: 500;
   }
 
   p {
-    font-size: 1.2rem;
+    font-family: var(--font-body);
+    font-size: 1.25rem;
     line-height: 1.6;
     margin-bottom: 2rem;
-    color: #34495e;
+    color: var(--color-main-text);
   }
 
   .image-container {
