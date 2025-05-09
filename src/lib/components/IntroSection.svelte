@@ -1,0 +1,398 @@
+<!-- IntroSection.svelte -->
+<script>
+  import Scrolly from './Scrolly.svelte';
+  import ScrollySection from './ScrollySection.svelte';
+  import { onMount } from 'svelte';
+  import { fade, fly } from 'svelte/transition';
+  import { spring } from 'svelte/motion';
+
+  let currentSection = 0;
+  let isFirstSectionVisible = false;
+  let municipalityCount = spring(0);
+  let benchmarkCount = spring(0);
+  
+  // Text content for typewriter effect
+  const texts = [
+    "Massachusetts has a bad reputation for affordable housing [21].",
+    "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.",
+    "In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.",
+    "Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property [22].",
+    "Boston, as Massachusetts' leading city, can set an example on how to tackle the crisis. We study the evictions crisis with data-driven analysis, and provide housing policy makers with the tools to understand and combat it in Boston."
+  ];
+
+  let typedTexts = texts.map(() => '');
+  let textObservers = [];
+
+  function typeText(index, text) {
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= text.length) {
+        typedTexts[index] = text.slice(0, currentIndex);
+        typedTexts = [...typedTexts]; // trigger reactivity
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 30); // adjust speed here
+    return interval;
+  }
+
+  $: if (currentSection === 0 && !isFirstSectionVisible) {
+    isFirstSectionVisible = true;
+    municipalityCount.set(80);
+    benchmarkCount.set(10);
+  }
+
+  onMount(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      currentSection = Math.floor(scrollPosition / windowHeight);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+
+    // Set up intersection observers for each paragraph
+    const paragraphs = document.querySelectorAll('.typed-text');
+    paragraphs.forEach((paragraph, index) => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && typedTexts[index] === '') {
+              typeText(index, texts[index]);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      observer.observe(paragraph);
+      textObservers.push(observer);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      textObservers.forEach(observer => observer.disconnect());
+    };
+  });
+</script>
+
+<div class="intro-container">
+  <div class="progress-indicator">
+    {#each Array(4) as _, i}
+      <div class="dot {currentSection === i ? 'active' : ''}" />
+    {/each}
+  </div>
+
+  <Scrolly>
+    <ScrollySection>
+      <div class="act">
+        <div class="content-side">
+          <h2 transition:fade={{duration: 1000}}>The Housing Shortage Crisis</h2>
+          
+          <div class="stats-container">
+            <div 
+              class="stat-item" 
+              role="button"
+              tabindex="0"
+              transition:fly={{y: 50, duration: 1000, delay: 500}}
+              on:mouseenter={() => municipalityCount.set(85)}
+              on:mouseleave={() => municipalityCount.set(80)}
+              on:keydown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  municipalityCount.set(85);
+                }
+              }}
+              on:keyup={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  municipalityCount.set(80);
+                }
+              }}
+            >
+              <span class="stat-number">{$municipalityCount}%</span>
+              <span class="stat-label">of MA municipalities</span>
+              <span class="stat-label">fail to meet standards</span>
+            </div>
+
+            <div 
+              class="stat-item" 
+              role="button"
+              tabindex="0"
+              transition:fly={{y: 50, duration: 1000, delay: 1000}}
+              on:mouseenter={() => benchmarkCount.set(15)}
+              on:mouseleave={() => benchmarkCount.set(10)}
+              on:keydown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  benchmarkCount.set(15);
+                }
+              }}
+              on:keyup={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  benchmarkCount.set(10);
+                }
+              }}
+            >
+              <span class="stat-number">{$benchmarkCount}%</span>
+              <span class="stat-label">benchmark not met</span>
+            </div>
+          </div>
+
+          <div class="text-section">
+            <p class="typed-text">{typedTexts[0] || ''}</p>
+            <p class="typed-text">{typedTexts[1] || ''}</p>
+          </div>
+        </div>
+
+        <div class="image-container" transition:fade={{duration: 1000, delay: 2000}}>
+          <div class="image-reveal">
+            <img 
+              src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&q=80"
+              alt="Boston skyline representing housing development"
+              class="section-image"
+            />
+          </div>
+        </div>
+      </div>
+    </ScrollySection>
+
+    <ScrollySection>
+      <div class="act">
+        <div class="content-side">
+          <h2 transition:fade={{duration: 1000}}>Landlords vs. Residents</h2>
+          <p class="typed-text">{typedTexts[2] || ''}</p>
+        </div>
+
+        <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
+          <div class="image-reveal">
+            <img 
+              src="https://images.unsplash.com/photo-1579170053380-58064b2dee67?auto=format&fit=crop&q=80"
+              alt="Corporate buildings representing landlords"
+              class="section-image"
+            />
+          </div>
+        </div>
+      </div>
+    </ScrollySection>
+
+    <ScrollySection>
+      <div class="act">
+        <div class="content-side">
+          <h2 transition:fade={{duration: 1000}}>Some Are Particularly Vulnerable</h2>
+          <p class="typed-text">{typedTexts[3] || ''}</p>
+        </div>
+
+        <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
+          <div class="image-reveal">
+            <img 
+              src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80"
+              alt="Diverse group of people"
+              class="section-image"
+            />
+          </div>
+        </div>
+      </div>
+    </ScrollySection>
+
+    <ScrollySection>
+      <div class="act">
+        <div class="content-side">
+          <h2 transition:fade={{duration: 1000}}>Our Goals</h2>
+          <p class="typed-text">{typedTexts[4] || ''}</p>
+        </div>
+
+        <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
+          <div class="image-reveal">
+            <img 
+              src="https://images.unsplash.com/photo-1558435186-d31d126391fa?auto=format&fit=crop&q=80"
+              alt="Boston cityscape"
+              class="section-image"
+            />
+          </div>
+        </div>
+      </div>
+    </ScrollySection>
+  </Scrolly>
+</div>
+
+<style>
+  .intro-container {
+    position: relative;
+  }
+
+  .progress-indicator {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(44, 62, 80, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .dot.active {
+    background-color: #2c3e50;
+    transform: scale(1.2);
+  }
+
+  .act {
+    width: 100%;
+    margin: 0;
+    padding: 6rem;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    background: linear-gradient(to right, #ffffff 0%, #f8f9fa 100%);
+  }
+
+  .content-side {
+    text-align: left;
+    max-width: 800px;
+  }
+
+  .act:hover {
+    transform: translateY(-5px);
+  }
+
+  .stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 3rem 0;
+    width: 100%;
+  }
+
+  .stat-item {
+    text-align: center;
+    cursor: pointer;
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    transition: all 0.3s ease;
+    outline: none;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid rgba(42, 88, 129, 0.1);
+  }
+
+  .stat-item:hover,
+  .stat-item:focus {
+    background: rgba(42, 88, 129, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  }
+
+  .stat-item:focus-visible {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1), 0 0 0 2px #2A5881;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #2A5881;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    color: #4F1F05;
+  }
+
+  .text-section {
+    margin: 1.5rem 0;
+  }
+
+  .typed-text {
+    border-right: 2px solid #2c3e50;
+    white-space: pre-wrap;
+    animation: blink 0.75s step-end infinite;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+  }
+
+
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes blink {
+    from, to { border-color: transparent; }
+    50% { border-color: #2c3e50; }
+  }
+
+  h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: #2A5881;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #34495e;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+    position: relative;
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.5s ease;
+  }
+
+  .image-container:hover {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-reveal {
+    width: 100%;
+    animation: reveal 2s ease-out forwards;
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+
+  @keyframes reveal {
+    from {
+      clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+    }
+    to {
+      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+  }
+
+  .section-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+  }
+</style>
