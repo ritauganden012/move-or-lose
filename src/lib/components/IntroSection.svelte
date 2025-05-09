@@ -334,7 +334,7 @@
 
   .stat-number {
     display: block;
-    font-family: var(--font-heading);
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 3rem;
     font-weight: 500;
     color: var(--color-main-text);
@@ -343,7 +343,7 @@
   }
 
   .stat-label {
-    font-family: var(--font-body);
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 1.1rem;
     color: var(--color-support-text);
     line-height: 1.4;
@@ -354,15 +354,16 @@
   }
 
   .typed-text {
-    border-right: 2px solid #2c3e50;
+    border-right: 2px solid var(--color-main-text);
     white-space: pre-wrap;
     animation: blink 0.75s step-end infinite;
     opacity: 0;
     animation: fadeIn 0.5s ease-out forwards;
     font-size: 1.2rem;
     line-height: 1.8;
-    color: #4a5568;
+    color: var(--color-main-text);
     margin-bottom: 1.5rem;
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   }
 
 
@@ -378,7 +379,7 @@
   }
 
   h2 {
-    font-family: var(--font-heading);
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 3rem;
     margin-bottom: 1.5rem;
     color: var(--color-main-text);
@@ -387,7 +388,7 @@
   }
 
   p {
-    font-family: var(--font-body);
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 1.25rem;
     line-height: 1.6;
     margin-bottom: 2rem;
