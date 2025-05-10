@@ -18,15 +18,16 @@
       }
     });
 
-    // Animate each building from bottom to top
-    buildings.forEach((building, index) => {
-      tl.from(building, {
-        scaleY: 0,
-        transformOrigin: 'bottom',
-        duration: 1,
-        ease: 'power2.out',
-        delay: index * 0.2
-      }, index * 0.3);
+    // Animate all buildings together
+    tl.from(buildings, {
+      scaleY: 0,
+      transformOrigin: 'bottom',
+      duration: 0.5,
+      ease: 'power2.out',
+      stagger: {
+        amount: 0.3,
+        from: 'start'
+      }
     });
   });
 </script>
