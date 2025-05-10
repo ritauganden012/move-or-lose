@@ -129,6 +129,7 @@
         <div class="scroll-content">
           <h2>Our Goals</h2>
           <p>We aim to visualize and analyze the eviction crisis in Massachusetts, highlighting the factors that contribute to housing instability and its impact on vulnerable communities.</p>
+          <p>Boston, as Massachusetts' leading city, can set an example on how to tackle the crisis. We study the evictions crisis with data-driven analysis, and provide housing policy makers with the tools to understand and combat it in Boston.</p>
         </div>
       </div>
     </ScrollySection>
@@ -258,6 +259,7 @@
     height: 200vh;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    background: white;
   }
 
   .sticky-image {
@@ -273,29 +275,31 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 24px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+    mix-blend-mode: multiply;
+    filter: contrast(1.1);
   }
 
   .scroll-content {
-    padding: 2rem;
-    margin-top: calc(200vh - 100vh); /* Position at bottom of section */
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
+    padding: 4rem;
+    margin-top: calc(200vh - 100vh);
+    position: relative;
+    min-height: 120vh;
   }
 
   .scroll-content h2 {
     margin-bottom: 2rem;
     color: #2c5282;
-    font-size: 2rem;
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: 1.2;
   }
 
   .scroll-content p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     line-height: 1.6;
     color: #4a5568;
-    max-width: 600px;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
   }
 
   /* Global text styles */
