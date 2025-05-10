@@ -9,38 +9,14 @@
 
   let currentSection = 0;
   let isFirstSectionVisible = false;
+  let showText = false;
   const MUNICIPALITY_COUNT = 80;
   const BENCHMARK_COUNT = 10;
   
-  // Text content for typewriter effect
   const texts = [
     "Massachusetts has a bad reputation for affordable housing [21].",
-    "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.",
-    "In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.",
-    "Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property [22].",
-    "Boston, as Massachusetts' leading city, can set an example on how to tackle the crisis. We study the evictions crisis with data-driven analysis, and provide housing policy makers with the tools to understand and combat it in Boston."
+    "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable."
   ];
-
-  let typedTexts = texts.map(() => '');
-  let textObservers = [];
-
-  function typeText(index, text) {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        typedTexts[index] = text.slice(0, currentIndex);
-        typedTexts = [...typedTexts]; // trigger reactivity
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 30); // adjust speed here
-    return interval;
-  }
-
-  $: if (currentSection === 0 && !isFirstSectionVisible) {
-    isFirstSectionVisible = true;
-  }
 
   onMount(() => {
     const handleScroll = () => {
@@ -51,28 +27,17 @@
     
     window.addEventListener('scroll', handleScroll);
 
-    // Set up intersection observers for each paragraph
-    const paragraphs = document.querySelectorAll('.typed-text');
-    paragraphs.forEach((paragraph, index) => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && typedTexts[index] === '') {
-              typeText(index, texts[index]);
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-      observer.observe(paragraph);
-      textObservers.push(observer);
-    });
-
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      textObservers.forEach(observer => observer.disconnect());
     };
   });
+
+  $: if (currentSection === 0 && !isFirstSectionVisible) {
+    isFirstSectionVisible = true;
+    setTimeout(() => {
+      showText = true;
+    }, 1000); // Show text after 1 second
+  }
 </script>
 
 <div class="intro-container">
@@ -89,40 +54,30 @@
         <div class="network-wrapper">
           <HousingNetwork />
         </div>
-        <div class="content-overlay">
-          <div class="content-side">
-            <h2 transition:fade={{duration: 1000}}>The Housing Shortage Crisis</h2>
-            <p transition:fade={{duration: 1000, delay: 500}}>In recent years, housing has become increasingly scarce and expensive across the United States, particularly in major metropolitan areas.</p>
-            
-            <div class="stats-container">
-              <div 
-                class="stat-item" 
-                role="button"
-                tabindex="0"
-                transition:fly={{y: 50, duration: 1000, delay: 500}}
-              >
-                <span class="stat-number">{MUNICIPALITY_COUNT}%</span>
-                <span class="stat-label">of MA municipalities</span>
-                <span class="stat-label">fail to meet standards</span>
-              </div>
+        {#if showText}
+          <div class="content-overlay" 
+               transition:fade={{duration: 800}}>
+            <div class="content-side">
+              <div class="text-content" transition:fade>
+                <h2>The Housing Shortage Crisis</h2>
+                <p>{texts[0]}</p>
+                <p>{texts[1]}</p>
+                
+                <div class="stats-container">
+                  <div class="stat-item">
+                    <span class="stat-number">{MUNICIPALITY_COUNT}%</span>
+                    <span class="stat-label">of MA municipalities fail to meet standards</span>
+                  </div>
 
-              <div 
-                class="stat-item" 
-                role="button"
-                tabindex="0"
-                transition:fly={{y: 50, duration: 1000, delay: 1000}}
-              >
-                <span class="stat-number">{BENCHMARK_COUNT}%</span>
-                <span class="stat-label">benchmark not met</span>
+                  <div class="stat-item">
+                    <span class="stat-number">{BENCHMARK_COUNT}%</span>
+                    <span class="stat-label">state benchmark for affordable housing</span>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div class="text-section">
-              <p class="typed-text">{typedTexts[0] || ''}</p>
-              <p class="typed-text">{typedTexts[1] || ''}</p>
             </div>
           </div>
-        </div>
+        {/if}
       </div>
     </ScrollySection>
 
@@ -130,7 +85,7 @@
       <div class="act">
         <div class="content-side">
           <h2 transition:fade={{duration: 1000}}>Landlords vs. Residents</h2>
-          <p class="typed-text">{typedTexts[2] || ''}</p>
+          <p>In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.</p>
         </div>
 
         <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
@@ -149,7 +104,7 @@
       <div class="act">
         <div class="content-side">
           <h2 transition:fade={{duration: 1000}}>Some Are Particularly Vulnerable</h2>
-          <p class="typed-text">{typedTexts[3] || ''}</p>
+          <p>Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property [22].</p>
         </div>
 
         <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
@@ -168,13 +123,13 @@
       <div class="act">
         <div class="content-side">
           <h2 transition:fade={{duration: 1000}}>Our Goals</h2>
-          <p class="typed-text">{typedTexts[4] || ''}</p>
+          <p>Boston, as Massachusetts' leading city, can set an example on how to tackle the crisis. We study the evictions crisis with data-driven analysis, and provide housing policy makers with the tools to understand and combat it in Boston.</p>
         </div>
 
         <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
           <div class="image-reveal">
             <img 
-              src="https://images.unsplash.com/photo-1558435186-d31d126391fa?auto=format&fit=crop&q=80"
+              src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&q=80"
               alt="Boston cityscape"
               class="section-image"
             />
@@ -292,15 +247,6 @@
     color: #4a5568;
   }
 
-  .first-section .typed-text {
-    color: #2d3748;
-    border-right-color: #718096;
-  }
-
-  .act:hover {
-    transform: translateY(-5px);
-  }
-
   .stats-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -311,25 +257,11 @@
 
   .stat-item {
     text-align: center;
-    cursor: pointer;
     padding: 2.5rem 2rem;
     border-radius: 1.5rem;
-    transition: all 0.3s ease;
-    outline: none;
     background: white;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     border: 1px solid rgba(42, 88, 129, 0.1);
-  }
-
-  .stat-item:hover,
-  .stat-item:focus {
-    background: rgba(42, 88, 129, 0.1);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  }
-
-  .stat-item:focus-visible {
-    box-shadow: 0 15px 40px rgba(0,0,0,0.1), 0 0 0 2px #2A5881;
   }
 
   .stat-number {
@@ -347,35 +279,6 @@
     font-size: 1.1rem;
     color: var(--color-support-text);
     line-height: 1.4;
-  }
-
-  .text-section {
-    margin: 1.5rem 0;
-  }
-
-  .typed-text {
-    border-right: 2px solid var(--color-main-text);
-    white-space: pre-wrap;
-    animation: blink 0.75s step-end infinite;
-    opacity: 0;
-    animation: fadeIn 0.5s ease-out forwards;
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: var(--color-main-text);
-    margin-bottom: 1.5rem;
-    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  }
-
-
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes blink {
-    from, to { border-color: transparent; }
-    50% { border-color: #2c3e50; }
   }
 
   h2 {
