@@ -222,10 +222,10 @@
   .map-comparison-wrapper {
     background: #fafafa;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     width: 100%;
-    max-width: 1400px;
+    max-width: 1800px;
     margin: 0 auto;
   }
   .comparison-title {
@@ -345,25 +345,26 @@
     }
 
     .map-dual {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 1.5rem;
     }
 
     .side-panel-container {
-    flex: 1;
+    flex: 0 0 350px;
     min-width: 300px;
-    max-width: 400px;
+    max-width: 350px;
     }
 
   .map-side {
     flex: 1;
     background: white;
-    padding: 0.5rem;
+    padding: 0.75rem;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
+    min-width: 0; /* Prevents flex child from overflowing */
   }
 
   .side-panel-placeholder {
