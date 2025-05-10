@@ -1,15 +1,13 @@
 <!-- IntroSection.svelte -->
 <script>
-  import Scrolly from './Scrolly.svelte';
-  import ScrollySection from './ScrollySection.svelte';
+  import { fade } from 'svelte/transition';
   import { onMount } from 'svelte';
-  import HousingNetwork from './HousingNetwork.svelte';
-  import { fade, fly } from 'svelte/transition';
-  import { spring } from 'svelte/motion';
+  import Scrolly from "$lib/components/Scrolly.svelte";
+  import ScrollySection from "$lib/components/ScrollySection.svelte";
+  import HousingNetwork from "$lib/components/HousingNetwork.svelte";
 
   let currentSection = 0;
-  let isFirstSectionVisible = false;
-  let showText = false;
+  let hasInitialized = false;
   const MUNICIPALITY_COUNT = 80;
   const BENCHMARK_COUNT = 10;
   
@@ -18,26 +16,28 @@
     "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable."
   ];
 
+  // Compute showText based on scroll position and initialization
+  $: showText = currentSection <= 1 && hasInitialized; // Keep text visible until we're well into the second section
+
   onMount(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-      currentSection = Math.floor(scrollPosition / windowHeight);
+      const sectionThreshold = windowHeight * 0.75; // Only switch section after 75% of next section is visible
+      currentSection = Math.floor((scrollPosition + sectionThreshold) / windowHeight);
     };
     
     window.addEventListener('scroll', handleScroll);
+
+    // Initialize after a short delay
+    setTimeout(() => {
+      hasInitialized = true;
+    }, 1000);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   });
-
-  $: if (currentSection === 0 && !isFirstSectionVisible) {
-    isFirstSectionVisible = true;
-    setTimeout(() => {
-      showText = true;
-    }, 1000); // Show text after 1 second
-  }
 </script>
 
 <div class="intro-container">
@@ -56,10 +56,10 @@
         </div>
         {#if showText}
           <div class="content-overlay" 
-               transition:fade={{duration: 800}}>
+               transition:fade={{duration: 1000}}>
             <div class="content-side">
               <div class="text-content" transition:fade>
-                <h2>The Housing Shortage Crisis</h2>
+                <h2 style="color: #2c5282;">The Housing Shortage Crisis</h2>
                 <p>{texts[0]}</p>
                 <p>{texts[1]}</p>
                 
@@ -229,7 +229,7 @@
   }
 
   .first-section h2 {
-    color: #1a202c;
+    color: #2c5282;
     margin-bottom: 1.5rem;
   }
 
@@ -240,7 +240,7 @@
   }
 
   .first-section .stat-number {
-    color: #2c5282;
+    color: #984835;
   }
 
   .first-section .stat-label {

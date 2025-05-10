@@ -6,8 +6,10 @@
   let container;
   let houses = [];
   let connections = [];
+  let isAnimating = false;
   const TOTAL_HOUSES = 50;
-  const FADE_PERCENTAGE = 0.5; // 80% of houses will fade
+  const FADE_PERCENTAGE = 0.5; // 50% of houses will fade
+  const CYCLE_DURATION = 5000; // 5 seconds per cycle
 
   function createHouseIcon(x, y, index) {
     return `
@@ -66,60 +68,84 @@
     });
   }
 
-  function animateDisappearance() {
-    const housesToFade = Math.floor(TOTAL_HOUSES * FADE_PERCENTAGE);
-    const housesToKeep = TOTAL_HOUSES - housesToFade;
-    const indices = Array.from({ length: TOTAL_HOUSES }, (_, i) => i);
-    
-    // Shuffle array
-    for (let i = indices.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [indices[i], indices[j]] = [indices[j], indices[i]];
-    }
-    
-    // Split into keep and fade arrays
-    const keepIndices = new Set(indices.slice(0, housesToKeep));
-    const fadeIndices = new Set(indices.slice(housesToKeep));
+  function startAnimationCycle() {
+    if (isAnimating) return;
+    isAnimating = true;
 
-    console.log('Fading houses:', Array.from(fadeIndices));
-
-    const tl = gsap.timeline();
-
-    // Fade out houses one by one
-    fadeIndices.forEach((index, i) => {
-      const houseSelector = `.house-${index}`;
-      const house = document.querySelector(houseSelector);
+    function animateDisappearance() {
+      const housesToFade = Math.floor(TOTAL_HOUSES * FADE_PERCENTAGE);
+      const housesToKeep = TOTAL_HOUSES - housesToFade;
+      const indices = Array.from({ length: TOTAL_HOUSES }, (_, i) => i);
       
-      if (house) {
-        console.log('Found house:', index);
-        tl.to(houseSelector, {
-          opacity: 0,
-          duration: 2,
-          ease: "none"
-        }, i * 0.2);
-
-        // Fade connections for this house
-        connections.forEach(conn => {
-          const [house1, house2] = conn.index.split('-').map(Number);
-          if (house1 === index || house2 === index) {
-            const connSelector = `#connection-${conn.index}`;
-            const connection = document.querySelector(connSelector);
-            
-            if (connection) {
-              console.log('Found connection:', conn.index);
-              tl.to(connSelector, {
-                opacity: 0,
-                duration: 2,
-                ease: "none"
-              }, i * 0.2);
-            }
-          }
-        });
+      // Shuffle array
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
       }
-    });
+      
+      // Split into keep and fade arrays
+      const keepIndices = new Set(indices.slice(0, housesToKeep));
+      const fadeIndices = new Set(indices.slice(housesToKeep));
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          if (isAnimating) {
+            // Reset all houses and connections
+            gsap.to('.house, .connections line', {
+              opacity: 1,
+              duration: 1,
+              onComplete: () => {
+                // Start next cycle after reset
+                setTimeout(animateDisappearance, 1000);
+              }
+            });
+          }
+        }
+      });
+
+      // Fade out houses one by one
+      fadeIndices.forEach((index, i) => {
+        const houseSelector = `.house-${index}`;
+        const house = document.querySelector(houseSelector);
+        
+        if (house) {
+          tl.to(houseSelector, {
+            opacity: 0,
+            duration: 1,
+            ease: "none"
+          }, i * 0.1);
+
+          // Fade connections for this house
+          connections.forEach(conn => {
+            const [house1, house2] = conn.index.split('-').map(Number);
+            if (house1 === index || house2 === index) {
+              const connSelector = `#connection-${conn.index}`;
+              const connection = document.querySelector(connSelector);
+              
+              if (connection) {
+                tl.to(connSelector, {
+                  opacity: 0,
+                  duration: 1,
+                  ease: "none"
+                }, i * 0.1);
+              }
+            }
+          });
+        }
+      });
+    }
+
+    // Start the first cycle
+    animateDisappearance();
+  }
+
+  function stopAnimationCycle() {
+    isAnimating = false;
   }
 
   onMount(() => {
+    let resizeTimer;
+
     const initializeNetwork = () => {
       generateHouses();
       if (container) {
@@ -139,21 +165,29 @@
           </g>
           ${houses.map(house => createHouseIcon(house.x, house.y, house.index)).join('')}
         `;
-        // Start animation after content is initialized
-        setTimeout(animateDisappearance, 500);
+        // Start animation cycle after content is initialized
+        startAnimationCycle();
       }
     };
 
     // Initial setup
     initializeNetwork();
 
-    // Handle resize
+    // Handle resize with debounce
     const handleResize = () => {
-      initializeNetwork();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        stopAnimationCycle();
+        initializeNetwork();
+      }, 250);
     };
 
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+      stopAnimationCycle();
+    };
   });
 </script>
 
@@ -167,27 +201,7 @@
   ></svg>
 </div>
 
-<svelte:window on:resize={() => {
-  if (container) {
-    generateHouses();
-    container.innerHTML = `
-      <g class="connections">
-        ${connections.map(conn => `
-          <line 
-            id="connection-${conn.index}"
-            x1="${conn.x1}" 
-            y1="${conn.y1}" 
-            x2="${conn.x2}" 
-            y2="${conn.y2}"
-            stroke="rgba(255,255,255,0.2)"
-            stroke-width="1"
-          />
-        `).join('')}
-      </g>
-      ${houses.map(house => createHouseIcon(house.x, house.y, house.index)).join('')}
-    `;
-  }
-}} />
+
 
 <style>
   .network-container {
