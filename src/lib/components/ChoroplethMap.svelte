@@ -97,6 +97,9 @@
   }
 
   $: if (selectedLayer && bostonFeatures.length > 0) {
+    console.log('ChoroplethMap: Updating colorScale for layer:', selectedLayer);
+    // Force colorScale to be reactive
+    colorScale = undefined;
     const values = bostonFeatures
       .map((f) => f.properties.value)
       .filter((v) => v != null);
@@ -272,7 +275,7 @@
 
 <!--The component for legend-->
 
-<Legend {selectedLayer} {colorScale} />
+<Legend {selectedLayer} colorScale={colorScale} />
 
 
 
