@@ -60,11 +60,7 @@
   }
 </script>
 
-<div class="map-comparison-wrapper" 
-  on:click|self={() => {
-    clickedDataStore.set(null);
-    currentGEOIDStore.set(null);
-  }}>
+<div class="map-comparison-wrapper">
     <h2 class="comparison-title">
         {getLayerLabel(selectedLayerA)} vs.
         <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span> <span style="font-weight: 300;">at Census-Tract Level</span> 
@@ -162,6 +158,17 @@
 
         <div class="side-panel-container">
           {#if clickedData && evictData && evictData.length > 0}
+            <div class="side-panel-header">
+              <button 
+                class="clear-panel-button" 
+                on:click={() => {
+                  clickedDataStore.set(null);
+                  currentGEOIDStore.set(null);
+                }}
+              >
+                Clear Panel
+              </button>
+            </div>
             <SidePanel data={evictData} />
           {:else}
             <div class="side-panel-placeholder">
@@ -358,6 +365,28 @@
   .side-panel-placeholder {
     font-size: 0.9rem;
     color: #4F1F05;
+  }
+
+  .side-panel-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .clear-panel-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-panel-button:hover {
+    background-color: #e5e5e5;
+    color: #333;
   }
 
   .side-panel-placeholder h3 {
