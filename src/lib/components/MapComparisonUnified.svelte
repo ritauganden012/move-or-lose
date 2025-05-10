@@ -179,33 +179,25 @@
         class="floating-tooltip map-a-tooltip"
         class:visible={hoveredData !== null}
         style="
-          top: {tooltipY + 20}px; 
-          left: {hoveredData.sourceMap === 'A' ? 
-            // When hovering left map, position tooltip to the right of cursor
-            tooltipX + 20 : 
-            // When hovering right map, position tooltip at equivalent position in left map
-            Math.max(20, window.innerWidth / 4 - (window.innerWidth / 2 - tooltipX))}px"
+          top: {tooltipY + 5}px; 
+          left: {hoveredData.sourceMap === 'A' ? tooltipX + 5 : tooltipX - window.innerWidth/2 + 5}px"
       >
         <Tooltip 
           data={{
             ...hoveredData,
-            value: hoveredData.eviction_rate
+            value: hoveredData[selectedLayerA]
           }}
-          layer="eviction_rate"
+          layer={selectedLayerA}
         />
       </div>
 
-      <!-- Right map tooltip -->
+      <!-- Right map tooltip (showing selected metric) -->
       <div
         class="floating-tooltip map-b-tooltip"
         class:visible={hoveredData !== null}
         style="
-          top: {tooltipY + 20}px; 
-          left: {hoveredData.sourceMap === 'B' ? 
-            // When hovering right map, position tooltip to the right of cursor
-            tooltipX + 20 : 
-            // When hovering left map, position tooltip at equivalent position in right map
-            Math.min(window.innerWidth - 320, window.innerWidth / 2 + (tooltipX - window.innerWidth / 4))}px"
+          top: {tooltipY + 5}px; 
+          left: {hoveredData.sourceMap === 'A' ? tooltipX + (window.innerWidth/4) + 5 : tooltipX + 5}px"
       >
         <Tooltip 
           data={{
@@ -220,13 +212,11 @@
 
 <style>
   .map-comparison-wrapper {
-    background: #fafafa;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    background: white;
     width: 100%;
-    max-width: 1800px;
+    max-width: 2000px;
     margin: 0 auto;
+    padding: 1rem;
   }
   .comparison-title {
     color: #2A5881;
@@ -335,8 +325,8 @@
     .map-panel-wrapper {
       display: flex;
       flex-direction: row;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 2rem;
+      margin-top: 1.5rem;
       pointer-events: none;
     }
     
@@ -352,18 +342,16 @@
     }
 
     .side-panel-container {
-    flex: 0 0 350px;
+    flex: 0 0 320px;
     min-width: 300px;
-    max-width: 350px;
+    max-width: 320px;
     }
 
   .map-side {
     flex: 1;
-    background: white;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
     min-width: 0; /* Prevents flex child from overflowing */
   }
 

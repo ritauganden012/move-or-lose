@@ -23,8 +23,8 @@
     .interpolator(d3.interpolateOranges);
 
   let svg;
-  let width = 550;
-  let height = 550;
+  let width = 620;
+  let height = 620;
   let projection = d3.geoIdentity().reflectY(true);
   let path = d3.geoPath().projection(projection);
 
