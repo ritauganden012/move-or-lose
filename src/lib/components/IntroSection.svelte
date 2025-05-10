@@ -65,12 +65,12 @@
                 
                 <div class="stats-container">
                   <div class="stat-item">
-                    <span class="stat-number">{MUNICIPALITY_COUNT}%</span>
+                    <span class="stat-number">&gt;{MUNICIPALITY_COUNT}%</span>
                     <span class="stat-label">of MA municipalities fail to meet standards</span>
                   </div>
 
                   <div class="stat-item">
-                    <span class="stat-number">{BENCHMARK_COUNT}%</span>
+                    <span class="stat-number">≥{BENCHMARK_COUNT}%</span>
                     <span class="stat-label">state benchmark for affordable housing</span>
                   </div>
                 </div>
