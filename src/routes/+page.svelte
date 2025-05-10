@@ -352,9 +352,9 @@
       <div class="team-member">
         <img src="Images/team/rowell.jpg" alt="Rowell" />
         <h3>Rowell Castro</h3>
-        <p>2nd-Year Masters Student - System</p>
+        <p>2nd-Year Masters Student - MIT SDM + EECS</p>
         <div class="links">
-          <a href="" target="_blank">GitHub</a>
+          <a href="https://rowelldgcastro.github.io/portfolio/index.html" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/rowelldgcastro/" target="_blank">LinkedIn</a>
         </div>
       </div>
