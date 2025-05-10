@@ -47,16 +47,20 @@
     {/each}
   </div>
 
-  <Scrolly>
+  <Scrolly bind:value={currentSection}>
+    <!-- First Section with Housing Network -->
     <ScrollySection>
       <div class="act first-section">
         <div class="background-image" transition:fade={{duration: 2000}} />
         <div class="network-wrapper">
-          <HousingNetwork />
+          <HousingNetwork 
+            {MUNICIPALITY_COUNT}
+            {BENCHMARK_COUNT}
+            animate={showText}
+          />
         </div>
         {#if showText}
-          <div class="content-overlay" 
-               transition:fade={{duration: 1000}}>
+          <div class="content-overlay" transition:fade={{duration: 1000}}>
             <div class="content-side">
               <div class="text-content" transition:fade>
                 <h2 style="color: #2c5282;">The Housing Shortage Crisis</h2>
@@ -81,59 +85,50 @@
       </div>
     </ScrollySection>
 
+    <!-- Second Section with sticky image -->
     <ScrollySection>
-      <div class="act">
-        <div class="content-side">
-          <h2 transition:fade={{duration: 1000}}>Landlords vs. Residents</h2>
+      <div class="act sticky-section">
+        <div class="sticky-image">
+          <img 
+            src="https://images.unsplash.com/photo-1579170053380-58064b2dee67?auto=format&fit=crop&q=80"
+            alt="Corporate buildings representing landlords"
+          />
+        </div>
+        <div class="scroll-content">
+          <h2>Landlords vs. Residents</h2>
           <p>In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.</p>
         </div>
-
-        <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
-          <div class="image-reveal">
-            <img 
-              src="https://images.unsplash.com/photo-1579170053380-58064b2dee67?auto=format&fit=crop&q=80"
-              alt="Corporate buildings representing landlords"
-              class="section-image"
-            />
-          </div>
-        </div>
       </div>
     </ScrollySection>
 
+    <!-- Third Section with sticky image -->
     <ScrollySection>
-      <div class="act">
-        <div class="content-side">
-          <h2 transition:fade={{duration: 1000}}>Some Are Particularly Vulnerable</h2>
+      <div class="act sticky-section">
+        <div class="sticky-image">
+          <img 
+            src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80"
+            alt="Diverse group of people"
+          />
+        </div>
+        <div class="scroll-content">
+          <h2>Some Are Particularly Vulnerable</h2>
           <p>Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property [22].</p>
         </div>
-
-        <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
-          <div class="image-reveal">
-            <img 
-              src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80"
-              alt="Diverse group of people"
-              class="section-image"
-            />
-          </div>
-        </div>
       </div>
     </ScrollySection>
 
+    <!-- Fourth Section with sticky image -->
     <ScrollySection>
-      <div class="act">
-        <div class="content-side">
-          <h2 transition:fade={{duration: 1000}}>Our Goals</h2>
-          <p>Boston, as Massachusetts' leading city, can set an example on how to tackle the crisis. We study the evictions crisis with data-driven analysis, and provide housing policy makers with the tools to understand and combat it in Boston.</p>
+      <div class="act sticky-section">
+        <div class="sticky-image">
+          <img 
+            src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&q=80"
+            alt="Boston cityscape"
+          />
         </div>
-
-        <div class="image-container" transition:fade={{duration: 1000, delay: 1000}}>
-          <div class="image-reveal">
-            <img 
-              src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&q=80"
-              alt="Boston cityscape"
-              class="section-image"
-            />
-          </div>
+        <div class="scroll-content">
+          <h2>Our Goals</h2>
+          <p>We aim to visualize and analyze the eviction crisis in Massachusetts, highlighting the factors that contribute to housing instability and its impact on vulnerable communities.</p>
         </div>
       </div>
     </ScrollySection>
@@ -172,20 +167,16 @@
   .act {
     width: 100%;
     margin: 0;
-    padding: 6rem;
     height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
     background: linear-gradient(to right, #ffffff 0%, #f8f9fa 100%);
     position: relative;
   }
 
+  /* First section styles */
   .first-section {
     padding: 0;
     display: block;
-    background: none;
+    position: relative;
   }
 
   .background-image {
@@ -195,7 +186,7 @@
     width: 100%;
     height: 100%;
     background: white;
-    z-index: 0;
+    z-index: 1;
   }
 
   .network-wrapper {
@@ -213,38 +204,17 @@
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 6rem;
     z-index: 2;
-    pointer-events: none;
   }
 
-  .first-section .content-side {
-    text-align: left;
+  .content-side {
     max-width: 800px;
     background: rgba(255, 255, 255, 0.95);
     padding: 2rem;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-soft);
-    pointer-events: auto;
-  }
-
-  .first-section h2 {
-    color: #2c5282;
-    margin-bottom: 1.5rem;
-  }
-
-  .first-section .stat-item {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-
-  .first-section .stat-number {
-    color: #984835;
-  }
-
-  .first-section .stat-label {
-    color: #4a5568;
   }
 
   .stats-container {
@@ -269,7 +239,7 @@
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 3rem;
     font-weight: 500;
-    color: var(--color-main-text);
+    color: #984835;
     margin-bottom: 0.5rem;
     line-height: 1;
   }
@@ -277,10 +247,58 @@
   .stat-label {
     font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 1.1rem;
-    color: var(--color-support-text);
+    color: #4a5568;
     line-height: 1.4;
   }
 
+  /* Sticky section styles */
+  .sticky-section {
+    position: relative;
+    width: 100%;
+    height: 200vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sticky-image {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .sticky-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  }
+
+  .scroll-content {
+    padding: 2rem;
+    margin-top: calc(200vh - 100vh); /* Position at bottom of section */
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .scroll-content h2 {
+    margin-bottom: 2rem;
+    color: #2c5282;
+    font-size: 2rem;
+  }
+
+  .scroll-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #4a5568;
+    max-width: 600px;
+  }
+
+  /* Global text styles */
   h2 {
     font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
     font-size: 3rem;
@@ -296,50 +314,5 @@
     line-height: 1.6;
     margin-bottom: 2rem;
     color: var(--color-main-text);
-  }
-
-  .image-container {
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-    position: relative;
-    transform: perspective(1000px) rotateY(-5deg);
-    transition: transform 0.5s ease;
-  }
-
-  .image-container:hover {
-    transform: perspective(1000px) rotateY(0deg);
-  }
-
-  .image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .image-reveal {
-    width: 100%;
-    animation: reveal 2s ease-out forwards;
-    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-  }
-
-  @keyframes reveal {
-    from {
-      clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
-    }
-    to {
-      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-  }
-
-  .section-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem;
   }
 </style>
