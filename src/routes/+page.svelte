@@ -31,7 +31,7 @@
           Our research highlights who gets evicted — and why.
           Explore our interactive map to see the correlation between eviction filings and income levels, demographics, and corporate ownership.
         </p>
-        <a href="#scrolly" class="cta-button">Explore Interactive Maps</a>
+        <a href="#interactive" class="cta-button">Explore Interactive Maps</a>
       </div>
     </div>
   </div>
@@ -110,7 +110,7 @@
 </section>
 
 <!-- Scrollytelling transition section -->
-<section id="scrolly" class="scrolly-container">
+<section id="interactive" class="scrolly-container">
   <div class="sticky-section">
     <div class="sticky-content">
       <h2>Your Turn for Interactive Exploration</h2>
@@ -603,6 +603,7 @@
     position: relative;
     margin: 0;
     padding: 0;
+    scroll-margin-top: 4rem;
   }
 
   .sticky-section {
