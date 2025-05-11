@@ -1,11 +1,15 @@
 <script>
-  import MapComparisonView from '$lib/components/MapComparisonView.svelte';
-  import MapComparisonUnified from '$lib/components/MapComparisonUnified.svelte';
+  import { fade } from 'svelte/transition';
+  import MapComparisonUnified from "$lib/components/MapComparisonUnified.svelte";
+  import Scrolly from "$lib/components/Scrolly.svelte";
+  import ScrollySection from "$lib/components/ScrollySection.svelte";
   import References from '$lib/components/References.svelte';
-  import IntroSection from '$lib/components/IntroSection.svelte';
+  import MapComparisonView from '$lib/components/MapComparisonView.svelte';
+  import IntroSection from "$lib/components/IntroSection.svelte";
 
   let showMattapan = false;
   let showRoxbury = false;
+  let currentStep = 0;
 
   // function toggleCase(caseName) {
   //   if (caseName === 'mattapan') showMattapan = !showMattapan;
@@ -48,9 +52,15 @@
   </p>
 
   <h3>Eviction filing rates, 2020-2023</h3>
-  <iframe src='https://flo.uri.sh/visualisation/23018633/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23018633/?utm_source=embed&utm_campaign=visualisation/23018633' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  <figcaption>
-    Fig: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023. </figcaption>
+  <figure>
+    <iframe src='https://flo.uri.sh/visualisation/23018633/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+    <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+      <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23018633/?utm_source=embed&utm_campaign=visualisation/23018633' target='_top' style='text-decoration:none!important'>
+        <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+      </a>
+    </div>
+    <figcaption>Fig: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023.</figcaption>
+  </figure>
   
 
   <p>
@@ -60,18 +70,35 @@
   </p>
 
   <h3>Eviction filings, demographics and median income across neighborhoods</h3>
-  <figure style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-  <div style="flex: 1; min-width: 30%; margin: 0 10px;">
-    <iframe src='https://flo.uri.sh/visualisation/23019042/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019042/?utm_source=embed&utm_campaign=visualisation/23019042' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  </div>
-  <div style="flex: 1; min-width: 30%; margin: 0 10px;">
-    <iframe src='https://flo.uri.sh/visualisation/23019216/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019216/?utm_source=embed&utm_campaign=visualisation/23019216' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  </div>
-  <div style="flex: 1; min-width: 30%; margin: 0 10px;">
-    <iframe src='https://flo.uri.sh/visualisation/23019383/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019383/?utm_source=embed&utm_campaign=visualisation/23019383' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  </div>
-  <figcaption style="text-align: center; font-size: 0.9em;">Fig: Heatmaps of eviction filing rates, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
-</figure>
+  <figure style="display: flex; flex-direction: column; align-items: center;">
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; width: 100%;">
+      <div style="flex: 1; min-width: 30%; margin: 0 10px;">
+        <iframe src='https://flo.uri.sh/visualisation/23019042/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019042/?utm_source=embed&utm_campaign=visualisation/23019042' target='_top' style='text-decoration:none!important'>
+            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+          </a>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 30%; margin: 0 10px;">
+        <iframe src='https://flo.uri.sh/visualisation/23019216/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019216/?utm_source=embed&utm_campaign=visualisation/23019216' target='_top' style='text-decoration:none!important'>
+            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+          </a>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 30%; margin: 0 10px;">
+        <iframe src='https://flo.uri.sh/visualisation/23019383/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019383/?utm_source=embed&utm_campaign=visualisation/23019383' target='_top' style='text-decoration:none!important'>
+            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+          </a>
+        </div>
+      </div>
+    </div>
+    <figcaption style="text-align: center; font-size: 0.9em; margin-top: 1rem;">Fig: Heatmaps of eviction filing rates, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
+  </figure>
 
 <p>
   <!-- Roxbury and Mattapan have the highest eviction rate filing of 6.7% and 7.6% among the Boston neighborhoods. -->
@@ -80,6 +107,44 @@
   also have the highest percentage of non-white population with 90% and 93.89% respectively.
   Additionally, on median household income, Roxbury and Mattapan are also significantly below city-wide median.
 </p>
+</section>
+
+<!-- Scrollytelling transition section -->
+<section class="scrolly-container">
+  <div class="sticky-section">
+    <div class="sticky-content">
+      <h2>Your Turn for Interactive Exploration</h2>
+      <p>
+        Now that you have a solid understanding of Boston’s eviction crisis, we invite you to explore the geographic differences in eviction patterns and related factors across the city. The data is provided at the census tract level—smaller than neighborhoods—to help you uncover local nuances. In some cases, even adjacent tracts can show stark contrasts.
+      </p>
+    </div>
+    <div class="scroll-content">
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Click on any census tract</h3>
+          <p>View detailed information about any area you're interested in</p>
+        </div>
+      </div>
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Use the 'Clear Panel' button</h3>
+          <p>Reset your selection anytime to explore different areas</p>
+        </div>
+      </div>
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Compare different metrics</h3>
+          <p>See how eviction rates relate to other factors like income and demographics</p>
+        </div>
+      </div>
+      <div class="instruction-step">  
+        <div class="step-content">
+          <h3 style="color: #984835;">Hover over tracts</h3> 
+          <p>Get quick statistics about any area without clicking</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section id="explore">
@@ -366,6 +431,12 @@
 
 
 <style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
   section {
     padding: 4rem 2rem;
     /* min-height: 80vh; */
@@ -416,17 +487,6 @@
     font-size: 1rem;
     line-height: 1.6;
     color: #4F1F05;
-    margin-bottom: 1rem;
-  }
-
-
-  .case-description a {
-    color: #2A5881;
-    text-decoration: none;
-  }
-
-  .case-description a:hover {
-    text-decoration: underline;
   }
 
 
@@ -436,12 +496,6 @@
     height: auto;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
-  }
-
-  .info-block {
-    /* border-left: 4px solid #2A5881; */
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
   }
 
   ul {
@@ -461,21 +515,14 @@
     color: #4F1F05;
   }
 
+  /* Roxbury: earthy cream */
+  .roxbury-card {
+    background: #E0E6AF;
+  }
 
-.mattapan-card {
-  background: #F6C4B0;
-}
-.mattapan-card:hover {
-  background: #F4B2A1;
-}
-
-/* Roxbury: earthy cream */
-.roxbury-card {
-  background: #EAE7DC;
-}
-.roxbury-card:hover {
-  background: rgb(195, 197, 178);
-}
+  .roxbury-card:hover {
+    background: #D6DCA0;
+  }
 
   .case-card h3 {
     margin-top: 0;
@@ -550,6 +597,98 @@
 .links a:hover {
   color: #F6C4B0;
 }
+
+  .scrolly-container {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sticky-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0;
+    padding: 0;
+  }
+
+  .sticky-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 4rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/BostonStreet.jpg.webp');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sticky-content h2 {
+    color: #ffffff;
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .sticky-content p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #ffffff;
+    max-width: 600px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .scroll-content {
+    padding: 4rem;
+    padding-top: 100vh; /* Start content from bottom */
+    padding-bottom: 100vh; /* Extra space at bottom */
+    display: flex;
+    flex-direction: column;
+    gap: 75vh; /* Large gap between instructions */
+  }
+
+  .instruction-step {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-content {
+    max-width: 700px;
+    text-align: center;
+  }
+
+  .step-content h3 {
+    color: #2A5881;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .step-content p {
+    color: #4a4a4a;
+    font-size: 1.8rem;
+    line-height: 1.6;
+  }
+
+  .instruction-step h3 {
+    color: #2A5881;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .instruction-step p {
+    color: #4a4a4a;
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
 
   .hero {
     width: 100%;
@@ -652,8 +791,4 @@
   li {
     margin-bottom: 0.5rem;
   }
-
-
-
-
 </style>
