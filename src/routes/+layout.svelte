@@ -7,7 +7,7 @@
     <div class="nav-left">
       <a href="#explore">Explore</a>
       <a href="#interactive">Interactive Maps</a>
-      <a href="#case-studies">Neighborhood Deep Dives</a>
+      <a href="#neighborhoods">Neighborhood Deep Dives</a>
       <a href="#policy">Policy Recommendations</a>
       <a href="#about">About Us</a>
 

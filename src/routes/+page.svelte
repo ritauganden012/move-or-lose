@@ -176,7 +176,7 @@
 </section>
 
 <!-- Neighborhood Deep Dives Transition -->
-<section class="scrolly-container">
+<section id="neighborhoods" class="scrolly-container">
   <div class="sticky-section">
     <div class="sticky-content" 
       style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
