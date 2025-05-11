@@ -10,6 +10,7 @@
   let showMattapan = false;
   let showRoxbury = false;
   let currentStep = 0;
+  let activeNeighborhood = 'roxbury';
 
   // function toggleCase(caseName) {
   //   if (caseName === 'mattapan') showMattapan = !showMattapan;
@@ -19,6 +20,27 @@
   // Helper function to create citation links
   function citation(id) {
     return `<a href="#ref-${id}" class="citation">[${id}]</a>`;
+  }
+
+  function handleIntersection(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        activeNeighborhood = entry.target.dataset.neighborhood;
+      }
+    });
+  }
+
+  function initObserver(node) {
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: null,
+      threshold: 0.5
+    });
+    observer.observe(node);
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
   }
 </script>
 
@@ -153,14 +175,37 @@
   </div>
 </section>
 
+<!-- Neighborhood Deep Dives Transition -->
+<section class="scrolly-container">
+  <div class="sticky-section">
+    <div class="sticky-content" 
+      style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+             url('{activeNeighborhood === 'roxbury' ? '/Images/RoxburyClock.jpg' : '/Images/MattapanStreet.jpg'}');
+             background-size: contain;
+             background-position: center;
+             background-repeat: no-repeat;">
 
-<!-- Static Visualization -->
-<!-- <section id="explore"> -->
-<!-- <h2>Data Story: The cases of Roxbury and Mattapan</h2>
-  <p>Through our analysis, we see that <b>Roxbury</b> and <b>Mattapan</b> are two neighborhoods with the highest eviction rates of 6.7% and 7.6% respectively in 2023. We try to visualize eviction filings in these neighborhoods in both the context of other Boston neighborhoods and other socio-economic factors.</p>
-
-
-</section> -->
+      <h2>Beyond the Numbers</h2>
+      <p>
+        Though Mattapan and Roxbury are grappling hard with evictions and other issues, these two neighborhoods were built on rich history, community, and perseverance. Below, we explore the human stories behind the statistics.
+      </p>
+    </div>
+    <div class="scroll-content">
+      <div class="instruction-step" use:initObserver data-neighborhood="roxbury">
+        <div class="step-content">
+          <h3 style="color: #984835; font-size: 1.6rem;">Roxbury</h3>
+          <p style="font-size: 1.35rem;">Explore the historical center of Boston's Black community during the Great Migration. From the fight against redlining to the birth of community land trusts, Roxbury reflects decades of struggle and strength. </p>
+        </div>
+      </div>
+      <div class="instruction-step" use:initObserver data-neighborhood="mattapan">
+        <div class="step-content">
+          <h3 style="color: #984835; font-size: 1.6rem;">Mattapan</h3>
+          <p style="font-size: 1.35rem;">Learn about the home of Boston's largest Haitian and Caribbean communities. Mattapan's legacy continues through its tight-knit families, cultural pride, and ongoing fight against displacement. </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Case Studies Section -->
 <section id="case-studies">
