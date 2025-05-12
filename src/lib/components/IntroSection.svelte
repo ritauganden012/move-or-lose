@@ -122,7 +122,7 @@
       <div class="act sticky-section">
         <div class="sticky-image">
           <img
-            src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&q=80"
+            src="/Images/eviction_notice.jpg"
             alt="Boston cityscape"
           />
         </div>
