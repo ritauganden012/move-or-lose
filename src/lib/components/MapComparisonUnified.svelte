@@ -218,6 +218,9 @@
 </div>
 
 <style>
+  h2 {
+    font-weight: 600;
+  }
   .map-comparison-wrapper {
     background: white;
     width: 100%;
@@ -298,7 +301,7 @@
     padding: 0 0.4rem;
     border-radius: 0.25rem;
     font-weight: 600;
-    }
+  }
   .control-group {
     display: flex;
     align-items: center;

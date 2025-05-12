@@ -64,17 +64,21 @@
 
 <!-- Explore Section -->
 <section id="explore">
-<h2 id="explore">Problem Statement & City-Wide Overview</h2>
-  <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}.
+<h2 id="explore">City-Wide Overview</h2>
+  <!-- <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}.
     As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.
     In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners,
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
     Evictions disproportionately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.
     Through this project, we study the effects of these factors on eviction filings through a data driven analysis and
     <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
+  </p> -->
+
+  <p>
+    We'll first gain a high-level understanding on Boston's evictions crisis, through recent trends and several key related variables.
   </p>
 
-  <h3>Eviction filing rates, 2020-2023</h3>
+  <h3>Ever-rising eviction filings since 2020</h3>
   <figure>
     <iframe src='https://flo.uri.sh/visualisation/23018633/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
     <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
@@ -82,14 +86,20 @@
         <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
       </a>
     </div>
-    <figcaption>Fig: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023.</figcaption>
+    <figcaption style="font-weight: 300; text-align: center">Fig 1: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023.</figcaption>
   </figure>
 
 
   <p>
-    A rising eviction rate trend is seen from 2020-2023.
-    However, Roxbury and Mattapan have much higher eviction rates, and steeper trends over the past few years.
-    In 2023 alone, eviction rates in Roxbury and Mattapan were 6.7% and 7.6% respectively whereas this was just 2.8% over all neighborhoods in Boston.
+    In Boston, more and more renters are being faced with evictions in recent years.
+    In 2023, nearly 3 in 100 renter households had evictions filings against them.
+    Even though eviction verdicts were yet to be made, they were under the threat of losing their place to live and becoming homeless.
+  </p>
+
+  <p>
+    The rise in eviction filings is unfairly skewed among Boston's neighborhoods.
+    Among the 23 of them, Mattapan and Roxbury suffered from the highest eviction filing rates,
+    far higher than twice that for Boston as a whole.
   </p>
 
   <h3>Eviction filings, demographics and median income across neighborhoods</h3>
@@ -120,15 +130,19 @@
         </div>
       </div>
     </div>
-    <figcaption style="text-align: center; font-size: 0.9em; margin-top: 1rem;">Fig: Heatmaps of eviction filing rates, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
+    <figcaption style="text-align: left; font-weight: 300; margin-top: 0.5rem">Fig 2: Heatmaps of eviction filing rates, percentage of non-white population and median household income across neighborhoods in Boston.</figcaption>
   </figure>
 
 <p>
   <!-- Roxbury and Mattapan have the highest eviction rate filing of 6.7% and 7.6% among the Boston neighborhoods. -->
-  Demographics and income are seen to correlate strongly with evictions.
-  Roxbury and Mattapan, which are experiencing the highest eviction filings,
-  also have the highest percentage of non-white population with 90% and 93.89% respectively.
-  Additionally, on median household income, Roxbury and Mattapan are also significantly below city-wide median.
+  Looking at variables that are related to evictions, 
+  the percentage of <strong>non-white population</strong> was found to bear a strikingly strong correlation with evictions —
+  both Mattapan & Roxbury had 90% or more non-white residents.
+</p>
+
+<p>
+  Mattapan and Roxbury also had median household incomes well below the city-wide median,
+  but interestingly, the contrast is not as stark as in the case of demographics.
 </p>
 </section>
 
@@ -138,32 +152,35 @@
     <div class="sticky-content">
       <h2>Your Turn for Interactive Exploration</h2>
       <p>
-        Now that you have a solid understanding of Boston’s eviction crisis, we invite you to explore the geographic differences in eviction patterns and related factors across the city. The data is provided at the census tract level—smaller than neighborhoods—to help you uncover local nuances. In some cases, even adjacent tracts can show stark contrasts.
+        Now that you have a solid understanding of Boston’s eviction crisis,
+        we invite you to explore the geographic differences in eviction patterns and related factors across the city.
+        The data is provided at the census tract level, smaller than neighborhoods, to help you uncover local nuances.
+        In some cases, even adjacent census tracts can show stark contrasts.
       </p>
     </div>
     <div class="scroll-content">
       <div class="instruction-step">
         <div class="step-content">
+          <h3 style="color: #984835;">Hover over census tracts</h3>
+          <p>Get quick statistics about any place without clicking</p>
+        </div>
+      </div>
+      <div class="instruction-step">
+        <div class="step-content">
           <h3 style="color: #984835;">Click on any census tract</h3>
-          <p>View detailed information about any area you're interested in</p>
+          <p>View detailed ranking information about any place you're interested in</p>
         </div>
       </div>
       <div class="instruction-step">
         <div class="step-content">
           <h3 style="color: #984835;">Use the 'Clear Panel' button</h3>
-          <p>Reset your selection anytime to explore different areas</p>
+          <p>Reset your selection anytime to explore different census tracts</p>
         </div>
       </div>
       <div class="instruction-step">
         <div class="step-content">
-          <h3 style="color: #984835;">Compare different metrics</h3>
-          <p>See how eviction rates relate to other factors like income and demographics</p>
-        </div>
-      </div>
-      <div class="instruction-step">
-        <div class="step-content">
-          <h3 style="color: #984835;">Hover over tracts</h3>
-          <p>Get quick statistics about any area without clicking</p>
+          <h3 style="color: #984835;">Toggle buttons above 'Map B'</h3>
+          <p>See how eviction filings relate to other factors like income, demographics, and corporate landlords</p>
         </div>
       </div>
     </div>
@@ -579,13 +596,14 @@
 
   .sticky-content h2 {
     color: #ffffff;
-    font-size: 3.5rem;
+    font-size: 3rem;
     margin-bottom: 2rem;
+    font-weight: 600;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
 
   .sticky-content p {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     line-height: 1.6;
     color: #ffffff;
     max-width: 600px;
@@ -664,7 +682,7 @@
   }
 
   .text-background {
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.85);
     padding: 2rem 3rem;
     border-radius: 1.5rem;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -678,6 +696,7 @@
   .text-block h1 {
     font-family: 'Montserrat', sans-serif;
     font-size: 3rem;
+    font-weight: 600;
     margin-bottom: 1.5rem;
     color: #4F1F05;
   }
@@ -686,6 +705,7 @@
     font-size: 1.2rem;
     color: #4F1F05;
     margin-bottom: 2.5rem;
+    font-weight: 300;
   }
 
   .cta-button {
