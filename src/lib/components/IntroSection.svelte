@@ -10,7 +10,7 @@
   let hasInitialized = false;
   const MUNICIPALITY_COUNT = 80;
   const BENCHMARK_COUNT = 10;
-  
+
   const texts = [
     "Massachusetts has a bad reputation for affordable housing [21].",
     "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable."
@@ -26,7 +26,7 @@
       const sectionThreshold = windowHeight * 0.75; // Only switch section after 75% of next section is visible
       currentSection = Math.floor((scrollPosition + sectionThreshold) / windowHeight);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
 
     // Initialize after a short delay
@@ -53,7 +53,7 @@
       <div class="act first-section">
         <div class="background-image" transition:fade={{duration: 2000}} />
         <div class="network-wrapper">
-          <HousingNetwork 
+          <HousingNetwork
             {MUNICIPALITY_COUNT}
             {BENCHMARK_COUNT}
             animate={showText}
@@ -66,7 +66,7 @@
                 <h2 style="color: #2c5282;">The Housing Shortage Crisis</h2>
                 <p>{texts[0]}</p>
                 <p>{texts[1]}</p>
-                
+
                 <div class="stats-container">
                   <div class="stat-item">
                     <span class="stat-number">&gt;{MUNICIPALITY_COUNT}%</span>
@@ -89,8 +89,8 @@
     <ScrollySection>
       <div class="act sticky-section">
         <div class="sticky-image">
-          <img 
-            src="https://images.unsplash.com/photo-1579170053380-58064b2dee67?auto=format&fit=crop&q=80"
+          <img
+            src="/Images/Landlords vs Tenants .jpg"
             alt="Corporate buildings representing landlords"
           />
         </div>
@@ -105,8 +105,8 @@
     <ScrollySection>
       <div class="act sticky-section">
         <div class="sticky-image">
-          <img 
-            src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80"
+          <img
+            src="/Images/3rd Scrolly_DiverseTenants.jpg"
             alt="Diverse group of people"
           />
         </div>
@@ -121,8 +121,8 @@
     <ScrollySection>
       <div class="act sticky-section">
         <div class="sticky-image">
-          <img 
-            src="https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&q=80"
+          <img
+            src="/Images/eviction_notice.jpg"
             alt="Boston cityscape"
           />
         </div>

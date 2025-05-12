@@ -65,12 +65,12 @@
 <!-- Explore Section -->
 <section id="explore">
 <h2 id="explore">Problem Statement & City-Wide Overview</h2>
-  <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}. 
+  <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}.
     As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.
-    In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, 
+    In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners,
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
     Evictions disproportionately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.
-    Through this project, we study the effects of these factors on eviction filings through a data driven analysis and 
+    Through this project, we study the effects of these factors on eviction filings through a data driven analysis and
     <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
   </p>
 
@@ -84,10 +84,10 @@
     </div>
     <figcaption>Fig: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023.</figcaption>
   </figure>
-  
+
 
   <p>
-    A rising eviction rate trend is seen from 2020-2023. 
+    A rising eviction rate trend is seen from 2020-2023.
     However, Roxbury and Mattapan have much higher eviction rates, and steeper trends over the past few years.
     In 2023 alone, eviction rates in Roxbury and Mattapan were 6.7% and 7.6% respectively whereas this was just 2.8% over all neighborhoods in Boston.
   </p>
@@ -160,9 +160,9 @@
           <p>See how eviction rates relate to other factors like income and demographics</p>
         </div>
       </div>
-      <div class="instruction-step">  
+      <div class="instruction-step">
         <div class="step-content">
-          <h3 style="color: #984835;">Hover over tracts</h3> 
+          <h3 style="color: #984835;">Hover over tracts</h3>
           <p>Get quick statistics about any area without clicking</p>
         </div>
       </div>
@@ -179,9 +179,9 @@
 <!-- Neighborhood Deep Dives Transition -->
 <section id="neighborhoods" class="scrolly-container">
   <div class="sticky-section">
-    <div class="sticky-content" 
-      style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-             url('{activeNeighborhood === 'roxbury' ? '/Images/RoxburyClock.jpg' : '/Images/MattapanStreet.jpg'}');
+    <div class="sticky-content"
+      style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('{activeNeighborhood === 'roxbury' ? '/Images/Roxbury.png' : '/Images/MattapanStreet.jpg'}');
              background-size: contain;
              background-position: center;
              background-repeat: no-repeat;">
