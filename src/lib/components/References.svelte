@@ -32,10 +32,10 @@
     },
     {
       id: 5,
-      author: "WBUR.org",
-      title: "A Tour Of Street Art In Roxbury, By Boston Artist Cedric Douglas",
+      author: "MIT",
+      title: "Revitalizing Lower Roxbury: Housing and Neighborhood Walkability Study",
       year: "2016",
-      url: "https://www.wbur.org/news/2016/10/20/street-art-roxbury-cedric-douglas"
+      url: "https://web.mit.edu/sustainabledesignlab/projects/UMIverse/2014_LowerRoxbury/2014_LowerRoxbury.pdf"
     },
     {
       id: 6,
@@ -174,8 +174,8 @@
         {#each references as ref}
           <li id="ref-{ref.id}" class="reference-item">
             <div class="reference-content">
-              <span class="reference-author">{ref.author}.</span> 
-              <span class="reference-title">"{ref.title}."</span> 
+              <span class="reference-author">{ref.author}.</span>
+              <span class="reference-title">"{ref.title}."</span>
               <span class="reference-year">{ref.year ? `(${ref.year})` : ''}</span>
               <a href={ref.url} target="_blank" rel="noopener noreferrer" class="reference-link">{ref.url}</a>
             </div>
@@ -278,7 +278,7 @@
     .references-container {
       padding: 1.5rem;
     }
-    
+
     .reference-item {
       font-size: 0.95rem;
     }
