@@ -5,7 +5,7 @@
   <!-- nav bar -->
   <nav class="top-nav">
     <div class="nav-left">
-      <a href="#explore">Explore</a>
+      <a href="#explore">Overview</a>
       <a href="#interactive">Interactive Maps</a>
       <a href="#neighborhoods">Neighborhood Deep Dives</a>
       <a href="#policy">Policy Recommendations</a>

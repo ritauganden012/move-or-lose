@@ -54,7 +54,7 @@
           Our research highlights who gets evicted — and why.
           Explore our interactive map to see the correlation between eviction filings and income levels, demographics, and corporate ownership.
         </p>
-        <a href="#interactive" class="cta-button">Explore Interactive Maps</a>
+        <a href="#interactive" class="cta-button">Jump to Interactive Maps</a>
       </div>
     </div>
   </div>
@@ -563,7 +563,7 @@
     top: 0;
     height: 100vh;
     padding: 4rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Images/BostonStreet.jpg.webp');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/map_screenshot.png');
     background-size: cover;
     background-position: center;
     display: flex;
