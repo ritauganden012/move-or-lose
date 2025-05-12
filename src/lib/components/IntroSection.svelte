@@ -90,7 +90,7 @@
       <div class="act sticky-section">
         <div class="sticky-image">
           <img
-            src="/Images/Landlords vs Tenants .jpg"
+            src="Images/Landlords vs Tenants .jpg"
             alt="Corporate buildings representing landlords"
           />
         </div>
@@ -106,7 +106,7 @@
       <div class="act sticky-section">
         <div class="sticky-image">
           <img
-            src="/Images/3rd Scrolly_DiverseTenants.jpg"
+            src="Images/3rd Scrolly_DiverseTenants.jpg"
             alt="Diverse group of people"
           />
         </div>
@@ -122,7 +122,7 @@
       <div class="act sticky-section">
         <div class="sticky-image">
           <img
-            src="/Images/eviction_notice.jpg"
+            src="Images/eviction_notice.jpg"
             alt="Boston cityscape"
           />
         </div>
