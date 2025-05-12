@@ -13,6 +13,8 @@
   let currentStep = 0;
   let activeNeighborhood = 'mattapan';
 
+  let dummySelected = "r_mhi";
+
   // function toggleCase(caseName) {
   //   if (caseName === 'mattapan') showMattapan = !showMattapan;
   //   if (caseName === 'roxbury') showRoxbury = !showRoxbury;
@@ -174,13 +176,47 @@
       <div class="instruction-step">
         <div class="step-content">
           <h3 style="color: #984835;">Use the 'Clear Panel' button</h3>
-          <p>Reset your selection anytime to explore different census tracts</p>
+          <p style="margin-bottom: 3rem;">Reset your selection anytime to explore different census tracts</p>
+          <div class="side-panel-header">
+            <button 
+              class="clear-panel-button" 
+            >
+            ✘ Clear Panel
+            </button>
+          </div>
         </div>
       </div>
       <div class="instruction-step">
         <div class="step-content">
           <h3 style="color: #984835;">Toggle buttons above 'Map B'</h3>
-          <p>See how eviction filings relate to other factors like income, demographics, and corporate landlords</p>
+          <p style="margin-bottom: 3rem;">See how eviction filings relate to other factors like income, demographics, and corporate landlords</p>
+          <div class="control-group" role="radiogroup" aria-label="Map B Layer Selection">
+            <label for="dummy-instruction">Map B:</label>
+            <button 
+              id="dummy-mapB-income" 
+              on:click={() => dummySelected = 'r_mhi'} 
+              class:selected={dummySelected === 'r_mhi'} 
+              class="toggle-button"
+              role="radio"
+              aria-checked={dummySelected === 'r_mhi'}
+            >Renter Income</button>
+            <button 
+              id="dummy-mapB-demographics" 
+              on:click={() => dummySelected = 'non_white_rate'} 
+              class:selected={dummySelected === 'non_white_rate'} 
+              class="toggle-button"
+              role="radio"
+              aria-checked={dummySelected === 'non_white_rate'}
+            >Demographics</button>
+            <button 
+              id="dummy-mapB-ownership" 
+              on:click={() => dummySelected = 'corp_own_rate'} 
+              class:selected={dummySelected === 'corp_own_rate'} 
+              class="toggle-button"
+              role="radio"
+              aria-checked={dummySelected === 'corp_own_rate'}
+            >Ownership</button>
+          </div>
         </div>
       </div>
     </div>
@@ -758,4 +794,52 @@
   li {
     margin-bottom: 0.5rem;
   }
+
+  .clear-panel-button {
+    padding: 0.5rem 1.3rem;
+    background-color: #fec5c8;
+    border: none;
+    border-radius: 0.5rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.2rem;
+    color: #4d062f;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-panel-button:hover {
+    background-color: #d75690;
+    color: #ffebf7;
+  }
+
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+  .control-group label {
+    font-weight: bold;
+    color: #4F1F05;
+  }
+  .toggle-button {
+    padding: 0.5rem 1.3rem;
+    background-color: #BFE0FF;
+    border: none;
+    border-radius: 0.5rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.2rem;
+    color: #2A5881;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+    .toggle-button:hover {
+        background-color: #E0E6AF;
+    }
+    .toggle-button.selected {
+        background-color: #E0E6AF;
+    }
 </style>
