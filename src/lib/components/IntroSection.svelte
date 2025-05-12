@@ -69,7 +69,7 @@
             <div class="content-side">
               <div class="text-content" transition:fade>
                 <h2 style="color: #2c5282;">The Housing Shortage Crisis</h2>
-                <p>Massachusetts' reputation for affordable housing leaves something to be desired {@html citation(21)}.</p>
+                <p>Massachusetts' reputation for affordable housing leaves something to be desired {@html citation(1)}.</p>
                 <p>{texts[1]}</p>
 
                 <div class="stats-container">
@@ -118,7 +118,7 @@
         </div>
         <div class="scroll-content">
           <h2 style="font-weight: 500;">Some Are Particularly Vulnerable</h2>
-          <p>Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.</p>
+          <p>Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property {@html citation(2)}.</p>
         </div>
       </div>
     </ScrollySection>

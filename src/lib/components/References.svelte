@@ -3,159 +3,160 @@
   // Your reference data
   const references = [
     {
-      id: 1,
-      author: "City of Boston, Planning Department",
-      title: "Boston in Context: Neighborhoods",
-      year: "2024",
-      url: "https://www.bostonplans.org/getattachment/45b1d52a-e762-42a4-b81d-d52072bfda61"
-    },
-    {
-      id: 2,
-      author: "Boston Planning & Development Agency",
-      title: "Roxbury",
-      year: "2017",
-      url: "http://www.bostonplans.org/getattachment/70aaac6d-0459-4b1f-b91f-fe19ba5437cc"
-    },
-    {
-      id: 3,
-      author: "Boston Planning & Development Agency",
-      title: "Mattapan",
-      year: "2017",
-      url: "http://www.bostonplans.org/getattachment/f93dc9a5-9285-48d6-a8eb-3f2a3eac8e1c"
-    },
-    {
-      id: 4,
-      author: "Boston.com",
-      title: "Improvements to the Mattapan Line are finally underway — but riders may not see results for years",
-      year: "2023",
-      url: "https://www.boston.com/news/local-news/2023/08/31/improvements-to-the-mattapan-line-are-finally-underway/"
-    },
-    {
-      id: 5,
-      author: "MIT",
-      title: "Revitalizing Lower Roxbury: Housing and Neighborhood Walkability Study",
-      year: "2016",
-      url: "https://web.mit.edu/sustainabledesignlab/projects/UMIverse/2014_LowerRoxbury/2014_LowerRoxbury.pdf"
-    },
-    {
-      id: 6,
-      author: "WBUR.org",
-      title: "How a more than 50-year-old housing policy displaced a former Jewish neighborhood in Mattapan",
-      year: "2023",
-      url: "https://www.wbur.org/radioboston/2023/06/14/hidden-history-housing-mattapan-jewish"
-    },
-    {
-      id: 7,
-      author: "Theflaw.org",
-      title: "Affordable Housing, Derailed — The struggle against corporate landlords' profiteering",
-      year: "2024",
-      url: "https://theflaw.org/articles/affordable-housing-derailed/"
-    },
-    {
-      id: 8,
-      author: "The Boston Magazine",
-      title: "The Greater Boston Eviction Crisis Will Hurt You, Too",
-      year: "2024",
-      url: "https://www.bostonmagazine.com/news/2024/12/11/boston-eviction-crisis/"
-    },
-    {
-      id: 9,
-      author: "The Boston Globe",
-      title: "Mattapan tenant leader staves off eviction … for now",
-      year: "2024",
-      url: "https://www.bostonglobe.com/2024/10/30/metro/leader-mattapan-tenant-organization-staves-off-evictionfor-now/"
-    },
-    {
-      id: 10,
-      author: "Boston.com",
-      title: "Mattapan 350-unit complex will be converted from market-rate to affordable housing",
-      year: "2025",
-      url: "https://www.boston.com/real-estate/real-estate/2025/03/11/mattapan-350-unit-building-will-be-converted-from-market-rate-to-affordable-housing/"
-    },
-    {
-      id: 11,
-      author: "Hunt News Northeastern",
-      title: "Roxbury Residents Face Gentrification",
-      year: "2017",
-      url: "https://huntnewsnu.com/50562/city/roxbury-residents-face-gentrification/"
-    },
-    {
-      id: 12,
-      author: "Boston.com",
-      title: "Rally Held for 76-Year-Old Roxbury Tenant Facing Eviction",
-      year: "2022",
-      url: "https://www.boston.com/news/local-news/2022/06/10/rally-held-for-76-year-old-roxbury-tenant-facing-eviction/"
-    },
-    {
-      id: 13,
-      author: "WBUR.org",
-      title: "Boston Life Expectancy Gap Back Bay to Roxbury",
-      year: "2023",
-      url: "https://www.wbur.org/news/2023/05/11/boston-life-expectancy-gap-back-bay-roxbury"
-    },
-    {
-      id: 14,
-      author: "BU Today",
-      title: "Boston's Opioid Crisis at Mass and Cass",
-      year: "2023",
-      url: "https://www.bu.edu/articles/2023/boston-intersection-mass-and-cass-opioid-overdose-crisis/"
-    },
-    {
-      id: 15,
-      author: "Wikipedia",
-      title: "Orchard Park Trailblazers",
-      year: "",
-      url: "https://en.wikipedia.org/wiki/Orchard_Park_Trailblazers"
-    },
-    {
-      id: 16,
-      author: "MassLive",
-      title: "Feds Crack Down on Boston-Based Gangs Amid Re-emergence of Most Feared Group",
-      year: "2024",
-      url: "https://www.masslive.com/news/2024/08/feds-crackdown-on-boston-based-gangs-amid-re-emergence-of-80s-most-feared-gang.html"
-    },
-    {
-      id: 17,
-      author: "Boston.com",
-      title: "Roxbury Residents Say Neighborhood Is a Dumping Ground for Transitional Housing",
-      year: "2024",
-      url: "https://www.boston.com/news/local-news/2024/08/26/roxbury-residents-say-roxbury-is-dumping-ground-for-transitional-housing/"
-    },
-    {
-      id: 18,
-      author: "Boston.com",
-      title: "Federal Cuts Targeting Section 8 Housing Funds Worry Boston Renters",
-      year: "2025",
-      url: "https://www.boston.com/news/local-news/2025/04/04/federal-cuts-targeting-section-8-housing-funds-renters/"
-    },
-    {
-      id: 19,
-      author: "MassLive",
-      title: "New England's largest permanent supportive housing development opens in Boston",
-      year: "2025",
-      url: "https://www.masslive.com/boston/2025/03/new-englands-largest-permanent-supportive-housing-development-opens-in-boston.html"
-    },
-    {
-      id: 20,
-      author: "Commonwealth of Massachusetts",
-      title: "The Affordable Homes Act: Smart Housing, Livable Communities",
-      year: "2024",
-      url: "https://www.mass.gov/info-details/the-affordable-homes-act-smart-housing-livable-communities"
-    },
-    {
-        id: 21,
+        id: 1,
         author: "Eli Sherman",
         title: "Affordable housing crisis in Massachusetts contributing to homelessness",
         year: "2019",
         url: "https://www.heraldnews.com/story/news/2019/02/11/affordable-housing-crisis-in-massachusetts/6033543007/"
     },
     {
-        id: 22,
+        id: 2,
         author: "Eric Robsky Huntly et. al.",
         title: "Housing Justice Beyond the Emergency",
         year: "2022",
         url: "https://www.homesforallmass.org/covid-evictions-report/hfamass-covid-evictions-report-short-03-22-screen-rfs.pdf"
-    }
+    },
+    {
+      id: 3,
+      author: "City of Boston, Planning Department",
+      title: "Boston in Context: Neighborhoods",
+      year: "2024",
+      url: "https://www.bostonplans.org/getattachment/45b1d52a-e762-42a4-b81d-d52072bfda61"
+    },
+    {
+      id: 4,
+      author: "Boston Planning & Development Agency",
+      title: "Roxbury",
+      year: "2017",
+      url: "http://www.bostonplans.org/getattachment/70aaac6d-0459-4b1f-b91f-fe19ba5437cc"
+    },
+    {
+      id: 5,
+      author: "Boston Planning & Development Agency",
+      title: "Mattapan",
+      year: "2017",
+      url: "http://www.bostonplans.org/getattachment/f93dc9a5-9285-48d6-a8eb-3f2a3eac8e1c"
+    },
+    {
+      id: 6,
+      author: "Boston.com",
+      title: "Improvements to the Mattapan Line are finally underway — but riders may not see results for years",
+      year: "2023",
+      url: "https://www.boston.com/news/local-news/2023/08/31/improvements-to-the-mattapan-line-are-finally-underway/"
+    },
+    {
+      id: 7,
+      author: "MIT",
+      title: "Revitalizing Lower Roxbury: Housing and Neighborhood Walkability Study",
+      year: "2016",
+      url: "https://web.mit.edu/sustainabledesignlab/projects/UMIverse/2014_LowerRoxbury/2014_LowerRoxbury.pdf"
+    },
+    {
+      id: 8,
+      author: "WBUR.org",
+      title: "How a more than 50-year-old housing policy displaced a former Jewish neighborhood in Mattapan",
+      year: "2023",
+      url: "https://www.wbur.org/radioboston/2023/06/14/hidden-history-housing-mattapan-jewish"
+    },
+    {
+      id: 9,
+      author: "Theflaw.org",
+      title: "Affordable Housing, Derailed — The struggle against corporate landlords' profiteering",
+      year: "2024",
+      url: "https://theflaw.org/articles/affordable-housing-derailed/"
+    },
+    {
+      id: 10,
+      author: "The Boston Magazine",
+      title: "The Greater Boston Eviction Crisis Will Hurt You, Too",
+      year: "2024",
+      url: "https://www.bostonmagazine.com/news/2024/12/11/boston-eviction-crisis/"
+    },
+    {
+      id: 11,
+      author: "The Boston Globe",
+      title: "Mattapan tenant leader staves off eviction … for now",
+      year: "2024",
+      url: "https://www.bostonglobe.com/2024/10/30/metro/leader-mattapan-tenant-organization-staves-off-evictionfor-now/"
+    },
+    {
+      id: 12,
+      author: "Boston.com",
+      title: "Mattapan 350-unit complex will be converted from market-rate to affordable housing",
+      year: "2025",
+      url: "https://www.boston.com/real-estate/real-estate/2025/03/11/mattapan-350-unit-building-will-be-converted-from-market-rate-to-affordable-housing/"
+    },
+    {
+      id: 13,
+      author: "Hunt News Northeastern",
+      title: "Roxbury Residents Face Gentrification",
+      year: "2017",
+      url: "https://huntnewsnu.com/50562/city/roxbury-residents-face-gentrification/"
+    },
+    {
+      id: 14,
+      author: "Boston.com",
+      title: "Rally Held for 76-Year-Old Roxbury Tenant Facing Eviction",
+      year: "2022",
+      url: "https://www.boston.com/news/local-news/2022/06/10/rally-held-for-76-year-old-roxbury-tenant-facing-eviction/"
+    },
+    {
+      id: 15,
+      author: "WBUR.org",
+      title: "Boston Life Expectancy Gap Back Bay to Roxbury",
+      year: "2023",
+      url: "https://www.wbur.org/news/2023/05/11/boston-life-expectancy-gap-back-bay-roxbury"
+    },
+    {
+      id: 16,
+      author: "BU Today",
+      title: "Boston's Opioid Crisis at Mass and Cass",
+      year: "2023",
+      url: "https://www.bu.edu/articles/2023/boston-intersection-mass-and-cass-opioid-overdose-crisis/"
+    },
+    {
+      id: 17,
+      author: "Wikipedia",
+      title: "Orchard Park Trailblazers",
+      year: "",
+      url: "https://en.wikipedia.org/wiki/Orchard_Park_Trailblazers"
+    },
+    {
+      id: 18,
+      author: "MassLive",
+      title: "Feds Crack Down on Boston-Based Gangs Amid Re-emergence of Most Feared Group",
+      year: "2024",
+      url: "https://www.masslive.com/news/2024/08/feds-crackdown-on-boston-based-gangs-amid-re-emergence-of-80s-most-feared-gang.html"
+    },
+    {
+      id: 19,
+      author: "Boston.com",
+      title: "Roxbury Residents Say Neighborhood Is a Dumping Ground for Transitional Housing",
+      year: "2024",
+      url: "https://www.boston.com/news/local-news/2024/08/26/roxbury-residents-say-roxbury-is-dumping-ground-for-transitional-housing/"
+    },
+    {
+      id: 20,
+      author: "Boston.com",
+      title: "Federal Cuts Targeting Section 8 Housing Funds Worry Boston Renters",
+      year: "2025",
+      url: "https://www.boston.com/news/local-news/2025/04/04/federal-cuts-targeting-section-8-housing-funds-renters/"
+    },
+    {
+      id: 21,
+      author: "MassLive",
+      title: "New England's largest permanent supportive housing development opens in Boston",
+      year: "2025",
+      url: "https://www.masslive.com/boston/2025/03/new-englands-largest-permanent-supportive-housing-development-opens-in-boston.html"
+    },
+    {
+      id: 22,
+      author: "Commonwealth of Massachusetts",
+      title: "The Affordable Homes Act: Smart Housing, Livable Communities",
+      year: "2024",
+      url: "https://www.mass.gov/info-details/the-affordable-homes-act-smart-housing-livable-communities"
+    },
+    
   ];
 
   // Helper function to create citation links

@@ -70,11 +70,11 @@
 <!-- Explore Section -->
 <section id="explore">
 <h2 id="explore">City-Wide Overview</h2>
-  <!-- <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}.
+  <!-- <p> Massachusetts has a bad reputation for affordable housing {@html citation(1)}.
     As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.
     In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners,
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
-    Evictions disproportionately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.
+    Evictions disproportionately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(2)}.
     Through this project, we study the effects of these factors on eviction filings through a data driven analysis and
     <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
   </p> -->
@@ -346,7 +346,7 @@
 
     <p>
       People in need of subsidized housing are often left uncertain about waitlists or unaware of all nearby options.
-      With federal cuts threatening Section 8 assistance, more transparent, responsive systems are needed {@html citation(18)}.
+      With federal cuts threatening Section 8 assistance, more transparent, responsive systems are needed {@html citation(20)}.
     </p>
 
     <ul>
@@ -366,7 +366,7 @@
 
     <figure>
     <img src="Images/Policy/Policy Images.avif" alt="The Lyndia in Jamaica Plain, completed in 2025, a 202-unit supportive housing project for low-income families and the homeless." class="policy-image"  />
-    <figcaption>Figure: Lyndia in Jamaica Plain, completed in 2025, it’s a 202-unit permanent supportive housing for low-income families and the homeless {@html citation(19)}.
+    <figcaption>Figure: Lyndia in Jamaica Plain, completed in 2025, it’s a 202-unit permanent supportive housing for low-income families and the homeless {@html citation(21)}.
     </figure>
 
     <p>
@@ -374,8 +374,8 @@
     </p>
 
     <ul>
-      <li><strong>Use funding from the Massachusetts Affordable Homes Act</strong> {@html citation(20)} to preserve affordability in high-risk neighborhoods.</li>
-      <li><strong>Expand successful models</strong> like <em>The Lyndia</em> (in image above), Boston’s largest supportive housing project for the formerly unhoused {@html citation(19)}.</li>
+      <li><strong>Use funding from the Massachusetts Affordable Homes Act</strong> {@html citation(22)} to preserve affordability in high-risk neighborhoods.</li>
+      <li><strong>Expand successful models</strong> like <em>The Lyndia</em> (in image above), Boston’s largest supportive housing project for the formerly unhoused {@html citation(21)}.</li>
       <li><strong>Improve MBTA Commuter Rail service</strong> and develop affordable, transit-oriented housing to widen commuting options without sacrificing urban access.</li>
     </ul>
 

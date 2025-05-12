@@ -65,9 +65,9 @@
           <h2>Key Statistics</h2>
           <div class="info-block">
             <ul>
-              <li><strong>Population (2024):</strong> 24,130 {@html citation(1)}</li>
-              <li><strong>Median Household Income (2015) {@html citation(3)}:</strong> $43,256 (77.6% of Boston’s)</li>
-              <li><strong>Racial Makeup (2024):</strong>  {@html citation(1)}
+              <li><strong>Population (2024):</strong> 24,130 {@html citation(3)}</li>
+              <li><strong>Median Household Income (2015) {@html citation(5)}:</strong> $43,256 (77.6% of Boston’s)</li>
+              <li><strong>Racial Makeup (2024):</strong>  {@html citation(3)}
             </ul>
             <ul class="nested-list">
               <li>Black: <strong>68.7%</strong></li>
@@ -93,7 +93,7 @@
           </figure>
         </div>
         <div class="scroll-content">
-          <p>Tucked into Boston’s southern edge, Mattapan is a neighborhood shaped by generational migration, community advocacy, and the consequences of systemic neglect. Once home to large Jewish and Irish populations in the mid-20th century, Mattapan’s demographics shifted rapidly following the passage of the 1968 Fair Housing Act. While the law was intended to dismantle discriminatory barriers, it was exploited by realtors who used fear-based blockbusting tactics: inciting white homeowners to sell low, then reselling to Black families, often with poor financial screening, who were quickly foreclosed upon {@html citation(6)}. The neighborhood’s foundation of working-class families was established in this turbulent era, and it has endured ever since.</p>
+          <p>Tucked into Boston’s southern edge, Mattapan is a neighborhood shaped by generational migration, community advocacy, and the consequences of systemic neglect. Once home to large Jewish and Irish populations in the mid-20th century, Mattapan’s demographics shifted rapidly following the passage of the 1968 Fair Housing Act. While the law was intended to dismantle discriminatory barriers, it was exploited by realtors who used fear-based blockbusting tactics: inciting white homeowners to sell low, then reselling to Black families, often with poor financial screening, who were quickly foreclosed upon {@html citation(8)}. The neighborhood’s foundation of working-class families was established in this turbulent era, and it has endured ever since.</p>
         </div>
       </div>
     </ScrollySection>
@@ -110,7 +110,7 @@
           </figure>
         </div>
         <div class="scroll-content">
-          <p>In recent decades, Mattapan residents fought long and hard for equity in transit access, demanding better MBTA service and culminating in the long-awaited opening of the Fairmount Line. But just as the community began to realize the fruits of its advocacy, corporate interests took notice. DSF Group acquired in 2018 the Fairlawn Apartments, a 347-unit complex near the new Blue Hill Ave rail stop, once known for providing low-rent housing to long-time residents. Rebranded as a bourgeois “SoMa at the T,” rents surged, but the conditions inside the units — rodents, pests, and neglect — remained {@html citation(7)}.</p>
+          <p>In recent decades, Mattapan residents fought long and hard for equity in transit access, demanding better MBTA service and culminating in the long-awaited opening of the Fairmount Line. But just as the community began to realize the fruits of its advocacy, corporate interests took notice. DSF Group acquired in 2018 the Fairlawn Apartments, a 347-unit complex near the new Blue Hill Ave rail stop, once known for providing low-rent housing to long-time residents. Rebranded as a bourgeois “SoMa at the T,” rents surged, but the conditions inside the units — rodents, pests, and neglect — remained {@html citation(9)}.</p>
         </div>
       </div>
     </ScrollySection>
@@ -129,7 +129,7 @@
           </figure>
         </div>
         <div class="scroll-content">
-          <p>One tenant’s story stands out. Annie Gordon, a 73-year-old who had lived at Fairlawn for nearly five decades, became a pillar of resistance. When DSF bought the Fairlawn, her rent went up by $300 per month, a 16% increase from the $1810 she had before. Some residents were even hit with a 50% rent hike {@html citation(8)}. A leader in her tenant association, Gordon advocated not just for herself but for her neighbors, pressing for repairs and rent stability. Her reward? An eviction notice from DSF, which claimed a breakdown in the landlord-tenant relationship. Gordon took her case to court — and won. But she remains braced for further retaliation. “I had to pick up a part-time job at Walmart just to make ends meet,” she said, a quiet reminder of the economic weight many seniors in Mattapan continue to carry {@html citation(9)}.</p>
+          <p>One tenant’s story stands out. Annie Gordon, a 73-year-old who had lived at Fairlawn for nearly five decades, became a pillar of resistance. When DSF bought the Fairlawn, her rent went up by $300 per month, a 16% increase from the $1810 she had before. Some residents were even hit with a 50% rent hike {@html citation(10)}. A leader in her tenant association, Gordon advocated not just for herself but for her neighbors, pressing for repairs and rent stability. Her reward? An eviction notice from DSF, which claimed a breakdown in the landlord-tenant relationship. Gordon took her case to court — and won. But she remains braced for further retaliation. “I had to pick up a part-time job at Walmart just to make ends meet,” she said, a quiet reminder of the economic weight many seniors in Mattapan continue to carry {@html citation(11)}.</p>
         </div>
       </div>
     </ScrollySection>
@@ -146,7 +146,7 @@
           </figure>
         </div>
         <div class="scroll-content">
-          <p>In 2025, the City of Boston designated Fairlawn Apartments as permanently affordable housing, aided by a $10 million city grant — a hard-earned win for tenant advocates and housing organizations like City Life/Vida Urbana {@html citation(10)}. Yet questions still exist. Ownership of the complex is now in the hands of Related Beal, a private real estate developer. As public funds dwindle, the future of affordability at Fairlawn, and in Mattapan at large, remains uncertain.</p>
+          <p>In 2025, the City of Boston designated Fairlawn Apartments as permanently affordable housing, aided by a $10 million city grant — a hard-earned win for tenant advocates and housing organizations like City Life/Vida Urbana {@html citation(12)}. Yet questions still exist. Ownership of the complex is now in the hands of Related Beal, a private real estate developer. As public funds dwindle, the future of affordability at Fairlawn, and in Mattapan at large, remains uncertain.</p>
         </div>
       </div>
     </ScrollySection>
@@ -169,9 +169,9 @@
           <h2>Key Statistics</h2>
           <div class="info-block">
         <ul>
-          <li><strong>Population (2024) {@html citation(1)}:</strong> 56,552</li>
-          <li><strong>Median Household Income (2015) {@html citation(2)}:</strong> $25,937 (46.5% of Boston’s)</li>
-          <li><strong>Racial Makeup (2024) {@html citation(1)}:</strong></li>
+          <li><strong>Population (2024) {@html citation(3)}:</strong> 56,552</li>
+          <li><strong>Median Household Income (2015) {@html citation(4)}:</strong> $25,937 (46.5% of Boston’s)</li>
+          <li><strong>Racial Makeup (2024) {@html citation(3)}:</strong></li>
         </ul>
         <ul class="nested-list">
           <li>Black: <strong>41.2%</strong></li>
@@ -201,7 +201,7 @@
             Roxbury stands at the heart of Boston’s Black cultural and political life. It’s a place rich in legacy, art, and activism.
             But for many of its residents, the promise of place is eroding. In recent decades, gentrification has accelerated, driven not just by speculative buyers,
             but by institutional forces like Northeastern University expanding into surrounding blocks. Home values in Roxbury have risen faster than almost any other neighborhood in Boston,
-            up 70% in just a 5-year span from 2010 to 2015, making it harder for long-time residents to stay rooted {@html citation(11)}.
+            up 70% in just a 5-year span from 2010 to 2015, making it harder for long-time residents to stay rooted {@html citation(13)}.
           </p>
         </div>
       </div>
@@ -222,7 +222,7 @@
           <p>
             The consequences of this shift are felt in deeply personal ways. In 2022, James Harrison, a 76-year-old Roxbury tenant, who participated relentlessly in upholding his community,
             was threatened with eviction from the home he had lived in for decades. His landlord, seeing an opportunity to profit from the area’s rising property values,
-            attempted to clear tenants in preparation to sell. Stories like his reflect the market logic that continues to displace working-class residents in favor of higher returns {@html citation(12)}.
+            attempted to clear tenants in preparation to sell. Stories like his reflect the market logic that continues to displace working-class residents in favor of higher returns {@html citation(14)}.
           </p>
         </div>
       </div>
@@ -245,13 +245,13 @@
           <p>
             Beyond housing, Roxbury also faces compounding crises in public health and safety.
             A person born in Roxbury today can expect to live 23 years fewer than someone born just two miles away in Back Bay,
-            a gap shaped by structural inequalities in housing, income, and environmental stressors {@html citation(13)}.
+            a gap shaped by structural inequalities in housing, income, and environmental stressors {@html citation(15)}.
             The neighborhood has also borne the brunt of the city’s response to the opioid crisis. As services at the Mass and Cass corridor
             spill over into Roxbury’s borders, residents have reported rising incidents of visible drug use and emergency response activity
-            near homes, parks, and schools {@html citation(14)}.
+            near homes, parks, and schools {@html citation(16)}.
             Violent crime, particularly involving youth, is a longstanding issue in Roxbury, shaped by decades of systemic neglect and broken opportunities.
-            As far back as the 1980s, gangs like the Orchard Park Trailblazers have been rampant {@html citation(15)}.
-            In 2024, federal authorities launched a new crackdown on local gangs, citing escalating violence {@html citation(16)}.
+            As far back as the 1980s, gangs like the Orchard Park Trailblazers have been rampant {@html citation(17)}.
+            In 2024, federal authorities launched a new crackdown on local gangs, citing escalating violence {@html citation(18)}.
           </p>
         </div>
       </div>
@@ -273,7 +273,7 @@
             Roxbury has also been a focal point in Boston’s strategy to address homelessness and housing instability.
             The neighborhood hosts a number of group homes and transitional housing units.
             While many residents support these goals, concerns have emerged about concentration and equity—whether the burden is being fairly shared across Boston’s neighborhoods.
-            Advocates call for a planning approach that centers community voices while ensuring all areas do their part to expand safe, supportive housing {@html citation(17)}.
+            Advocates call for a planning approach that centers community voices while ensuring all areas do their part to expand safe, supportive housing {@html citation(19)}.
           </p>
         </div>
       </div>
