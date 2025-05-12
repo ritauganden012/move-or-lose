@@ -166,7 +166,7 @@
                   currentGEOIDStore.set(null);
                 }}
               >
-                Clear Panel
+              ✘ Clear Panel
               </button>
             </div>
             <SidePanel data={evictData} />
@@ -349,9 +349,10 @@
     }
 
     .side-panel-container {
-    flex: 0 0 320px;
-    min-width: 300px;
-    max-width: 320px;
+      flex: 0 0 320px;
+      min-width: 300px;
+      max-width: 320px;
+      padding-top: 0.5rem;
     }
 
   .map-side {
@@ -370,23 +371,24 @@
   .side-panel-header {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .clear-panel-button {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 0.4rem 0.8rem;
+    padding: 0.3rem 0.6rem;
+    background-color: #fec5c8;
+    border: none;
+    border-radius: 0.5rem;
+    font-family: 'Source Sans 3', sans-serif;
     font-size: 0.85rem;
-    color: #666;
+    color: #4d062f;
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .clear-panel-button:hover {
-    background-color: #e5e5e5;
-    color: #333;
+    background-color: #d75690;
+    color: #ffebf7;
   }
 
   .side-panel-placeholder h3 {

@@ -18,10 +18,10 @@
 
   const metrics = ['eviction_rate', 'corp_own_rate', 'r_mhi', 'non_white_rate'];
   const metric_names = {
-    eviction_rate: 'Eviction Rate (%)',
+    eviction_rate: 'Eviction Filing Rate (%)',
     corp_own_rate: 'Corporate Ownership (%)',
     r_mhi: 'Median Renter Income ($)',
-    non_white_rate: '% non-white population'
+    non_white_rate: '% Non-white Population'
   };
   
 
@@ -70,8 +70,8 @@
 
 {#if clickedData && clickedData.GEOID}
   <div class="side-panel-content">
-    <h2>{clickedData.neighborhood ?? 'Unnamed Neighborhood'} 
-      <span class="tract-id">(Tract {clickedData.GEOID})</span>
+    <h2 style="line-height: 1.2rem; padding-top: 1rem; padding-bottom: 1rem;">{clickedData.neighborhood ?? 'Unnamed Neighborhood'} <br>
+      <span class="tract-id">(tract: {clickedData.GEOID})</span>
     </h2>
     <!-- <h4><strong>Tract:</strong> {clickedData.GEOID}</h4> -->
     <p class="eviction-text">
@@ -180,9 +180,9 @@
   .eviction-text{
     margin-top: 0.3rem;
     margin-bottom: 0.5rem;
-    font-size: 1rem;
-    color: #333;
-    font-weight: 500;
+    font-size: 1.2rem;
+    color: #591d13;
+    font-weight: 300;
   }
 
   .eviction-text .metric-value {
@@ -193,7 +193,7 @@
   }
 
   .tract-id {
-    font-weight: normal;
+    font-weight: 300;
     font-style: normal;
     font-size: 0.9rem;
     color: #555; /* optional: make it a bit lighter */
