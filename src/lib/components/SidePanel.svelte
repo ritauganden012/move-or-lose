@@ -115,10 +115,7 @@
       </div>
     {/each}
 
-    <div class="banner">
-      <span class="banner-icon">ℹ️</span>
-      <span class="banner-text">Click anywhere outside the map to clear the panel!</span>
-    </div>
+
   </div>
 {/if}
   
@@ -178,36 +175,7 @@
     max-width: 100%;
   }
 
-  .banner {
-    font-size: 0.75rem;
-    color: #4F1F05;
-    text-align: center;
-    position: absolute;
-    bottom: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 auto;
-    padding: 0.3rem 0.8rem;
-    background: #FFF5E9;
-    border: 1px solid #AD7F65;
-    border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-weight: 500;
-    white-space: nowrap;
-    line-height: 1;
-    min-width: max-content;
-  }
 
-  .banner-icon {
-    font-size: 0.9rem;
-  }
-
-  .banner-text {
-    line-height: 1.2;
-  }
 
   .eviction-text{
     margin-top: 0.3rem;

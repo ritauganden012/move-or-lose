@@ -1,10 +1,17 @@
 <script>
-  import MapComparisonView from '$lib/components/MapComparisonView.svelte';
-  import MapComparisonUnified from '$lib/components/MapComparisonUnified.svelte';
+  import { fade } from 'svelte/transition';
+  import MapComparisonUnified from "$lib/components/MapComparisonUnified.svelte";
+  import Scrolly from "$lib/components/Scrolly.svelte";
+  import ScrollySection from "$lib/components/ScrollySection.svelte";
   import References from '$lib/components/References.svelte';
+  import MapComparisonView from '$lib/components/MapComparisonView.svelte';
+  import IntroSection from "$lib/components/IntroSection.svelte";
+  import NeighborhoodDives from "$lib/components/NeighborhoodDives.svelte";
 
   let showMattapan = false;
   let showRoxbury = false;
+  let currentStep = 0;
+  let activeNeighborhood = 'roxbury';
 
   // function toggleCase(caseName) {
   //   if (caseName === 'mattapan') showMattapan = !showMattapan;
@@ -15,60 +22,106 @@
   function citation(id) {
     return `<a href="#ref-${id}" class="citation">[${id}]</a>`;
   }
+
+  function handleIntersection(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        activeNeighborhood = entry.target.dataset.neighborhood;
+      }
+    });
+  }
+
+  function initObserver(node) {
+    const observer = new IntersectionObserver(handleIntersection, {
+      root: null,
+      threshold: 0.5
+    });
+    observer.observe(node);
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
+  }
 </script>
 
 <section class="hero">
   <div class="hero-content">
     <div class="text-background">
       <div class="text-block">
-        <h1>Boston’s Housing Crisis <br> Has a Pattern</h1>
+        <h1>Boston's Housing Crisis <br> Has a Pattern</h1>
         <p>
           Our research highlights who gets evicted — and why.
           Explore our interactive map to see the correlation between eviction filings and income levels, demographics, and corporate ownership.
         </p>
-        <a href="#explore-map" class="cta-button">Explore Interactive Maps</a>
+        <a href="#interactive" class="cta-button">Explore Interactive Maps</a>
       </div>
     </div>
   </div>
 </section>
 
+<IntroSection />
+
 <!-- Explore Section -->
 <section id="explore">
 <h2 id="explore">Problem Statement & City-Wide Overview</h2>
-  <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}. 
+  <p> Massachusetts has a bad reputation for affordable housing {@html citation(21)}.
     As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable.
-    In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, 
+    In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners,
     and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.
     Evictions disproportionately target communities of colour, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.
-    Through this project, we study the effects of these factors on eviction filings through a data driven analysis and 
+    Through this project, we study the effects of these factors on eviction filings through a data driven analysis and
     <b>provide housing policy makers with the tools to understand and combat the growing eviction crisis in Boston</b>.
   </p>
 
   <h3>Eviction filing rates, 2020-2023</h3>
-  <iframe src='https://flo.uri.sh/visualisation/23018633/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23018633/?utm_source=embed&utm_campaign=visualisation/23018633' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  <figcaption>
-    Fig: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023. </figcaption>
-  
+  <figure>
+    <iframe src='https://flo.uri.sh/visualisation/23018633/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+    <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+      <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23018633/?utm_source=embed&utm_campaign=visualisation/23018633' target='_top' style='text-decoration:none!important'>
+        <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+      </a>
+    </div>
+    <figcaption>Fig: Eviction filing rates across Mattapan, Roxbury and Boston from 2020 to 2023.</figcaption>
+  </figure>
+
 
   <p>
-    A rising eviction rate trend is seen from 2020-2023. 
+    A rising eviction rate trend is seen from 2020-2023.
     However, Roxbury and Mattapan have much higher eviction rates, and steeper trends over the past few years.
     In 2023 alone, eviction rates in Roxbury and Mattapan were 6.7% and 7.6% respectively whereas this was just 2.8% over all neighborhoods in Boston.
   </p>
 
   <h3>Eviction filings, demographics and median income across neighborhoods</h3>
-  <figure style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-  <div style="flex: 1; min-width: 30%; margin: 0 10px;">
-    <iframe src='https://flo.uri.sh/visualisation/23019042/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019042/?utm_source=embed&utm_campaign=visualisation/23019042' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  </div>
-  <div style="flex: 1; min-width: 30%; margin: 0 10px;">
-    <iframe src='https://flo.uri.sh/visualisation/23019216/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019216/?utm_source=embed&utm_campaign=visualisation/23019216' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  </div>
-  <div style="flex: 1; min-width: 30%; margin: 0 10px;">
-    <iframe src='https://flo.uri.sh/visualisation/23019383/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe><div style='width:100%!;margin-top:4px!important;text-align:right!important;'><a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019383/?utm_source=embed&utm_campaign=visualisation/23019383' target='_top' style='text-decoration:none!important'><img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'> </a></div>
-  </div>
-  <figcaption style="text-align: center; font-size: 0.9em;">Fig: Heatmaps of eviction filing rates, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
-</figure>
+  <figure style="display: flex; flex-direction: column; align-items: center;">
+    <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; width: 100%;">
+      <div style="flex: 1; min-width: 30%; margin: 0 10px;">
+        <iframe src='https://flo.uri.sh/visualisation/23019042/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019042/?utm_source=embed&utm_campaign=visualisation/23019042' target='_top' style='text-decoration:none!important'>
+            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+          </a>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 30%; margin: 0 10px;">
+        <iframe src='https://flo.uri.sh/visualisation/23019216/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019216/?utm_source=embed&utm_campaign=visualisation/23019216' target='_top' style='text-decoration:none!important'>
+            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+          </a>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 30%; margin: 0 10px;">
+        <iframe src='https://flo.uri.sh/visualisation/23019383/embed' title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no' style='width:100%;height:600px;' sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+        <div style='width:100%!;margin-top:4px!important;text-align:right!important;'>
+          <a class='flourish-credit' href='https://public.flourish.studio/visualisation/23019383/?utm_source=embed&utm_campaign=visualisation/23019383' target='_top' style='text-decoration:none!important'>
+            <img alt='Made with Flourish' src='https://public.flourish.studio/resources/made_with_flourish.svg' style='width:105px!important;height:16px!important;border:none!important;margin:0!important;'>
+          </a>
+        </div>
+      </div>
+    </div>
+    <figcaption style="text-align: center; font-size: 0.9em; margin-top: 1rem;">Fig: Heatmaps of eviction filing rates, percentage of non-white population and average median household income across neighborhoods in Boston.</figcaption>
+  </figure>
 
 <p>
   <!-- Roxbury and Mattapan have the highest eviction rate filing of 6.7% and 7.6% among the Boston neighborhoods. -->
@@ -79,131 +132,88 @@
 </p>
 </section>
 
+<!-- Scrollytelling transition section -->
+<section id="interactive" class="scrolly-container">
+  <div class="sticky-section">
+    <div class="sticky-content">
+      <h2>Your Turn for Interactive Exploration</h2>
+      <p>
+        Now that you have a solid understanding of Boston’s eviction crisis, we invite you to explore the geographic differences in eviction patterns and related factors across the city. The data is provided at the census tract level—smaller than neighborhoods—to help you uncover local nuances. In some cases, even adjacent tracts can show stark contrasts.
+      </p>
+    </div>
+    <div class="scroll-content">
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Click on any census tract</h3>
+          <p>View detailed information about any area you're interested in</p>
+        </div>
+      </div>
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Use the 'Clear Panel' button</h3>
+          <p>Reset your selection anytime to explore different areas</p>
+        </div>
+      </div>
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Compare different metrics</h3>
+          <p>See how eviction rates relate to other factors like income and demographics</p>
+        </div>
+      </div>
+      <div class="instruction-step">
+        <div class="step-content">
+          <h3 style="color: #984835;">Hover over tracts</h3>
+          <p>Get quick statistics about any area without clicking</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="explore">
   <div id="explore-map">
     <MapComparisonUnified />
   </div>
 </section>
 
+<!-- Neighborhood Deep Dives Transition -->
+<section id="neighborhoods" class="scrolly-container">
+  <div class="sticky-section">
+    <div class="sticky-content"
+      style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+             url('{activeNeighborhood === 'roxbury' ? '/Images/Roxbury.png' : '/Images/MattapanStreet.jpg'}');
+             background-size: contain;
+             background-position: center;
+             background-repeat: no-repeat;">
 
-<!-- Static Visualization -->
-<!-- <section id="explore"> -->
-<!-- <h2>Data Story: The cases of Roxbury and Mattapan</h2>
-  <p>Through our analysis, we see that <b>Roxbury</b> and <b>Mattapan</b> are two neighborhoods with the highest eviction rates of 6.7% and 7.6% respectively in 2023. We try to visualize eviction filings in these neighborhoods in both the context of other Boston neighborhoods and other socio-economic factors.</p>
-
-
-</section> -->
-
-<!-- Case Studies Section -->
-<section id="case-studies">
-  <h2>Neighborhood Deep Dives</h2>
-
-    <p>
-      Across Boston, housing pressures are mounting, but in Roxbury and Mattapan, the impact is particularly pronounced.
-      These are neighborhoods built on history, community, and perseverance — now grappling with rising rents, corporate ownership, and the threat of displacement. Below, we explore the human stories behind the statistics.
-    </p>
-
-  <div class="case-container">
-
-    <!-- Mattapan Case -->
-    <div class="case-card roxbury-card" role="region" aria-labelledby="mattapan-title">
-      <h3 id="mattapan-title">Mattapan Case Study</h3>
-
-      <div class="info-block">
-        <ul>
-          <li><strong>Population (2024):</strong> 24,130 {@html citation(1)}</li>
-          <li><strong>Median Household Income (2015) {@html citation(3)}:</strong> $43,256 (77.6% of Boston’s)</li>
-          <li><strong>Racial Makeup (2024):</strong>  {@html citation(1)}
-        </ul>
-        <ul class="nested-list">
-          <li>Black: <strong>68.7%</strong></li>
-          <li>Latinx: <strong>16.7%</strong></li>
-          <li>Asian: <strong>2.0%</strong></li>
-          <li>White: <strong>6.4%</strong></li>
-          <li>Others: <strong>6.2%</strong></li>
-        </ul>
-      </div>
-
-        <figure>
-        <img src="Images/Mattapan-trolley-64f0958fce398-768x432.jpeg" alt="Mattapan-trolley" class="case-image" />
-        <figcaption>Figure: Historic Mattapan high-speed line trolley arrives at Mattapan station {@html citation(4)}
-        </figure>
-
-        <div class="case-description">
-          <p>Tucked into Boston’s southern edge, Mattapan is a neighborhood shaped by generational migration, community advocacy, and the consequences of systemic neglect. Once home to large Jewish and Irish populations in the mid-20th century, Mattapan’s demographics shifted rapidly following the passage of the 1968 Fair Housing Act. While the law was intended to dismantle discriminatory barriers, it was exploited by realtors who used fear-based blockbusting tactics: inciting white homeowners to sell low, then reselling to Black families, often with poor financial screening, who were quickly foreclosed upon {@html citation(6)}. The neighborhood’s foundation of working-class families was established in this turbulent era, and it has endured ever since.</p>
-
-          <p>In recent decades, Mattapan residents fought long and hard for equity in transit access, demanding better MBTA service and culminating in the long-awaited opening of the Fairmount Line. But just as the community began to realize the fruits of its advocacy, corporate interests took notice. DSF Group acquired in 2018 the Fairlawn Apartments, a 347-unit complex near the new Blue Hill Ave rail stop, once known for providing low-rent housing to long-time residents. Rebranded as a bourgeois “SoMa at the T,” rents surged, but the conditions inside the units — rodents, pests, and neglect — remained {@html citation(7)}.</p>
-
-          <p>One tenant’s story stands out. Annie Gordon, a 73-year-old who had lived at Fairlawn for nearly five decades, became a pillar of resistance. When DSF bought the Fairlawn, her rent went up by $300 per month, a 16% increase from the $1810 she had before. Some residents were even hit with a 50% rent hike {@html citation(8)}. A leader in her tenant association, Gordon advocated not just for herself but for her neighbors, pressing for repairs and rent stability. Her reward? An eviction notice from DSF, which claimed a breakdown in the landlord-tenant relationship. Gordon took her case to court — and won. But she remains braced for further retaliation. “I had to pick up a part-time job at Walmart just to make ends meet,” she said, a quiet reminder of the economic weight many seniors in Mattapan continue to carry {@html citation(9)}.</p>
-
-          <p>In 2025, the City of Boston designated Fairlawn Apartments as permanently affordable housing, aided by a $10 million city grant — a hard-earned win for tenant advocates and housing organizations like City Life/Vida Urbana {@html citation(10)}. Yet questions still exist. Ownership of the complex is now in the hands of Related Beal, a private real estate developer. As public funds dwindle, the future of affordability at Fairlawn, and in Mattapan at large, remains uncertain.</p>
-
-        </div>
-
+      <h2>Beyond the Numbers</h2>
+      <p>
+        Though <b>Mattapan</b> and <b>Roxbury</b> are grappling hard with evictions and other issues, these two neighborhoods were built on rich history, community, and perseverance. Below, we explore the human stories behind the statistics.
+      </p>
     </div>
-
-    <!-- Roxbury Case -->
-    <div class="case-card roxbury-card" role="region" aria-labelledby="roxbury-title">
-      <h3 id="roxbury-title">Roxbury Case Study</h3>
-
-      <div class="info-block">
-        <ul>
-          <li><strong>Population (2024) {@html citation(1)}:</strong> 56,552</li>
-          <li><strong>Median Household Income (2015) {@html citation(2)}:</strong> $25,937 (46.5% of Boston’s)</li>
-          <li><strong>Racial Makeup (2024) {@html citation(1)}:</strong></li>
-        </ul>
-        <ul class="nested-list">
-          <li>Black: <strong>41.2%</strong></li>
-          <li>Latinx: <strong>30.0%</strong></li>
-          <li>Asian: <strong>6.2%</strong></li>
-          <li>White: <strong>13.6%</strong></li>
-          <li>Others: <strong>8.9%</strong></li>
-        </ul>
+    <div class="scroll-content">
+      
+      <div class="instruction-step" use:initObserver data-neighborhood="mattapan">
+        <div class="step-content">
+          <h3 style="color: #984835; font-size: 1.6rem;">Mattapan</h3>
+          <p style="font-size: 1.35rem;">Learn about the home of Boston's largest Haitian and Caribbean communities. Mattapan's legacy continues through its tight-knit families, cultural pride, and ongoing fight against displacement. </p>
+        </div>
       </div>
 
-      <figure>
-      <img src="Images/1018_Faces-Of-Dudley-MuralA-1000x665.jpg" alt="Faces-Of-Dudley-Mural" class="case-image" />
-      <figcaption>Figure: Faces of Dudley mural in Roxbury’s Dudley Square {@html citation(5)}
-      </figure>
-
-        <div class="case-description">
-          <p>
-            Roxbury stands at the heart of Boston’s Black cultural and political life. It’s a place rich in legacy, art, and activism.
-            But for many of its residents, the promise of place is eroding. In recent decades, gentrification has accelerated, driven not just by speculative buyers,
-            but by institutional forces like Northeastern University expanding into surrounding blocks. Home values in Roxbury have risen faster than almost any other neighborhood in Boston,
-            up 70% in just a 5-year span from 2010 to 2015, making it harder for long-time residents to stay rooted {@html citation(11)}.
-          </p>
-
-          <p>
-            The consequences of this shift are felt in deeply personal ways. In 2022, James Harrison, a 76-year-old Roxbury tenant, who participated relentlessly in upholding his community,
-            was threatened with eviction from the home he had lived in for decades. His landlord, seeing an opportunity to profit from the area’s rising property values,
-            attempted to clear tenants in preparation to sell. Stories like his reflect the market logic that continues to displace working-class residents in favor of higher returns {@html citation(12)}.
-          </p>
-
-          <p>
-            Beyond housing, Roxbury also faces compounding crises in public health and safety.
-            A person born in Roxbury today can expect to live 23 years fewer than someone born just two miles away in Back Bay,
-            a gap shaped by structural inequalities in housing, income, and environmental stressors {@html citation(13)}.
-            The neighborhood has also borne the brunt of the city’s response to the opioid crisis. As services at the Mass and Cass corridor
-            spill over into Roxbury’s borders, residents have reported rising incidents of visible drug use and emergency response activity
-            near homes, parks, and schools {@html citation(14)}.
-            Violent crime, particularly involving youth, is a longstanding issue in Roxbury, shaped by decades of systemic neglect and broken opportunities.
-            As far back as the 1980s, gangs like the Orchard Park Trailblazers have been rampant {@html citation(15)}.
-            In 2024, federal authorities launched a new crackdown on local gangs, citing escalating violence {@html citation(16)}.
-          </p>
-
-          <p>
-            Roxbury has also been a focal point in Boston’s strategy to address homelessness and housing instability.
-            The neighborhood hosts a number of group homes and transitional housing units.
-            While many residents support these goals, concerns have emerged about concentration and equity—whether the burden is being fairly shared across Boston’s neighborhoods.
-            Advocates call for a planning approach that centers community voices while ensuring all areas do their part to expand safe, supportive housing {@html citation(17)}.
-          </p>
-
+      <div class="instruction-step" use:initObserver data-neighborhood="roxbury">
+        <div class="step-content">
+          <h3 style="color: #984835; font-size: 1.6rem;">Roxbury</h3>
+          <p style="font-size: 1.35rem;">Explore the historical center of Boston's Black community during the Great Migration. From the fight against redlining to the birth of community land trusts, Roxbury reflects decades of struggle and strength. </p>
         </div>
+      </div>
     </div>
   </div>
-
 </section>
+
+<NeighborhoodDives />
+
+
+
 
 <!-- Policy Recommendation Section -->
 
@@ -349,9 +359,9 @@
       <div class="team-member">
         <img src="Images/team/rowell.jpg" alt="Rowell" />
         <h3>Rowell Castro</h3>
-        <p>2nd-Year Masters Student - System</p>
+        <p>2nd-Year Masters Student - MIT SDM + EECS</p>
         <div class="links">
-          <a href="" target="_blank">GitHub</a>
+          <a href="https://rowelldgcastro.github.io/portfolio/index.html" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/rowelldgcastro/" target="_blank">LinkedIn</a>
         </div>
       </div>
@@ -363,6 +373,12 @@
 
 
 <style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+
   section {
     padding: 4rem 2rem;
     /* min-height: 80vh; */
@@ -413,17 +429,6 @@
     font-size: 1rem;
     line-height: 1.6;
     color: #4F1F05;
-    margin-bottom: 1rem;
-  }
-
-
-  .case-description a {
-    color: #2A5881;
-    text-decoration: none;
-  }
-
-  .case-description a:hover {
-    text-decoration: underline;
   }
 
 
@@ -433,12 +438,6 @@
     height: auto;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
-  }
-
-  .info-block {
-    /* border-left: 4px solid #2A5881; */
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
   }
 
   ul {
@@ -458,21 +457,14 @@
     color: #4F1F05;
   }
 
+  /* Roxbury: earthy cream */
+  .roxbury-card {
+    background: #E0E6AF;
+  }
 
-.mattapan-card {
-  background: #F6C4B0;
-}
-.mattapan-card:hover {
-  background: #F4B2A1;
-}
-
-/* Roxbury: earthy cream */
-.roxbury-card {
-  background: #EAE7DC;
-}
-.roxbury-card:hover {
-  background: rgb(195, 197, 178);
-}
+  .roxbury-card:hover {
+    background: #D6DCA0;
+  }
 
   .case-card h3 {
     margin-top: 0;
@@ -548,73 +540,165 @@
   color: #F6C4B0;
 }
 
-.hero {
-  width: 100%;
-  min-height: 100vh;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Boston_backbay_brownstones.jpg/2560px-Boston_backbay_brownstones.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  box-sizing: border-box;
-}
+  .scrolly-container {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    scroll-margin-top: 4rem;
+  }
 
-.hero-content {
-  max-width: 1000px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
+  .sticky-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0;
+    padding: 0;
+  }
 
-.text-background {
-  background: rgba(255, 255, 255, 0.82); /* semi-transparent white */
-  padding: 2rem 3rem;
-  border-radius: 1.5rem;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(6px); /* subtle background blur */
-}
+  .sticky-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 4rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/BostonStreet.jpg.webp');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-.text-block {
-  max-width: 800px;
-}
+  .sticky-content h2 {
+    color: #ffffff;
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
 
-.text-block h1 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
-  color: #4F1F05;
-}
+  .sticky-content p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #ffffff;
+    max-width: 600px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  }
 
-.text-block p {
-  font-size: 1.2rem;
-  color: #4F1F05;
-  margin-bottom: 2.5rem;
-}
+  .scroll-content {
+    padding: 4rem;
+    padding-top: 100vh; /* Start content from bottom */
+    padding-bottom: 100vh; /* Extra space at bottom */
+    display: flex;
+    flex-direction: column;
+    gap: 75vh; /* Large gap between instructions */
+  }
 
-.cta-button {
-  background-color: #2A5881;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 1.5rem;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1rem;
-  transition: background 0.3s ease;
-  margin-top: 2.5 rem;
-}
+  .instruction-step {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.cta-button:hover {
-  background-color: #E0E6AF;
-}
+  .step-content {
+    max-width: 700px;
+    text-align: center;
+  }
 
+  .step-content h3 {
+    color: #2A5881;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .step-content p {
+    color: #4a4a4a;
+    font-size: 1.8rem;
+    line-height: 1.6;
+  }
+
+  .instruction-step h3 {
+    color: #2A5881;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .instruction-step p {
+    color: #4a4a4a;
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .hero {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Boston_backbay_brownstones.jpg/2560px-Boston_backbay_brownstones.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  .hero-content {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .text-background {
+    background: rgba(255, 255, 255, 0.82);
+    padding: 2rem 3rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+  }
+
+  .text-block {
+    max-width: 800px;
+  }
+
+  .text-block h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #4F1F05;
+  }
+
+  .text-block p {
+    font-size: 1.2rem;
+    color: #4F1F05;
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-button {
+    background-color: #2A5881;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    margin-top: 2.5rem;
+  }
+
+  .cta-button:hover {
+    background-color: #E0E6AF;
+  }
 
   .policy-block {
     margin-top: 2.5rem;
@@ -650,8 +734,4 @@
   li {
     margin-bottom: 0.5rem;
   }
-
-
-
-
 </style>

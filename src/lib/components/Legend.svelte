@@ -3,9 +3,16 @@
   export let colorScale;
   export let steps = 5;
 
+  // Ensure colorScale is reactive
+  $: {
+    console.log('Legend: colorScale updated', selectedLayer, colorScale?.domain());
+    // Force gradient to update when colorScale changes
+    gradientId = `legend-gradient-${selectedLayer}-${Date.now()}`;
+  }
+
   let legendLabels = [];
   let legendSteps = [];
-  let gradientId = 'legend-gradient';
+  let gradientId = `legend-gradient-${selectedLayer}`;
 
   const layerLabels = {
     eviction_rate: "% Renter HHs being Filed for Eviction (2023)",

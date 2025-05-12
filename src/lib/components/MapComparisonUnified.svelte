@@ -60,11 +60,7 @@
   }
 </script>
 
-<div class="map-comparison-wrapper" 
-  on:click|self={() => {
-    clickedDataStore.set(null);
-    currentGEOIDStore.set(null);
-  }}>
+<div class="map-comparison-wrapper">
     <h2 class="comparison-title">
         {getLayerLabel(selectedLayerA)} vs.
         <span class="highlighted-selection"> {getLayerLabel(selectedLayerB)}</span> <span style="font-weight: 300;">at Census-Tract Level</span> 
@@ -162,6 +158,17 @@
 
         <div class="side-panel-container">
           {#if clickedData && evictData && evictData.length > 0}
+            <div class="side-panel-header">
+              <button 
+                class="clear-panel-button" 
+                on:click={() => {
+                  clickedDataStore.set(null);
+                  currentGEOIDStore.set(null);
+                }}
+              >
+                Clear Panel
+              </button>
+            </div>
             <SidePanel data={evictData} />
           {:else}
             <div class="side-panel-placeholder">
@@ -179,33 +186,25 @@
         class="floating-tooltip map-a-tooltip"
         class:visible={hoveredData !== null}
         style="
-          top: {tooltipY + 20}px; 
-          left: {hoveredData.sourceMap === 'A' ? 
-            // When hovering left map, position tooltip to the right of cursor
-            tooltipX + 20 : 
-            // When hovering right map, position tooltip at equivalent position in left map
-            Math.max(20, window.innerWidth / 4 - (window.innerWidth / 2 - tooltipX))}px"
+          top: {tooltipY + 5}px; 
+          left: {hoveredData.sourceMap === 'A' ? tooltipX + 5 : tooltipX - window.innerWidth/2 + 5}px"
       >
         <Tooltip 
           data={{
             ...hoveredData,
-            value: hoveredData.eviction_rate
+            value: hoveredData[selectedLayerA]
           }}
-          layer="eviction_rate"
+          layer={selectedLayerA}
         />
       </div>
 
-      <!-- Right map tooltip -->
+      <!-- Right map tooltip (showing selected metric) -->
       <div
         class="floating-tooltip map-b-tooltip"
         class:visible={hoveredData !== null}
         style="
-          top: {tooltipY + 20}px; 
-          left: {hoveredData.sourceMap === 'B' ? 
-            // When hovering right map, position tooltip to the right of cursor
-            tooltipX + 20 : 
-            // When hovering left map, position tooltip at equivalent position in right map
-            Math.min(window.innerWidth - 320, window.innerWidth / 2 + (tooltipX - window.innerWidth / 4))}px"
+          top: {tooltipY + 5}px; 
+          left: {hoveredData.sourceMap === 'A' ? tooltipX + (window.innerWidth/4) + 5 : tooltipX + 5}px"
       >
         <Tooltip 
           data={{
@@ -220,13 +219,11 @@
 
 <style>
   .map-comparison-wrapper {
-    background: #fafafa;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    background: white;
     width: 100%;
-    max-width: 1400px;
+    max-width: 2000px;
     margin: 0 auto;
+    padding: 1rem;
   }
   .comparison-title {
     color: #2A5881;
@@ -335,8 +332,8 @@
     .map-panel-wrapper {
       display: flex;
       flex-direction: row;
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 2rem;
+      margin-top: 1.5rem;
       pointer-events: none;
     }
     
@@ -345,30 +342,51 @@
     }
 
     .map-dual {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: row;
-    gap: 1rem;
+    gap: 1.5rem;
     }
 
     .side-panel-container {
-    flex: 1;
+    flex: 0 0 320px;
     min-width: 300px;
-    max-width: 400px;
+    max-width: 320px;
     }
 
   .map-side {
     flex: 1;
-    background: white;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
+    padding: 0.5rem;
+    min-width: 0; /* Prevents flex child from overflowing */
   }
 
   .side-panel-placeholder {
     font-size: 0.9rem;
     color: #4F1F05;
+  }
+
+  .side-panel-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .clear-panel-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .clear-panel-button:hover {
+    background-color: #e5e5e5;
+    color: #333;
   }
 
   .side-panel-placeholder h3 {

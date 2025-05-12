@@ -23,8 +23,8 @@
     .interpolator(d3.interpolateOranges);
 
   let svg;
-  let width = 550;
-  let height = 550;
+  let width = 620;
+  let height = 620;
   let projection = d3.geoIdentity().reflectY(true);
   let path = d3.geoPath().projection(projection);
 
@@ -97,6 +97,9 @@
   }
 
   $: if (selectedLayer && bostonFeatures.length > 0) {
+    console.log('ChoroplethMap: Updating colorScale for layer:', selectedLayer);
+    // Force colorScale to be reactive
+    colorScale = undefined;
     const values = bostonFeatures
       .map((f) => f.properties.value)
       .filter((v) => v != null);
@@ -272,7 +275,7 @@
 
 <!--The component for legend-->
 
-<Legend {selectedLayer} {colorScale} />
+<Legend {selectedLayer} colorScale={colorScale} />
 
 
 

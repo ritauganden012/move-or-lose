@@ -16,6 +16,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"d3": "^7.9.0"
+		"d3": "^7.9.0",
+		"gsap": "^3.13.0",
+		"svelte-intersection-observer": "^1.0.0",
+		"svelte-inview": "^4.0.4"
 	}
 }
