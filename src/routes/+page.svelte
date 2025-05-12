@@ -181,7 +181,7 @@
   <div class="sticky-section">
     <div class="sticky-content"
       style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-             url('{activeNeighborhood === 'roxbury' ? '/Images/Roxbury.png' : '/Images/MattapanStreet.jpg'}');
+             url('{activeNeighborhood === 'roxbury' ? 'Images/Roxbury.png' : 'Images/MattapanStreet.jpg'}');
              background-size: contain;
              background-position: center;
              background-repeat: no-repeat;">
@@ -563,7 +563,7 @@
     top: 0;
     height: 100vh;
     padding: 4rem;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/BostonStreet.jpg.webp');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Images/BostonStreet.jpg.webp');
     background-size: cover;
     background-position: center;
     display: flex;
