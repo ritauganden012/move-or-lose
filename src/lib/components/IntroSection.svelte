@@ -3,6 +3,7 @@
   import { fade } from 'svelte/transition';
   import { onMount } from 'svelte';
   import Scrolly from "$lib/components/Scrolly.svelte";
+  import References from '$lib/components/References.svelte';
   import ScrollySection from "$lib/components/ScrollySection.svelte";
   import HousingNetwork from "$lib/components/HousingNetwork.svelte";
 
@@ -13,11 +14,15 @@
 
   const texts = [
     "Massachusetts has a bad reputation for affordable housing [21].",
-    "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state benchmark requiring that at least 10% of their housing stock be designated as affordable."
+    "As of 2019, more than 80% of Massachusetts' 351 municipalities failed to meet the state standard requiring that at least 10% of their housing stock be designated as affordable."
   ];
 
   // Compute showText based on scroll position and initialization
   $: showText = currentSection <= 1 && hasInitialized; // Keep text visible until we're well into the second section
+
+  function citation(id) {
+    return `<a href="#ref-${id}" class="citation">[${id}]</a>`;
+  }
 
   onMount(() => {
     const handleScroll = () => {
@@ -64,19 +69,20 @@
             <div class="content-side">
               <div class="text-content" transition:fade>
                 <h2 style="color: #2c5282;">The Housing Shortage Crisis</h2>
-                <p>{texts[0]}</p>
+                <p>Massachusetts' reputation for affordable housing leaves something to be desired {@html citation(21)}.</p>
                 <p>{texts[1]}</p>
 
                 <div class="stats-container">
                   <div class="stat-item">
-                    <span class="stat-number">&gt;{MUNICIPALITY_COUNT}%</span>
-                    <span class="stat-label">of MA municipalities fail to meet standards</span>
+                    <span class="stat-number">≥{BENCHMARK_COUNT}%</span>
+                    <span class="stat-label">of housing should be made affordable as a standard</span>
                   </div>
 
                   <div class="stat-item">
-                    <span class="stat-number">≥{BENCHMARK_COUNT}%</span>
-                    <span class="stat-label">state benchmark for affordable housing</span>
+                    <span class="stat-number">&gt;{MUNICIPALITY_COUNT}%</span>
+                    <span class="stat-label">of MA municipalities fail to meet the standard</span>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -95,8 +101,8 @@
           />
         </div>
         <div class="scroll-content">
-          <h2>Landlords vs. Residents</h2>
-          <p>In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents has led to an increase in eviction filings.</p>
+          <h2 style="font-weight: 500;">Landlords vs. Residents</h2>
+          <p>In addition to the lack of housing supply, the growing interests of corporate ownership, absentee owners, and the lack of support for low-middle class long-term residents all contributed to an increase in eviction filings.</p>
         </div>
       </div>
     </ScrollySection>
@@ -111,8 +117,8 @@
           />
         </div>
         <div class="scroll-content">
-          <h2>Some Are Particularly Vulnerable</h2>
-          <p>Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property [22].</p>
+          <h2 style="font-weight: 500;">Some Are Particularly Vulnerable</h2>
+          <p>Evictions disproportionately target communities of color, lower income individuals, and are fueled by corporate ownership of property {@html citation(22)}.</p>
         </div>
       </div>
     </ScrollySection>
@@ -122,13 +128,13 @@
       <div class="act sticky-section">
         <div class="sticky-image">
           <img
-            src="Images/eviction_notice.jpg"
-            alt="Boston cityscape"
+            src="Images/eviction_win.png"
+            alt="People successfully combatted eviction"
           />
         </div>
         <div class="scroll-content">
-          <h2>Our Goals</h2>
-          <p>We aim to visualize and analyze the eviction crisis in Massachusetts, highlighting the factors that contribute to housing instability and its impact on vulnerable communities.</p>
+          <h2 style="font-weight: 500;">Our Goals</h2>
+          <!-- <p>We aim to visualize and analyze the eviction crisis in Massachusetts, highlighting the factors that contribute to housing instability and its impact on vulnerable communities.</p> -->
           <p>Boston, as Massachusetts' leading city, can set an example on how to tackle the crisis. We study the evictions crisis with data-driven analysis, and provide housing policy makers with the tools to understand and combat it in Boston.</p>
         </div>
       </div>
