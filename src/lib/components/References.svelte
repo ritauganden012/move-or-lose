@@ -204,7 +204,8 @@
     color: #2A5881;
     margin-bottom: 2rem;
     text-align: center;
-    font-size: 2rem;
+    /* font-size: 2rem; */
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   }
 
   .references-container {

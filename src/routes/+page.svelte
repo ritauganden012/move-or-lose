@@ -11,7 +11,7 @@
   let showMattapan = false;
   let showRoxbury = false;
   let currentStep = 0;
-  let activeNeighborhood = 'roxbury';
+  let activeNeighborhood = 'mattapan';
 
   // function toggleCase(caseName) {
   //   if (caseName === 'mattapan') showMattapan = !showMattapan;
@@ -182,9 +182,8 @@
     <div class="sticky-content"
       style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
              url('{activeNeighborhood === 'roxbury' ? 'Images/Roxbury.png' : 'Images/MattapanStreet.jpg'}');
-             background-size: contain;
-             background-position: center;
-             background-repeat: no-repeat;">
+             background-repeat: no-repeat;"
+          >
 
       <h2>Beyond the Numbers</h2>
       <p>
@@ -317,8 +316,8 @@
 
 <!-- About Us Section -->
 <section id="about">
-  <h2>About Us</h2>
-  <p>We are a group of MIT graduate students from various backgrounds, including data science, computer science and system design & management - studying how to use visualization tools to represent and advocate for housing justice.</p>
+  <h2 style="text-align: left;">About Us</h2>
+  <p style="text-align: left;">We are a group of MIT graduate students from various backgrounds, including computer science and system design & management, studying how to use visualization tools to represent and advocate for housing justice.</p>
 
   <div class="team-grid">
 
@@ -326,7 +325,7 @@
       <div class="team-member">
         <img src= "Images/team/shih-lun.jpg" alt="Team Member 1" />
         <h3>Shih-Lun Wu</h3>
-        <p>1st Year PhD student, EECS</p>
+        <p>1st Year PhD Student - EECS</p>
         <div class="links">
           <a href="https://slseanwu.github.io" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/shih-lun-sean-wu/" target="_blank">LinkedIn</a>
@@ -348,7 +347,7 @@
       <div class="team-member">
         <img src="Images/team/nithya.jpg" alt="Nithya" />
         <h3>Nithya Shikarpur </h3>
-        <p>1st Year PhD student, EECS</p>
+        <p>1st Year PhD Student - EECS</p>
         <div class="links">
           <a href="https://snnithya.github.io" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/snnithya/" target="_blank">LinkedIn</a>
@@ -359,7 +358,7 @@
       <div class="team-member">
         <img src="Images/team/rowell.jpg" alt="Rowell" />
         <h3>Rowell Castro</h3>
-        <p>2nd-Year Masters Student - MIT SDM + EECS</p>
+        <p>2nd-Year Masters Student - SDM + EECS</p>
         <div class="links">
           <a href="https://rowelldgcastro.github.io/portfolio/index.html" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/rowelldgcastro/" target="_blank">LinkedIn</a>
@@ -394,6 +393,7 @@
   h1, h2 {
     color: #2A5881;
     margin-bottom: 1rem;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   }
 
   p {
@@ -564,14 +564,18 @@
     height: 100vh;
     padding: 4rem;
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/Images/map_screenshot.png');
-    background-size: cover;
+    /* background-size: cover;
+     */
+    background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
   }
+  
 
   .sticky-content h2 {
     color: #ffffff;

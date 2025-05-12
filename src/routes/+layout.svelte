@@ -40,7 +40,8 @@
     color: #333;
     text-decoration: none;
     transition: color 0.2s ease;
-    font-weight: 600;
+    font-weight: 300;
+    font-size: 1rem;
   }
 
   .top-nav a:hover {

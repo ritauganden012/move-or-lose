@@ -235,10 +235,10 @@
         <figure>
           <img 
             src="Images/roxbury-para-3.jpg"
-            alt="Tents set up near the Mass and Cass intersection, an area on the boundary of Roxbury where many people struggling with substance misuse."
+            alt="Tents set up near the Mass and Cass intersection, an area on the boundary of Roxbury where many people are struggling with substance misuse."
             style="position: relative;height: 85%; object-fit: cover;"
           />
-          <figcaption>Tents set up near the Mass and Cass intersection, an area on the boundary of Roxbury where many people struggling with substance misuse.</figcaption>
+          <figcaption>Tents set up near the Mass and Cass intersection, an area on the boundary of Roxbury where many people are struggling with substance misuse.</figcaption>
           </figure>
         </div>
         <div class="scroll-content">
@@ -429,17 +429,19 @@
   }
 
   figure {
-  padding: 10;
-  align-items: center;
-  position: relative;
-  justify-content: center;
-  margin: 0; /* Remove default figure margin */
-}
+    padding: 0.2rem;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    margin: 0; /* Remove default figure margin */
+  }
 
 figcaption {
   font-size: 1.2rem;
+  font-weight: 300;
   color: #333;
   text-align: center;
+  margin: 0;
 }
 
     .sticky-image-full {
@@ -477,7 +479,7 @@ figcaption {
   .scroll-content p {
     font-size: 1.5rem;
     line-height: 1.6;
-    color: #4a5568;
+    color: #49150e;
     max-width: 800px;
     margin-bottom: 1.5rem;
   }
@@ -520,6 +522,8 @@ ul {
 
   li {
     margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 300;
   }
 
   .nested-list {
