@@ -411,8 +411,8 @@
     color: #3c2a1e;
     z-index: 9999;
     pointer-events: none;
-    max-width: 360px;
-    min-width: 280px;
+    max-width: 300px;
+    min-width: 200px;
     max-height: 85vh;
     overflow-y: auto;
     backdrop-filter: blur(5px);

@@ -7,11 +7,14 @@
   import MapComparisonView from '$lib/components/MapComparisonView.svelte';
   import IntroSection from "$lib/components/IntroSection.svelte";
   import NeighborhoodDives from "$lib/components/NeighborhoodDives.svelte";
+  import Tooltip from '$lib/components/Tooltip.svelte';
 
   let showMattapan = false;
   let showRoxbury = false;
   let currentStep = 0;
   let activeNeighborhood = 'mattapan';
+  let dummyEvictions = [33, 73, 121, 140];
+  let dummyIncome = [17524, 81450, 21585];
 
   let dummySelected = "r_mhi";
 
@@ -164,13 +167,47 @@
       <div class="instruction-step">
         <div class="step-content">
           <h3 style="color: #984835;">Hover over census tracts</h3>
-          <p>Get quick statistics about any place without clicking</p>
+          <p style="margin-bottom: 3rem;">Get quick statistics about any place without clicking</p>
+          <div style="display: flex; gap: 2rem; text-align: left; justift-content: center; flex-wrap: wrap;">
+            <div
+              class="floating-tooltip"
+            >
+              <Tooltip
+                data={{
+                  neighborhood: 'Roxbury',
+                  GEOID: 25025082100,
+                  pop: 5025,
+                  "2020_eviction": dummyEvictions[0],
+                  "2021_eviction": dummyEvictions[1],
+                  "2022_eviction": dummyEvictions[2],
+                  "2023_eviction": dummyEvictions[3],
+                }}
+                layer="eviction_rate"
+              />
+            </div>
+            <div
+              class="floating-tooltip"
+            >
+              <Tooltip
+              data={{
+                neighborhood: 'Roxbury',
+                GEOID: 25025082100,
+                pop: 5025,
+                r_mhi: dummyIncome[0],
+                o_mhi: dummyIncome[1],
+                mhi: dummyIncome[2],
+              }}
+              layer="r_mhi"
+              />
+            </div>
+          </div> 
         </div>
       </div>
       <div class="instruction-step">
         <div class="step-content">
           <h3 style="color: #984835;">Click on any census tract</h3>
-          <p>View detailed ranking information about any place you're interested in</p>
+          <p style="margin-bottom: 3rem;">View detailed ranking information about any place you're interested in</p>
+          <img src="Images/side_panel_inst.png" alt="Example side panel" style="height: 50vh" />
         </div>
       </div>
       <div class="instruction-step">
@@ -388,7 +425,7 @@
       <!-- Team Member 2 -->
       <div class="team-member">
         <img src="Images/team/rita.jpg" alt="Rita" />
-        <h3>Rita Uganden-Teryila.</h3>
+        <h3>Rita Uganden-Teryila</h3>
         <p> 2nd-Year Masters Student - System</p>
         <div class="links">
           <a href="https://ritauganden012.github.io/DataViz-Portfolio/" target="_blank">GitHub</a>
@@ -836,10 +873,31 @@
     cursor: pointer;
     transition: background-color 0.2s;
   }
-    .toggle-button:hover {
-        background-color: #E0E6AF;
-    }
-    .toggle-button.selected {
-        background-color: #E0E6AF;
-    }
+  .toggle-button:hover {
+      background-color: #E0E6AF;
+  }
+  .toggle-button.selected {
+      background-color: #E0E6AF;
+  }
+
+  .floating-tooltip {
+    background: rgba(255, 255, 255, 0.96);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    font-family: "Source Sans 3", sans-serif;
+    font-size: 0.9rem;
+    color: #3c2a1e;
+    z-index: 9999;
+    pointer-events: none;
+    max-width: 300px;
+    min-width: 180px;
+    max-height: 85vh;
+    overflow-y: auto;
+    backdrop-filter: blur(5px);
+    /* opacity: 0; */
+    /* visibility: hidden; */
+    transition: all 0.2s ease-in-out;
+  }
+
 </style>
