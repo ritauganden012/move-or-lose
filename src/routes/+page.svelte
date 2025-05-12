@@ -180,7 +180,7 @@
   <div class="sticky-section">
     <div class="sticky-content"
       style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-             url('{activeNeighborhood === 'roxbury' ? '/Images/RoxburyClock.jpg' : '/Images/MattapanStreet.jpg'}');
+             url('{activeNeighborhood === 'roxbury' ? '/Images/Roxbury.png' : '/Images/MattapanStreet.jpg'}');
              background-size: contain;
              background-position: center;
              background-repeat: no-repeat;">
